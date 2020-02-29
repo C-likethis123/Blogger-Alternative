@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class CreateToDo extends Component {
   constructor(props) {
@@ -17,7 +18,6 @@ class CreateToDo extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  // can refactor to more generic method
   onChangeDescription(e) {
     this.setState({
       description: e.target.value
@@ -38,10 +38,10 @@ class CreateToDo extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log(`Form submitted:`);
-    console.log(`Todo Description: ${this.state.description}`);
-    console.log(`Todo Responsible: ${this.state.responsible}`);
-    console.log(`Todo Priority: ${this.state.priority}`);
+
+    const newToDo = {...this.state};
+    axios.post("http://localhost:4000/todos/add", newToDo)
+      .then(res => console.log(res.data));
 
     this.setState({
       description: "",
@@ -69,7 +69,7 @@ class CreateToDo extends Component {
             <input
               type="text"
               value={this.state.responsible}
-              onChange={this.onChangePriority}
+              onChange={this.onChangeResponsible}
             />
           </div>
 
