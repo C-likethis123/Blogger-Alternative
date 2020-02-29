@@ -1,6 +1,6 @@
-import React from "react";
+import React, {Component} from "react";
 
-class EditToDo extends React.Component {
+class EditToDo extends Component {
   render() {
     return (
       <div>
