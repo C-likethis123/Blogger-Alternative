@@ -13,7 +13,8 @@ class App extends Component {
     return (
       <Router>
         <nav className="navbar">
-          <img src={logo} alt="Test app" />
+          <img src={logo} width="30" height="30" alt="Test app" />
+          <a href="localhost:3000" target="_blank"></a>
         </nav>
         <Link to="/">MERN-Stack ToDo List</Link>
         <ul>
@@ -27,7 +28,6 @@ class App extends Component {
               Create
             </Link>
           </li>
-          <li></li>
         </ul>
         <Route path="/" exact component={ToDosList} />
         <Route path="/edit/:id" component={EditToDo} />

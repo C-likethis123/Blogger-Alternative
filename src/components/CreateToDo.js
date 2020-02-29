@@ -99,20 +99,20 @@ class CreateToDo extends Component {
             </div>
 
             <div>
-            <input
-              type="radio"
-              name="priorityOptions"
-              id="priorityHigh"
-              value="High"
-              checked={this.state.priority === "High"}
-              onChange={this.onChangePriority}
-            />
-            <label>High</label>
+              <input
+                type="radio"
+                name="priorityOptions"
+                id="priorityHigh"
+                value="High"
+                checked={this.state.priority === "High"}
+                onChange={this.onChangePriority}
+              />
+              <label>High</label>
             </div>
           </div>
 
           <div>
-              <input type="submit" value="Create ToDo" />
+            <input type="submit" value="Create ToDo" />
           </div>
         </form>
       </div>
