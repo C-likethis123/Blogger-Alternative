@@ -49,6 +49,8 @@ class CreateToDo extends Component {
       priority: "",
       isCompleted: false
     });
+
+    this.props.history.push('/');
   }
   render() {
     return (
