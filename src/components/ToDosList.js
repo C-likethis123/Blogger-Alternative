@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
+import {Table} from "reactstrap";
+
 import axios from "axios";
 
 const Todo = props => (
@@ -39,8 +42,7 @@ class ToDosList extends Component {
 
     return (
       <div>
-        <h3>To Do List</h3>
-        <table>
+        <Table>
           <thead>
             <tr>
               <th>Description</th>
@@ -50,7 +52,7 @@ class ToDosList extends Component {
             </tr>
           </thead>
           <tbody>{todos}</tbody>
-        </table>
+        </Table>
       </div>
     );
   }
