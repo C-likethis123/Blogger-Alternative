@@ -7,7 +7,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const PORT = 4000;
 
-mongoose.connect("mongodb://127.0.0.1:27017/todos", { useNewUrlParser: true });
+mongoose.connect("mongodb://127.0.0.1:27017/posts", { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once("open", function() {
@@ -17,52 +17,53 @@ connection.once("open", function() {
 app.use(cors());
 app.use(bodyParser.json());
 
-let ToDo = require('./todo.model');
-const todoRoutes = express.Router();
+let Post = require('./post.model');
+const postRoutes = express.Router();
 
-todoRoutes.route("/").get(function(req, res) {
-  ToDo.find(function(err, todos) {
+postRoutes.route("/").get(function(req, res) {
+  Post.find(function(err, posts) {
     if (err) {
       console.log(err);
     } else {
-      res.json(todos);
+      res.json(posts);
     }
   });
 });
 
-todoRoutes.route("/:id").get(function(req, res) {
+postRoutes.route("/:id").get(function(req, res) {
   let id = req.params.id;
-  ToDo.findById(id, function(err, todo) {
-    res.json(todo);
+  Post.findById(id, function(err, post) {
+    if (!post) {
+      res.status(404).send("Cannot find the requested content");
+    }
+    res.json(post);
   });
 });
 
-todoRoutes.route("/add").post(function(req, res) {
-  let todo = new ToDo(req.body);
-  todo
+postRoutes.route("/add").post(function(req, res) {
+  let post = new Post(req.body);
+  post
     .save()
-    .then(todo => {
-      res.status(200).json({ todo: "todo added successfully" });
+    .then(post => {
+      res.status(200).json({ post: "post added successfully" });
     })
     .catch(err => {
-      res.status(400).send("adding new todo failed");
+      res.status(400).send("adding new post failed");
     });
 });
 
-todoRoutes.route("/update/:id").post(function(req, res) {
-  ToDo.findById(req.params.id, function(err, todo) {
-    if (!todo) {
+postRoutes.route("/update/:id").post(function(req, res) {
+  Post.findById(req.params.id, function(err, post) {
+    if (!post) {
       res.status(404).send("data is not found");
     } else {
-      todo.description = req.body.description;
-      todo.responsible = req.body.responsible;
-      todo.priority = req.body.priority;
-      todo.isCompleted = req.body.isCompleted;
+      post.title = req.body.title;
+      post.content = req.body.content;
 
-      todo
+      post
         .save()
-        .then(todo => {
-          res.json("Todo updated!");
+        .then(post => {
+          res.json("post updated!");
         })
         .catch(err => {
           res.status(400).send("Update not possible!");
@@ -71,7 +72,17 @@ todoRoutes.route("/update/:id").post(function(req, res) {
   });
 });
 
-app.use("/todos", todoRoutes);
+postRoutes.route("/:id").delete(function(req, res) {
+  Post.findByIdAndDelete(req.params.id, function(err, post) {
+    if (!post) {
+      res.status(404).send("The requested post cannot be found!");
+    } else {
+      res.status(200).send(`Deleted post: ${post}`);
+    }
+  })
+})
+
+app.use("/posts", postRoutes);
 
 app.listen(PORT, function() {
   console.log("Server is running on PORT: " + PORT);
