@@ -10,6 +10,12 @@ import { Button, Input, FormGroup, Col } from "reactstrap";
 class TextEditor extends Component {
   constructor(props) {
     super(props);
+    this.editorRef = React.createRef();
+  }
+
+  onSubmit = () => {
+    const content = this.editorRef.current.getInstance().getHtml();
+    this.props.onSubmit(content);
   }
 
   render() {
@@ -19,13 +25,13 @@ class TextEditor extends Component {
           <Col sm={9}>
             <Input
               type="text"
+              onChange={this.props.onChangeTitle}
               placeholder="Post Title"
               value={this.props.title}
-              onChange={this.props.onChangeTitle}
             />
           </Col>
             <div className="col ml-5" sm={1}>
-              <Button color="success" sm={1}>
+              <Button color="success" sm={1} onClick={this.onSubmit}>
                 {this.props.isEdit ? "Edit" : "Post"}
               </Button>{" "}
               <Button color="info" sm={1}>
@@ -38,7 +44,7 @@ class TextEditor extends Component {
         </FormGroup>
 
         <Editor
-          initialValue={this.props.post}
+          initialValue={this.props.content}
           previewStyle="vertical"
           height="600px"
           initialEditType="markdown"
