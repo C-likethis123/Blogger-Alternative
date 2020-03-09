@@ -1,122 +1,44 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import TextEditor from "./TextEditor";
+
 class CreateToDo extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      description: "",
-      responsible: "",
-      priority: "",
-      isCompleted: false
+      title: "",
+      content: ""
     };
 
-    this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.onChangePriority = this.onChangePriority.bind(this);
-    this.onChangeResponsible = this.onChangeResponsible.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChangeTitle = this.onChangeTitle.bind(this);
   }
 
-  onChangeDescription(e) {
-    this.setState({
-      description: e.target.value
-    });
+  onChangeTitle(e) {
+    const title = e.target.value;
+    this.setState({ title });
   }
 
-  onChangeResponsible(e) {
-    this.setState({
-      responsible: e.target.value
-    });
-  }
-
-  onChangePriority(e) {
-    this.setState({
-      priority: e.target.value
-    });
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
-
-    const newToDo = {...this.state};
-    axios.post("http://localhost:4000/todos/add", newToDo)
+  onSubmit(content) {
+    const newPost = Object.assign(this.state, {content: content});
+    axios
+      .post("http://localhost:4000/posts/add", newPost)
       .then(res => console.log(res.data));
 
-    this.setState({
-      description: "",
-      responsible: "",
-      priority: "",
-      isCompleted: false
-    });
-
-    this.props.history.push('/');
+    this.props.history.push("/");
   }
+
   render() {
     return (
       <div>
         <h3>Create New ToDo</h3>
-        <form onSubmit={this.onSubmit}>
-          <div>
-            <label>Description: </label>
-            <input
-              type="text"
-              value={this.state.description}
-              onChange={this.onChangeDescription}
-            />
-          </div>
-
-          <div>
-            <label>Responsible: </label>
-            <input
-              type="text"
-              value={this.state.responsible}
-              onChange={this.onChangeResponsible}
-            />
-          </div>
-
-          <div>
-            <div>
-              <input
-                type="radio"
-                name="priorityOptions"
-                id="priorityLow"
-                value="Low"
-                checked={this.state.priority === "Low"}
-                onChange={this.onChangePriority}
-              />
-              <label>Low</label>
-            </div>
-
-            <div>
-              <input
-                type="radio"
-                name="priorityOptions"
-                id="priorityMedium"
-                value="Medium"
-                checked={this.state.priority === "Medium"}
-                onChange={this.onChangePriority}
-              />
-              <label>Medium</label>
-            </div>
-
-            <div>
-              <input
-                type="radio"
-                name="priorityOptions"
-                id="priorityHigh"
-                value="High"
-                checked={this.state.priority === "High"}
-                onChange={this.onChangePriority}
-              />
-              <label>High</label>
-            </div>
-          </div>
-
-          <div>
-            <input type="submit" value="Create ToDo" />
-          </div>
-        </form>
+        <TextEditor
+          isEdit={false}
+          onSubmit={this.onSubmit}
+          onChangeTitle={this.onChangeTitle}
+        />
       </div>
     );
   }
