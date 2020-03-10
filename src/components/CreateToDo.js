@@ -22,7 +22,7 @@ class CreateToDo extends Component {
   }
 
   onSubmit(content) {
-    const newPost = Object.assign(this.state, {content: content});
+    const newPost = { title: this.state.title, content: content };
     axios
       .post("http://localhost:4000/posts/add", newPost)
       .then(res => console.log(res.data));
@@ -33,7 +33,7 @@ class CreateToDo extends Component {
   render() {
     return (
       <div>
-        <h3>Create New ToDo</h3>
+        <h3>Create New Post</h3>
         <TextEditor
           isEdit={false}
           onSubmit={this.onSubmit}

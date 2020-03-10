@@ -9,7 +9,7 @@ class EditToDo extends Component {
 
     this.state = {
       title: "",
-      content: "yo"
+      content: ""
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -30,7 +30,7 @@ class EditToDo extends Component {
   }
 
   onSubmit(content) {
-    const newPost = Object.assign(this.state, { content: content });
+    const newPost = { title: this.state.title, content: content };
     axios
       .post(
         `http://localhost:4000/posts/update/${this.props.match.params.id}`,
