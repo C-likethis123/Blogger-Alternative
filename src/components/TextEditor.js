@@ -13,8 +13,19 @@ class TextEditor extends Component {
     this.editorRef = React.createRef();
   }
 
+  /* 
+    needed as the props updates after the first render because of EditToDo's asynchronous data 
+    fetching operation during its
+    componentDidMount method. The second render provided the actual content of the blog post. 
+  */ 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.content !== this.props.content) {
+      this.editorRef.current.getInstance().setMarkdown(this.props.content);
+    }
+  }
+
   onSubmit = () => {
-    const content = this.editorRef.current.getInstance().getHtml();
+    const content = this.editorRef.current.getInstance().getValue();
     this.props.onSubmit(content);
   }
 
@@ -44,7 +55,6 @@ class TextEditor extends Component {
         </FormGroup>
 
         <Editor
-          initialValue={this.props.content}
           previewStyle="vertical"
           height="600px"
           initialEditType="markdown"
