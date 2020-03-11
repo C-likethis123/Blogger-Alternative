@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import {Table} from "reactstrap";
+import { Table } from "reactstrap";
 
 import axios from "axios";
 
@@ -11,8 +11,11 @@ const Post = props => (
     <td>
       <Link to={`/edit/${props.post._id}`}>Edit</Link>
     </td>
+    <td>
+      <Link onClick={() => props.deletePost(props.post._id)}>Delete</Link>
+    </td>
   </tr>
-)
+);
 
 class PostsList extends Component {
   constructor(props) {
@@ -33,9 +36,19 @@ class PostsList extends Component {
       });
   }
 
+  deletePost = id => {
+    axios.delete(`http://localhost:4000/posts/${id}`).then(() =>
+      this.setState((prevState, prevProps) => {
+        return {
+          posts: prevState.posts.filter(post => post._id !== id)
+        };
+      })
+    );
+  };
+
   render() {
     let posts = this.state.posts.map((currentPost, i) => {
-      return <Post post={currentPost} key={i} />;
+      return <Post post={currentPost} key={i} deletePost={this.deletePost} />;
     });
 
     return (
