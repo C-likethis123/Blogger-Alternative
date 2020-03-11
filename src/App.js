@@ -4,9 +4,10 @@ import "./App.css";
 
 import Header from "./components/NavBar/Header";
 import {Container} from "reactstrap";
-import CreateToDo from "./components/CreateToDo";
-import EditToDo from "./components/EditToDo";
-import ToDosList from "./components/ToDosList";
+import CreatePost from "./components/CreatePost";
+import EditPost from "./components/EditPost";
+import PostsList from "./components/PostsList";
+import ShowPost from "./components/ShowPost";
 
 class App extends Component {
   render() {
@@ -15,9 +16,10 @@ class App extends Component {
         <Router>
           <Header />
           <Switch>
-            <Route exact path="/" component={ToDosList} />
-            <Route path="/edit/:id" component={EditToDo} />
-            <Route path="/create" component={CreateToDo} />
+            <Route exact path="/" component={PostsList} />
+            <Route path="/edit/:id" component={EditPost} />
+            <Route path="/create" component={CreatePost} />
+            <Route path="/:id" component={ShowPost} />
           </Switch>
         </Router>
       </Container>

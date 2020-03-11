@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import TextEditor from "./TextEditor";
+import TextEditor from './TextEditor';
 
-class CreateToDo extends Component {
+class EditPost extends Component {
   constructor(props) {
     super(props);
 
@@ -16,15 +16,26 @@ class CreateToDo extends Component {
     this.onChangeTitle = this.onChangeTitle.bind(this);
   }
 
+  componentDidMount() {
+    axios
+      .get(`http://localhost:4000/posts/${this.props.match.params.id}`)
+      .then(response => this.setState({ ...response.data }))
+      .catch(error => console.log(error));
+      
+  }
+
   onChangeTitle(e) {
     const title = e.target.value;
-    this.setState({ title });
+    this.setState({title});
   }
 
   onSubmit(content) {
     const newPost = { title: this.state.title, content: content };
     axios
-      .post("http://localhost:4000/posts/add", newPost)
+      .post(
+        `http://localhost:4000/posts/update/${this.props.match.params.id}`,
+        newPost
+      )
       .then(res => console.log(res.data));
 
     this.props.history.push("/");
@@ -33,9 +44,11 @@ class CreateToDo extends Component {
   render() {
     return (
       <div>
-        <h3>Create New Post</h3>
+        <h3>Edit Post</h3>
         <TextEditor
-          isEdit={false}
+          title={this.state.title}
+          content={this.state.content}
+          isEdit={true}
           onSubmit={this.onSubmit}
           onChangeTitle={this.onChangeTitle}
         />
@@ -44,4 +57,4 @@ class CreateToDo extends Component {
   }
 }
 
-export default CreateToDo;
+export default EditPost;
