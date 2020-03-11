@@ -6,7 +6,7 @@ import Header from "./components/NavBar/Header";
 import {Container} from "reactstrap";
 import CreateToDo from "./components/CreateToDo";
 import EditToDo from "./components/EditToDo";
-import ToDosList from "./components/ToDosList";
+import PostsList from "./components/PostsList";
 
 class App extends Component {
   render() {
@@ -15,7 +15,7 @@ class App extends Component {
         <Router>
           <Header />
           <Switch>
-            <Route exact path="/" component={ToDosList} />
+            <Route exact path="/" component={PostsList} />
             <Route path="/edit/:id" component={EditToDo} />
             <Route path="/create" component={CreateToDo} />
           </Switch>
