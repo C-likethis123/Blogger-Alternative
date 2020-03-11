@@ -7,6 +7,7 @@ import {Container} from "reactstrap";
 import CreateToDo from "./components/CreateToDo";
 import EditToDo from "./components/EditToDo";
 import PostsList from "./components/PostsList";
+import ShowPost from "./components/ShowPost";
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
             <Route exact path="/" component={PostsList} />
             <Route path="/edit/:id" component={EditToDo} />
             <Route path="/create" component={CreateToDo} />
+            <Route path="/:id" component={ShowPost} />
           </Switch>
         </Router>
       </Container>
