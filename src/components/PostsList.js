@@ -7,12 +7,15 @@ import axios from "axios";
 
 const Post = props => (
   <tr>
-    <td>{props.post.title}</td>
-    <td>
+    <td width="70%">{props.post.title}</td>
+    <td width="10%">
       <Link to={`/edit/${props.post._id}`}>Edit</Link>
     </td>
-    <td>
+    <td width="10%">
       <Link onClick={() => props.deletePost(props.post._id)}>Delete</Link>
+    </td>
+    <td width="10%">
+      <Link to={`/${props.post._id}`}>View</Link>
     </td>
   </tr>
 );
