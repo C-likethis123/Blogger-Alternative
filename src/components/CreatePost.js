@@ -15,6 +15,7 @@ class CreatePost extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.onSave = this.onSave.bind(this);
   }
 
   onChangeTitle(e) {
@@ -30,6 +31,13 @@ class CreatePost extends Component {
 
     this.props.history.push("/");
   }
+  
+  onSave(content) {
+    const newPost = { title: this.state.title, content: content };
+    axios
+      .post("http://localhost:4000/posts/add", newPost)
+      .then(res => console.log(res.data));
+  }
 
   onDelete() {
     this.props.history.push("/");
@@ -44,6 +52,7 @@ class CreatePost extends Component {
           onSubmit={this.onSubmit}
           onChangeTitle={this.onChangeTitle}
           onDelete={this.onDelete}
+          onSave={this.onSave}
         />
       </div>
     );

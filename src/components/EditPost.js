@@ -15,6 +15,7 @@ class EditPost extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.onSave = this.onSave.bind(this);
   }
 
   componentDidMount() {
@@ -46,6 +47,16 @@ class EditPost extends Component {
     axios.delete(`http://localhost:4000/posts/${this.props.match.params.id}`)
       .then(() => this.props.history.push("/"));
   }
+  
+  onSave(content) {
+    const newPost = { title: this.state.title, content: content };
+    axios
+      .post(
+        `http://localhost:4000/posts/update/${this.props.match.params.id}`,
+        newPost
+      )
+      .then(res => console.log(res.data));
+  }
 
   render() {
     return (
@@ -58,6 +69,7 @@ class EditPost extends Component {
           onSubmit={this.onSubmit}
           onChangeTitle={this.onChangeTitle}
           onDelete={this.onDelete}
+          onSave={this.onSave}
         />
       </div>
     );
