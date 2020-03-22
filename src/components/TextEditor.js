@@ -29,6 +29,11 @@ class TextEditor extends Component {
     this.props.onSubmit(content);
   }
 
+  onSave = () => {
+    const content = this.editorRef.current.getInstance().getValue();
+    this.props.onSave(content);
+  }
+
   render() {
     return (
       <div>
@@ -45,7 +50,7 @@ class TextEditor extends Component {
               <Button color="success" sm={1} onClick={this.onSubmit}>
                 {this.props.isEdit ? "Edit" : "Post"}
               </Button>{" "}
-              <Button color="info" sm={1}>
+              <Button color="info" sm={1} onClick={this.onSave}>
                 Save
               </Button>{" "}
               <Button color="danger" sm={1} onClick={this.props.onDelete}>
