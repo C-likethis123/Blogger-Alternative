@@ -5,6 +5,14 @@ import "tui-editor/dist/tui-editor.min.css";
 import "tui-editor/dist/tui-editor-contents.min.css";
 import { Editor } from "@toast-ui/react-editor";
 
+import 'tui-editor/dist/tui-editor-extScrollSync'
+import 'tui-editor/dist/tui-editor-extColorSyntax'
+import 'tui-editor/dist/tui-editor-extUML'
+import 'tui-editor/dist/tui-editor-extChart'
+import 'tui-editor/dist/tui-editor-extTable'
+
+import 'tui-color-picker/dist/tui-color-picker.css';
+
 import { Button, Input, FormGroup, Col } from "reactstrap";
 
 class TextEditor extends Component {
