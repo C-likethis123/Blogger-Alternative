@@ -14,6 +14,7 @@ class CreatePost extends Component {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangeTitle = this.onChangeTitle.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   onChangeTitle(e) {
@@ -30,6 +31,10 @@ class CreatePost extends Component {
     this.props.history.push("/");
   }
 
+  onDelete() {
+    this.props.history.push("/");
+  }
+
   render() {
     return (
       <div>
@@ -38,6 +43,7 @@ class CreatePost extends Component {
           isEdit={false}
           onSubmit={this.onSubmit}
           onChangeTitle={this.onChangeTitle}
+          onDelete={this.onDelete}
         />
       </div>
     );
