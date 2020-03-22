@@ -8,6 +8,7 @@ import CreatePost from "./components/CreatePost";
 import EditPost from "./components/EditPost";
 import PostsList from "./components/PostsList";
 import ShowPost from "./components/ShowPost";
+import SignIn from "./components/SignIn";
 
 class App extends Component {
   render() {
@@ -16,10 +17,11 @@ class App extends Component {
         <Router>
           <Header />
           <Switch>
-            <Route exact path="/" component={PostsList} />
-            <Route path="/edit/:id" component={EditPost} />
-            <Route path="/create" component={CreatePost} />
-            <Route path="/:id" component={ShowPost} />
+            <Route exact path="/" component={SignIn} />
+            <Route path="/blog" component={PostsList} />
+            <Route path="/blog/edit/:id" component={EditPost} />
+            <Route path="/blog/create" component={CreatePost} />
+            <Route path="/blog/:id" component={ShowPost} />
           </Switch>
         </Router>
       </Container>

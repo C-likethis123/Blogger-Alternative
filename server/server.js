@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 let Post = require('./post.model');
 const postRoutes = express.Router();
 
-postRoutes.route("/").get(function(req, res) {
+postRoutes.route("/blog").get(function(req, res) {
   Post.find(function(err, posts) {
     if (err) {
       console.log(err);
@@ -30,7 +30,7 @@ postRoutes.route("/").get(function(req, res) {
   });
 });
 
-postRoutes.route("/:id").get(function(req, res) {
+postRoutes.route("/blog/:id").get(function(req, res) {
   let id = req.params.id;
   Post.findById(id, function(err, post) {
     if (!post) {
@@ -40,7 +40,7 @@ postRoutes.route("/:id").get(function(req, res) {
   });
 });
 
-postRoutes.route("/add").post(function(req, res) {
+postRoutes.route("/blog/add").post(function(req, res) {
   let post = new Post(req.body);
   post
     .save()
@@ -52,7 +52,7 @@ postRoutes.route("/add").post(function(req, res) {
     });
 });
 
-postRoutes.route("/update/:id").post(function(req, res) {
+postRoutes.route("/blog/update/:id").post(function(req, res) {
   Post.findById(req.params.id, function(err, post) {
     if (!post) {
       res.status(404).send("data is not found");
@@ -72,7 +72,7 @@ postRoutes.route("/update/:id").post(function(req, res) {
   });
 });
 
-postRoutes.route("/:id").delete(function(req, res) {
+postRoutes.route("/blog/:id").delete(function(req, res) {
   Post.findByIdAndDelete(req.params.id, function(err, post) {
     if (!post) {
       res.status(404).send("The requested post cannot be found!");
@@ -82,7 +82,7 @@ postRoutes.route("/:id").delete(function(req, res) {
   })
 })
 
-app.use("/posts", postRoutes);
+app.use("/blog/posts", postRoutes);
 
 app.listen(PORT, function() {
   console.log("Server is running on PORT: " + PORT);
