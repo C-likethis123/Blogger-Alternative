@@ -48,7 +48,7 @@ class TextEditor extends Component {
               <Button color="info" sm={1}>
                 Save
               </Button>{" "}
-              <Button color="danger" sm={1}>
+              <Button color="danger" sm={1} onClick={this.props.onDelete}>
                 Delete
               </Button>
             </div>
