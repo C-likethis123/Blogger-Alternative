@@ -17,7 +17,7 @@ class App extends Component {
         <Router>
           <Header />
           <Switch>
-            <Route exact path="/" component={SignIn} />
+            {/* <Route exact path="/" component={SignIn} /> */}
             <Route path="/blog" component={PostsList} />
             <Route path="/blog/edit/:id" component={EditPost} />
             <Route path="/blog/create" component={CreatePost} />

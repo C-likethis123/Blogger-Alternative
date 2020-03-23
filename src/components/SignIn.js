@@ -1,31 +1,42 @@
 import React, { Component } from "react";
-import GoogleLogin from "react-google-login";
+import { GoogleLogin, GoogleLogout } from "react-google-login";
 
 class SignIn extends Component {
-  clientID =
-    "AIzaSyDAhnFQxcN_mEXklbNYKRokeiZ__s4vYMA.apps.googleusercontent.com";
+  constructor(props) {
+    super(props);
+    this.state = {
+      clientID: "50237112021-uubtivq4kujds2el4i0833bfjrm4fhs4.apps.googleusercontent.com",
+      isSignedIn: false,
+    }
+  }
 
-  onSuccess = (response) => {
+  onSuccess = response => {
     this.props.history.push("/blog");
   };
 
-  onFailure = (response) => {
-      console.log("failed!");
-  }
+  onFailure = response => {
+    console.log("failed!");
+  };
 
   render() {
-    return (
-      <div>
-        <GoogleLogin
-          clientId={this.clientID}
-          buttonText="Login"
-          cookiePolicy={"single_host_origin"}
-          onSuccess={this.onSuccess}
-          onFailure={this.onFailure}
-          isSignedIn={true}
+    if (this.state.isSignedIn) {
+      return (
+        <GoogleLogout
+          clientId={this.state.clientID}
+          buttonText="Logout"
+          onLogoutSuccess={this.logout}
         />
-      </div>
-    );
+      );
+    } else {
+      return (<GoogleLogin
+        clientId={this.state.clientID}
+        buttonText="Login"
+        cookiePolicy={"single_host_origin"}
+        onSuccess={this.onSuccess}
+        onFailure={this.onFailure}
+        isSignedIn={true}
+      />);
+    }
   }
 }
 
