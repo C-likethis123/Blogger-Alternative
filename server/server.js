@@ -15,7 +15,7 @@ connection.once("open", function() {
 });
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 
 let Post = require('./post.model');
 const postRoutes = express.Router();
@@ -45,7 +45,7 @@ postRoutes.route("/blog/add").post(function(req, res) {
   post
     .save()
     .then(post => {
-      res.status(200).json({ post: "post added successfully" });
+      res.status(200).json({ post: post });
     })
     .catch(err => {
       res.status(400).send("adding new post failed");

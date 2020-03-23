@@ -31,16 +31,29 @@ class CreatePost extends Component {
 
     this.props.history.push("/");
   }
-  
+
   onSave(content) {
     const newPost = { title: this.state.title, content: content };
-    axios
-      .post("http://localhost:4000/posts/add", newPost)
-      .then(res => console.log(res.data));
+    if (this.state.id === undefined) {
+      axios
+        .post("http://localhost:4000/posts/add", newPost)
+        .then(res => this.setState({ id: res.data.post._id }))
+        .then(() => console.log(this.state));
+    } else {
+      axios
+        .post(`http://localhost:4000/posts/update/${this.state.id}`, newPost)
+        .then(res => console.log(res.data));
+    }
   }
 
   onDelete() {
-    this.props.history.push("/");
+    if (this.state.id === undefined) {
+      this.props.history.push("/");
+    } else {
+      axios
+        .delete(`http://localhost:4000/posts/${this.state.id}`)
+        .then(() => this.props.history.push("/"));
+    }
   }
 
   render() {
