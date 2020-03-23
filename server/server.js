@@ -15,7 +15,7 @@ connection.once("open", function() {
 });
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 
 let Post = require('./post.model');
 const postRoutes = express.Router();
