@@ -45,7 +45,7 @@ postRoutes.route("/add").post(function(req, res) {
   post
     .save()
     .then(post => {
-      res.status(200).json({ post: "post added successfully" });
+      res.status(200).json({ post: post });
     })
     .catch(err => {
       res.status(400).send("adding new post failed");
