@@ -59,6 +59,7 @@ postRoutes.route("/update/:id").post(function(req, res) {
     } else {
       post.title = req.body.title;
       post.content = req.body.content;
+      post.isDraft = req.body.isDraft;
 
       post
         .save()
