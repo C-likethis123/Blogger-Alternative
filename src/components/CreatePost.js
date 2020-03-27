@@ -9,7 +9,8 @@ class CreatePost extends Component {
 
     this.state = {
       title: "",
-      content: ""
+      content: "",
+      isDraft: true
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -24,16 +25,33 @@ class CreatePost extends Component {
   }
 
   onSubmit(content) {
-    const newPost = { title: this.state.title, content: content };
-    axios
-      .post("http://localhost:4000/posts/add", newPost)
-      .then(res => console.log(res.data));
+    const newPost = {
+      title: this.state.title,
+      content: content,
+      isDraft: false
+    };
+
+    if (this.state.id === undefined) {
+      axios
+        .post("http://localhost:4000/posts/add", newPost)
+        .then(res => this.setState({ id: res.data.post._id }))
+        .then(() => console.log(this.state));
+    } else {
+      axios
+        .post(`http://localhost:4000/posts/update/${this.state.id}`, newPost)
+        .then(res => console.log(res.data));
+    }
 
     this.props.history.push("/");
   }
 
   onSave(content) {
-    const newPost = { title: this.state.title, content: content };
+    const newPost = {
+      title: this.state.title,
+      content: content,
+      isDraft: this.state.isDraft
+    };
+    
     if (this.state.id === undefined) {
       axios
         .post("http://localhost:4000/posts/add", newPost)
