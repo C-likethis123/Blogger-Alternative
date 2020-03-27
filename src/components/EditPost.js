@@ -8,9 +8,9 @@ class EditPost extends Component {
     super(props);
 
     this.state = {
-      title: "",
-      content: "",
-      isDraft: true
+      // title: "",
+      // content: "",
+      // isDraft: true
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -37,6 +37,7 @@ class EditPost extends Component {
       content: content,
       isDraft: false
     };
+
     axios
       .post(
         `http://localhost:4000/posts/update/${this.props.match.params.id}`,
