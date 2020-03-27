@@ -4,10 +4,10 @@ import "./App.css";
 
 import Header from "./components/NavBar/Header";
 import {Container} from "reactstrap";
-import CreatePost from "./components/CreatePost";
-import EditPost from "./components/EditPost";
-import PostsList from "./components/PostsList";
-import ShowPost from "./components/ShowPost";
+import CreatePost from "./components/Posts/CreatePost";
+import EditPost from "./components/Posts/EditPost";
+import PostsList from "./components/Posts/PostsList";
+import ShowPost from "./components/Posts/ShowPost";
 
 class App extends Component {
   render() {
