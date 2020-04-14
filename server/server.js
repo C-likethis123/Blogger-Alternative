@@ -7,17 +7,23 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const PORT = 4000;
 
-mongoose.connect("mongodb://127.0.0.1:27017/posts", { useNewUrlParser: true });
+mongoose
+  .connect("mongodb://127.0.0.1:27017/posts", {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+  });
 const connection = mongoose.connection;
 
-connection.once("open", function() {
-  console.log("MongoDB database connection established successfully");
-});
+connection
+  .once("open", function() {
+    console.log("MongoDB database connection established successfully");
+  })
+  .catch(err => console.log("Unable to start server"));
 
 app.use(cors());
-app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.json({ limit: "50mb" }));
 
-let Post = require('./post.model');
+let Post = require("./post.model");
 const postRoutes = express.Router();
 
 postRoutes.route("/blog").get(function(req, res) {
@@ -59,6 +65,7 @@ postRoutes.route("/blog/update/:id").post(function(req, res) {
     } else {
       post.title = req.body.title;
       post.content = req.body.content;
+      post.isDraft = req.body.isDraft;
 
       post
         .save()
@@ -79,8 +86,8 @@ postRoutes.route("/blog/:id").delete(function(req, res) {
     } else {
       res.status(200).send(`Deleted post: ${post}`);
     }
-  })
-})
+  });
+});
 
 app.use("/blog/posts", postRoutes);
 

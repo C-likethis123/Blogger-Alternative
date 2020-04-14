@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import TextEditor from './TextEditor';
+import TextEditor from "./TextEditor";
 
 class EditPost extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: "",
-      content: ""
+      // title: "",
+      // content: "",
+      // isDraft: true
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -23,16 +24,20 @@ class EditPost extends Component {
       .get(`http://localhost:4000/posts/${this.props.match.params.id}`)
       .then(response => this.setState({ ...response.data }))
       .catch(error => console.log(error));
-      
   }
 
   onChangeTitle(e) {
     const title = e.target.value;
-    this.setState({title});
+    this.setState({ title });
   }
 
   onSubmit(content) {
-    const newPost = { title: this.state.title, content: content };
+    const newPost = {
+      title: this.state.title,
+      content: content,
+      isDraft: false
+    };
+
     axios
       .post(
         `http://localhost:4000/posts/update/${this.props.match.params.id}`,
@@ -44,12 +49,17 @@ class EditPost extends Component {
   }
 
   onDelete() {
-    axios.delete(`http://localhost:4000/posts/${this.props.match.params.id}`)
+    axios
+      .delete(`http://localhost:4000/posts/${this.props.match.params.id}`)
       .then(() => this.props.history.push("/"));
   }
-  
+
   onSave(content) {
-    const newPost = { title: this.state.title, content: content };
+    const newPost = {
+      title: this.state.title,
+      content: content,
+      isDraft: this.state.isDraft
+    };
     axios
       .post(
         `http://localhost:4000/posts/update/${this.props.match.params.id}`,

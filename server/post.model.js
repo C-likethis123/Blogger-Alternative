@@ -7,6 +7,9 @@ let Post = new Schema({
     },
     content: {
         type: String,
+    },
+    isDraft: {
+        type: Boolean,
     }
 });
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "../App.css";
+import "../../App.css";
 import { Viewer } from "@toast-ui/react-editor";
 
 class ShowPost extends Component {

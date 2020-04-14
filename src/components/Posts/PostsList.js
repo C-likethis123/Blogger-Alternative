@@ -7,7 +7,9 @@ import axios from "axios";
 
 const Post = props => (
   <tr>
-    <td width="70%">{props.post.title}</td>
+    <td width="70%">
+      {props.post.isDraft ? `${props.post.title} (draft)` : props.post.title}
+    </td>
     <td width="10%">
       <Link to={`/edit/${props.post._id}`}>Edit</Link>
     </td>
@@ -37,6 +39,19 @@ class PostsList extends Component {
       .catch(function(error) {
         console.log(error);
       });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.posts !== this.state.posts) {
+      axios
+        .get("http://localhost:4000/posts/")
+        .then(response => {
+          this.setState({ posts: response.data });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   }
 
   deletePost = id => {
