@@ -56,7 +56,7 @@ class CreatePost extends Component {
       axios
         .post("http://localhost:4000/posts/add", newPost)
         .then(res => this.setState({ id: res.data.post._id }))
-        .then(() => console.log(this.state));
+        .catch((err) => console.log(err));
     } else {
       axios
         .post(`http://localhost:4000/posts/update/${this.state.id}`, newPost)
