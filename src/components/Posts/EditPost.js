@@ -2,15 +2,14 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import TextEditor from "./TextEditor";
-
+import { Success, Failure } from "../../Alerts/Alerts";
 class EditPost extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      // title: "",
-      // content: "",
-      // isDraft: true
+      savedSuccess: null,
+      savedFailure: null,
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -22,8 +21,8 @@ class EditPost extends Component {
   componentDidMount() {
     axios
       .get(`http://localhost:4000/posts/${this.props.match.params.id}`)
-      .then(response => this.setState({ ...response.data }))
-      .catch(error => console.log(error));
+      .then((response) => this.setState({ ...response.data }))
+      .catch((error) => console.log(error));
   }
 
   onChangeTitle(e) {
@@ -35,7 +34,7 @@ class EditPost extends Component {
     const newPost = {
       title: this.state.title,
       content: content,
-      isDraft: false
+      isDraft: false,
     };
 
     axios
@@ -43,7 +42,7 @@ class EditPost extends Component {
         `http://localhost:4000/posts/update/${this.props.match.params.id}`,
         newPost
       )
-      .then(res => console.log(res.data));
+      .then((res) => console.log(res.data));
 
     this.props.history.push("/");
   }
@@ -58,20 +57,26 @@ class EditPost extends Component {
     const newPost = {
       title: this.state.title,
       content: content,
-      isDraft: this.state.isDraft
+      isDraft: this.state.isDraft,
     };
     axios
       .post(
         `http://localhost:4000/posts/update/${this.props.match.params.id}`,
         newPost
       )
-      .then(res => console.log(res.data));
+      .then((res) => console.log(res.data))
+      .then(() => this.setState({ savedSuccess: true, savedFailure: false }))
+      .catch((err) => {
+        console.log(err);
+        this.setState({ savedSuccess: false, savedFailure: true });
+      });
   }
 
   render() {
     return (
       <div>
         <h3>Edit Post</h3>
+        {this.state.savedSuccess ? <Success /> : this.state.savedFailure ? <Failure /> : null}
         <TextEditor
           title={this.state.title}
           content={this.state.content}
