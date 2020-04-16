@@ -19,13 +19,24 @@ class TextEditor extends Component {
   constructor(props) {
     super(props);
     this.editorRef = React.createRef();
+    this.state = {
+      timerID: null,
+    };
+  }
+
+  componentDidMount() {
+    this.setState({
+      timerID: setInterval(() => {
+        this.onSave();
+      }, 60000),
+    });
   }
 
   /* 
     needed as the props updates after the first render because of EditToDo's asynchronous data 
     fetching operation during its
     componentDidMount method. The second render provided the actual content of the blog post. 
-  */ 
+  */
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.content !== this.props.content) {
       this.editorRef.current.getInstance().setMarkdown(this.props.content);
@@ -42,6 +53,10 @@ class TextEditor extends Component {
     this.props.onSave(content);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.state.timerID);
+  }
+
   render() {
     return (
       <div>
@@ -54,17 +69,17 @@ class TextEditor extends Component {
               value={this.props.title}
             />
           </Col>
-            <div className="col ml-5" sm={1}>
-              <Button color="success" sm={1} onClick={this.onSubmit}>
-                {this.props.isEdit ? "Edit" : "Post"}
-              </Button>{" "}
-              <Button color="info" sm={1} onClick={this.onSave}>
-                Save
-              </Button>{" "}
-              <Button color="danger" sm={1} onClick={this.props.onDelete}>
-                Delete
-              </Button>
-            </div>
+          <div className="col ml-5" sm={1}>
+            <Button color="success" sm={1} onClick={this.onSubmit}>
+              {this.props.isEdit ? "Edit" : "Post"}
+            </Button>{" "}
+            <Button color="info" sm={1} onClick={this.onSave}>
+              Save
+            </Button>{" "}
+            <Button color="danger" sm={1} onClick={this.props.onDelete}>
+              Delete
+            </Button>
+          </div>
         </FormGroup>
 
         <Editor
