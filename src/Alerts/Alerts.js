@@ -1,19 +1,31 @@
-import React from "react";
+import React, { Component } from 'react';
 import { Alert } from "reactstrap";
 
-// TODO: Check why timeout does not work here
-export const Success = (props) => {
+const Success = (props) => {
   return (
-    <Alert color="success" transition={{ timeout: 100 }}>
+    <Alert color="success">
       Post is successfully saved!
     </Alert>
   );
 };
 
-export const Failure = (props) => {
+const Failure = (props) => {
   return (
-    <Alert color="danger" transition={{ timeout: 100 }}>
+    <Alert color="danger">
       An error occurred when saving the post. Please try again later.
     </Alert>
   );
 };
+
+
+class Alerts extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (<div>{this.props.showAlert ? this.props.isSuccessful ? <Success /> : <Failure /> : null}</div>);
+  }
+}
+
+export default Alerts;
