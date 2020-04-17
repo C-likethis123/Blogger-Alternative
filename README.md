@@ -6,6 +6,7 @@ This project is started to develop a web application with a better blog editing 
 - An editor that has a WYSIWYG (What you see is what you get) mode and a Markdown editor mode
 - Markdown support 
 - Ability to add screenshots to blog posts
+- Autosave blog posts
 
 # Technology Stack: 
 * MERN: MongoDB, Express, React, Node.js
