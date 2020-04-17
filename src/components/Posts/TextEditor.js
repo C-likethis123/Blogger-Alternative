@@ -21,14 +21,20 @@ class TextEditor extends Component {
     this.editorRef = React.createRef();
     this.state = {
       timerID: null,
+      prevContent: null,
     };
+  }
+
+  onAutoSave = () => {
+    const currContent = this.editorRef.current.getInstance().getValue();
+    if (this.state.prevContent !== currContent) {
+      this.onSave();
+    }
   }
 
   componentDidMount() {
     this.setState({
-      timerID: setInterval(() => {
-        this.onSave();
-      }, 60000),
+      timerID: setInterval(this.onAutoSave, 6000),
     });
   }
 
@@ -39,7 +45,9 @@ class TextEditor extends Component {
   */
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.content !== this.props.content) {
-      this.editorRef.current.getInstance().setMarkdown(this.props.content);
+      const content = this.props.content;
+      this.editorRef.current.getInstance().setMarkdown(content);
+      this.setState({ prevContent: content });
     }
   }
 
@@ -51,6 +59,7 @@ class TextEditor extends Component {
   onSave = () => {
     const content = this.editorRef.current.getInstance().getValue();
     this.props.onSave(content);
+    this.setState({ prevContent: content });
   }
 
   componentWillUnmount() {
