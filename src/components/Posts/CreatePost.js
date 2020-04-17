@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import TextEditor from "./TextEditor";
-
+import SaveAlert from "../Alerts/Alerts";
 class CreatePost extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +10,9 @@ class CreatePost extends Component {
     this.state = {
       title: "",
       content: "",
-      isDraft: true
+      isDraft: true,
+      savedSuccess: null,
+      showAlert: false
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -28,18 +30,18 @@ class CreatePost extends Component {
     const newPost = {
       title: this.state.title,
       content: content,
-      isDraft: false
+      isDraft: false,
     };
 
     if (this.state.id === undefined) {
       axios
         .post("http://localhost:4000/posts/add", newPost)
-        .then(res => this.setState({ id: res.data.post._id }))
+        .then((res) => this.setState({ id: res.data.post._id }))
         .then(() => console.log(this.state));
     } else {
       axios
         .post(`http://localhost:4000/posts/update/${this.state.id}`, newPost)
-        .then(res => console.log(res.data));
+        .then((res) => console.log(res.data));
     }
 
     this.props.history.push("/");
@@ -49,18 +51,37 @@ class CreatePost extends Component {
     const newPost = {
       title: this.state.title,
       content: content,
-      isDraft: this.state.isDraft
+      isDraft: this.state.isDraft,
     };
-    
+
     if (this.state.id === undefined) {
       axios
         .post("http://localhost:4000/posts/add", newPost)
-        .then(res => this.setState({ id: res.data.post._id }))
-        .catch((err) => console.log(err));
+        .then((res) => this.setState({ id: res.data.post._id }))
+        .then(() => this.setState({savedSuccess: true, showAlert: true}))
+        .then(() => setTimeout(() => {
+          this.setState({
+            showAlert: false
+          });
+        }, 2000))
+        .catch((err) => {
+          console.log(err);
+          this.setState({savedSuccess: false, showAlert: true})
+        });
     } else {
       axios
         .post(`http://localhost:4000/posts/update/${this.state.id}`, newPost)
-        .then(res => console.log(res.data));
+        .then((res) => console.log(res.data))
+        .then(() => this.setState({savedSuccess: true, showAlert: true}))
+        .then(() => setTimeout(() => {
+          this.setState({
+            showAlert: false
+          });
+        }, 2000))
+        .catch((err) => {
+          console.log(err);
+          this.setState({savedSuccess: false, showAlert: true})
+        });
     }
   }
 
@@ -78,6 +99,7 @@ class CreatePost extends Component {
     return (
       <div>
         <h3>Create New Post</h3>
+        <SaveAlert isSuccessful={this.state.savedSuccess} showAlert={this.state.showAlert} />
         <TextEditor
           isEdit={false}
           onSubmit={this.onSubmit}
