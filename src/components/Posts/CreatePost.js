@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import TextEditor from "./TextEditor";
-import Alerts from "../../Alerts/Alerts";
+import SaveAlert from "../Alerts/Alerts";
 class CreatePost extends Component {
   constructor(props) {
     super(props);
@@ -99,7 +99,7 @@ class CreatePost extends Component {
     return (
       <div>
         <h3>Create New Post</h3>
-        <Alerts isSuccessful={this.state.savedSuccess} showAlert={this.state.showAlert} />
+        <SaveAlert isSuccessful={this.state.savedSuccess} showAlert={this.state.showAlert} />
         <TextEditor
           isEdit={false}
           onSubmit={this.onSubmit}

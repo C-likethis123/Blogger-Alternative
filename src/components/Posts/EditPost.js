@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import TextEditor from "./TextEditor";
-import Alerts from "../../Alerts/Alerts";
+import SaveAlert from "../Alerts/Alerts";
 class EditPost extends Component {
   constructor(props) {
     super(props);
@@ -81,7 +81,7 @@ class EditPost extends Component {
     return (
       <div>
         <h3>Edit Post</h3>
-        <Alerts isSuccessful={this.state.savedSuccess} showAlert={this.state.showAlert} />
+        <SaveAlert isSuccessful={this.state.savedSuccess} showAlert={this.state.showAlert} />
         <TextEditor
           title={this.state.title}
           content={this.state.content}
