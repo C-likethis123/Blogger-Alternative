@@ -11,7 +11,7 @@ class Header extends Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Blogger Alt</NavbarBrand>
+          <NavbarBrand href="/">Blogger Alternative</NavbarBrand>
           <Nav className="mr-auto" navbar>
             <NavItem>
               <NavLink tag={Link} to="/">
