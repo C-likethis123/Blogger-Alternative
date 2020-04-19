@@ -20,7 +20,7 @@ class App extends Component {
             <Route exact path="/" component={PostsList} />
             <Route path="/edit/:id" component={EditPost} />
             <Route path="/create" component={CreatePost} />
-            <Route path="/:id" component={ShowPost} />
+            <Route exact path="/:id" component={ShowPost} />
             </Suspense>
           </Switch>
         </Router>
