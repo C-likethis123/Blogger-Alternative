@@ -42,7 +42,7 @@ class PostsList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.posts !== this.state.posts) {
+    if (prevState.posts.length === 0) {
       axios
         .get("http://localhost:4000/posts/")
         .then(response => {
