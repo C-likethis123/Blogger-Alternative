@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Alert } from "reactstrap";
 
 const Success = (props) => {
@@ -27,22 +27,16 @@ const Failure = (props) => {
   );
 };
 
-class SaveAlert extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+const SaveAlert = (props) => {
     return (
       <div>
-        {this.props.isSuccessful ? (
-          <Success showAlert={this.props.showAlert} />
+        {props.isSuccessful ? (
+          <Success showAlert={props.showAlert} />
         ) : (
-          <Failure showAlert={this.props.showAlert} />
+          <Failure showAlert={props.showAlert} />
         )}
       </div>
     );
-  }
 }
 
 export default SaveAlert;
