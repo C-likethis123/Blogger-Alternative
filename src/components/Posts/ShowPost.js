@@ -21,7 +21,6 @@ class ShowPost extends Component {
     "<head><meta charset='utf-8'></head><body>";
     const footer = "</body></html>";
     const content = header + this.viewerRef.current.rootEl.current.innerHTML + footer;
-    console.log(content);
     fileDownload(content, `${this.state.title}.doc`, 'application/vnd.ms-word');
   };
 
