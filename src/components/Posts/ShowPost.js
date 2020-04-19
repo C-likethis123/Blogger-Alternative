@@ -3,7 +3,6 @@ import axios from "axios";
 import "../../App.css";
 import { Button } from "reactstrap";
 import { Viewer } from "@toast-ui/react-editor";
-import fileDownload from "js-file-download";
 
 class ShowPost extends Component {
   constructor(props) {
@@ -16,12 +15,20 @@ class ShowPost extends Component {
   }
 
   downloadPost = () => {
-    const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
-    "xmlns:w='urn:schemas-microsoft-com:office:word' " +
-    "<head><meta charset='utf-8'></head><body>";
-    const footer = "</body></html>";
-    const content = header + this.viewerRef.current.rootEl.current.innerHTML + footer;
-    fileDownload(content, `${this.state.title}.doc`, 'application/vnd.ms-word');
+    import("js-file-download").then((jsFileDownload) => {
+      const header =
+        "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+        "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+        "<head><meta charset='utf-8'></head><body>";
+      const footer = "</body></html>";
+      const content =
+        header + this.viewerRef.current.rootEl.current.innerHTML + footer;
+      jsFileDownload.fileDownload(
+        content,
+        `${this.state.title}.doc`,
+        "application/vnd.ms-word"
+      );
+    });
   };
 
   componentDidMount() {
