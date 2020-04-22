@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
 import Header from "./components/NavBar/Header";
-import {Container} from "reactstrap";
+import { Container } from "reactstrap";
 const CreatePost = lazy(() => import("./components/Posts/CreatePost.js"));
 const EditPost = lazy(() => import("./components/Posts/EditPost.js"));
 const PostsList = lazy(() => import("./components/Posts/PostsList.js"));
@@ -15,14 +15,14 @@ class App extends Component {
       <Container>
         <Router>
           <Header />
-          <Switch>
           <Suspense fallback={<div>Loading...</div>}>
-            <Route exact path="/" component={PostsList} />
-            <Route path="/edit/:id" component={EditPost} />
-            <Route path="/create" component={CreatePost} />
-            <Route exact path="/:id" component={ShowPost} />
-            </Suspense>
-          </Switch>
+            <Switch>
+              <Route exact path="/" component={PostsList} />
+              <Route exact path="/create" component={CreatePost} />
+              <Route exact path="/edit/:id" component={EditPost} />
+              <Route path="/:id" component={ShowPost} />
+            </Switch>
+          </Suspense>
         </Router>
       </Container>
     );
