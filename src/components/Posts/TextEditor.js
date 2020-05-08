@@ -1,17 +1,20 @@
 import React, { Component } from "react";
+import { Editor } from "@toast-ui/react-editor";
 
 import "codemirror/lib/codemirror.css";
 import "tui-editor/dist/tui-editor.min.css";
 import "tui-editor/dist/tui-editor-contents.min.css";
-import { Editor } from "@toast-ui/react-editor";
+import "tui-color-picker/dist/tui-color-picker.css";
 
-import 'tui-editor/dist/tui-editor-extScrollSync'
-import 'tui-editor/dist/tui-editor-extColorSyntax'
-import 'tui-editor/dist/tui-editor-extUML'
-import 'tui-editor/dist/tui-editor-extChart'
-import 'tui-editor/dist/tui-editor-extTable'
+import "tui-editor/dist/tui-editor-extScrollSync";
+import "tui-editor/dist/tui-editor-extColorSyntax";
+import "tui-editor/dist/tui-editor-extUML";
+import "tui-editor/dist/tui-editor-extChart";
+import "tui-editor/dist/tui-editor-extTable";
 
-import 'tui-color-picker/dist/tui-color-picker.css';
+import hljs from "highlight.js";
+import "highlight.js/styles/github.css";
+import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 
 import { Button, Input, FormGroup, Col } from "reactstrap";
 
@@ -30,7 +33,7 @@ class TextEditor extends Component {
     if (this.state.prevContent !== currContent) {
       this.onSave();
     }
-  }
+  };
 
   componentDidMount() {
     this.setState({
@@ -54,13 +57,13 @@ class TextEditor extends Component {
   onSubmit = () => {
     const content = this.editorRef.current.getInstance().getValue();
     this.props.onSubmit(content);
-  }
+  };
 
   onSave = () => {
     const content = this.editorRef.current.getInstance().getValue();
     this.props.onSave(content);
     this.setState({ prevContent: content });
-  }
+  };
 
   componentWillUnmount() {
     clearInterval(this.state.timerID);
@@ -98,19 +101,20 @@ class TextEditor extends Component {
           usageStatistics={false}
           useCommandShortcut={true}
           ref={this.editorRef}
+          plugins={[codeSyntaxHighlight.bind(hljs)]}
           exts={[
             {
               name: "chart",
               minWidth: 100,
               maxWidth: 600,
               minHeight: 100,
-              maxHeight: 300
+              maxHeight: 300,
             },
             "scrollSync",
             "colorSyntax",
             "uml",
             "mark",
-            "table"
+            "table",
           ]}
         />
       </div>
