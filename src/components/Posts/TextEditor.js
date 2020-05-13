@@ -1,18 +1,10 @@
 import React, { Component } from "react";
 
 import "codemirror/lib/codemirror.css";
-import "tui-editor/dist/tui-editor.min.css";
-import "tui-editor/dist/tui-editor-contents.min.css";
-import { Editor } from "@toast-ui/react-editor";
-
-import 'tui-editor/dist/tui-editor-extScrollSync'
-import 'tui-editor/dist/tui-editor-extColorSyntax'
-import 'tui-editor/dist/tui-editor-extUML'
-import 'tui-editor/dist/tui-editor-extChart'
-import 'tui-editor/dist/tui-editor-extTable'
-
+import '@toast-ui/editor/dist/toastui-editor.css';
 import 'tui-color-picker/dist/tui-color-picker.css';
 
+import CustomEditor from "./CustomEditor";
 import { Button, Input, FormGroup, Col } from "reactstrap";
 
 class TextEditor extends Component {
@@ -91,27 +83,13 @@ class TextEditor extends Component {
           </div>
         </FormGroup>
 
-        <Editor
+        <CustomEditor
           previewStyle="vertical"
           height="600px"
           initialEditType="markdown"
           usageStatistics={false}
           useCommandShortcut={true}
           ref={this.editorRef}
-          exts={[
-            {
-              name: "chart",
-              minWidth: 100,
-              maxWidth: 600,
-              minHeight: 100,
-              maxHeight: 300
-            },
-            "scrollSync",
-            "colorSyntax",
-            "uml",
-            "mark",
-            "table"
-          ]}
         />
       </div>
     );
