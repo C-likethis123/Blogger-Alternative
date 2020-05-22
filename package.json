@@ -17,8 +17,8 @@
     "bootstrap": "^4.4.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "js-file-download": "^0.4.11",
-    "mongoose": "^5.9.2",
+    "js-file-download": "^0.4.12",
+    "mongoose": "^5.9.12",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
@@ -46,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-test-renderer": "^16.13.1"
   }
 }
