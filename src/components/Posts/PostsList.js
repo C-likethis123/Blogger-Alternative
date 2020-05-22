@@ -5,7 +5,7 @@ import { Table } from "reactstrap";
 
 import axios from "axios";
 
-const Post = props => (
+const Post = (props) => (
   <tr>
     <td width="70%">
       {props.post.isDraft ? `${props.post.title} (draft)` : props.post.title}
@@ -26,17 +26,17 @@ class PostsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
     };
   }
 
   componentDidMount() {
     axios
       .get("http://localhost:4000/posts/")
-      .then(response => {
+      .then((response) => {
         this.setState({ posts: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   }
@@ -45,20 +45,20 @@ class PostsList extends Component {
     if (prevState.posts.length === 0) {
       axios
         .get("http://localhost:4000/posts/")
-        .then(response => {
+        .then((response) => {
           this.setState({ posts: response.data });
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     }
   }
 
-  deletePost = id => {
+  deletePost = (id) => {
     axios.delete(`http://localhost:4000/posts/${id}`).then(() =>
       this.setState((prevState, prevProps) => {
         return {
-          posts: prevState.posts.filter(post => post._id !== id)
+          posts: prevState.posts.filter((post) => post._id !== id),
         };
       })
     );
