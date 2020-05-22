@@ -1,9 +1,4 @@
 import React, { Component } from "react";
-
-import "codemirror/lib/codemirror.css";
-import '@toast-ui/editor/dist/toastui-editor.css';
-import 'tui-color-picker/dist/tui-color-picker.css';
-
 import CustomEditor from "./CustomEditor";
 import { Button, Input, FormGroup, Col } from "reactstrap";
 
@@ -18,11 +13,11 @@ class TextEditor extends Component {
   }
 
   onAutoSave = () => {
-    const currContent = this.editorRef.current.getInstance().getValue();
+    const currContent = this.editorRef.current.getValue();
     if (this.state.prevContent !== currContent) {
       this.onSave();
     }
-  }
+  };
 
   componentDidMount() {
     this.setState({
@@ -44,15 +39,15 @@ class TextEditor extends Component {
   }
 
   onSubmit = () => {
-    const content = this.editorRef.current.getInstance().getValue();
+    const content = this.editorRef.current.getValue();
     this.props.onSubmit(content);
-  }
+  };
 
   onSave = () => {
-    const content = this.editorRef.current.getInstance().getValue();
+    const content = this.editorRef.current.getValue();
     this.props.onSave(content);
     this.setState({ prevContent: content });
-  }
+  };
 
   componentWillUnmount() {
     clearInterval(this.state.timerID);
@@ -83,14 +78,7 @@ class TextEditor extends Component {
           </div>
         </FormGroup>
 
-        <CustomEditor
-          previewStyle="vertical"
-          height="600px"
-          initialEditType="markdown"
-          usageStatistics={false}
-          useCommandShortcut={true}
-          ref={this.editorRef}
-        />
+        <CustomEditor ref={this.editorRef} />
       </div>
     );
   }
