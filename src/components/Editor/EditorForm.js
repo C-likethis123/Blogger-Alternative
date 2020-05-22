@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CustomEditor from "./CustomEditor";
 import { Button, Input, FormGroup, Col } from "reactstrap";
 
-class TextEditor extends Component {
+class EditorForm extends Component {
   constructor(props) {
     super(props);
     this.editorRef = React.createRef();
@@ -84,4 +84,4 @@ class TextEditor extends Component {
   }
 }
 
-export default TextEditor;
+export default EditorForm;
