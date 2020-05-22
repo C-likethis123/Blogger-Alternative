@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../../App.css";
 import { Button } from "reactstrap";
-import { Viewer } from "@toast-ui/react-editor";
+import ViewerComponent from "./Viewer";
 
 class ShowPost extends Component {
   constructor(props) {
@@ -39,7 +39,10 @@ class ShowPost extends Component {
     return (
       <div>
         <h3 className="view-post">{this.state.title}</h3>
-        <Viewer initialValue={this.state.content} ref={this.viewerRef}></Viewer>
+        <ViewerComponent
+          initialValue={this.state.content}
+          ref={this.viewerRef}
+        />
 
         <Button onClick={this.downloadPost}>Download as Word document</Button>
       </div>
