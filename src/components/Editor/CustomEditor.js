@@ -34,10 +34,6 @@ export default class CustomEditor extends React.Component {
     return this.editorInst.getMarkdown();
   }
 
-  getToolbar() {
-    return this.editorInst.getUI().getToolbar().getItems();
-  }
-
   bindEventHandlers(props) {
     Object.keys(this.props)
       .filter((key) => /^on[A-Z][a-zA-Z]+/.test(key))

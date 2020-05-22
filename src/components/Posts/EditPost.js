@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import TextEditor from "./TextEditor";
+import TextEditor from "../Editor/TextEditor";
 import SaveAlert from "../Alerts/Alerts";
 class EditPost extends Component {
   constructor(props) {
