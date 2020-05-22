@@ -3,6 +3,8 @@ import axios from "axios";
 import "../../App.css";
 import { Button } from "reactstrap";
 import ViewerComponent from "./Viewer";
+import { asBlob } from "html-docx-js-typescript";
+import { saveAs } from "file-saver";
 
 class ShowPost extends Component {
   constructor(props) {
@@ -14,18 +16,21 @@ class ShowPost extends Component {
     this.viewerRef = React.createRef();
   }
 
-  downloadPost = () => {
-    const header =
-      "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
-      "xmlns:w='urn:schemas-microsoft-com:office:word' " +
-      "<head><meta charset='utf-8'></head><body>";
-    const footer = "</body></html>";
+  downloadPost = async () => {
+    const header = `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Document</title>
+    </head>
+    <body>`;
+    const footer = `</body>
+    </html>`;
     const content =
       header + this.viewerRef.current.rootEl.current.innerHTML + footer;
-    const title = `${this.state.title}.doc`;
-    import("js-file-download").then((jsFileDownload) => {
-      jsFileDownload.default(content, title, "application/vnd.ms-word");
-    });
+    const title = `${this.state.title}.docx`;
+    const fileData = await asBlob(content);
+    saveAs(fileData, title);
   };
 
   componentDidMount() {
