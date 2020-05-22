@@ -1,21 +1,8 @@
 import React, { Component } from "react";
-
-import "codemirror/lib/codemirror.css";
-import "tui-editor/dist/tui-editor.min.css";
-import "tui-editor/dist/tui-editor-contents.min.css";
-import { Editor } from "@toast-ui/react-editor";
-
-import 'tui-editor/dist/tui-editor-extScrollSync'
-import 'tui-editor/dist/tui-editor-extColorSyntax'
-import 'tui-editor/dist/tui-editor-extUML'
-import 'tui-editor/dist/tui-editor-extChart'
-import 'tui-editor/dist/tui-editor-extTable'
-
-import 'tui-color-picker/dist/tui-color-picker.css';
-
+import CustomEditor from "./CustomEditor";
 import { Button, Input, FormGroup, Col } from "reactstrap";
 
-class TextEditor extends Component {
+class EditorForm extends Component {
   constructor(props) {
     super(props);
     this.editorRef = React.createRef();
@@ -26,11 +13,11 @@ class TextEditor extends Component {
   }
 
   onAutoSave = () => {
-    const currContent = this.editorRef.current.getInstance().getValue();
+    const currContent = this.editorRef.current.getValue();
     if (this.state.prevContent !== currContent) {
       this.onSave();
     }
-  }
+  };
 
   componentDidMount() {
     this.setState({
@@ -52,15 +39,15 @@ class TextEditor extends Component {
   }
 
   onSubmit = () => {
-    const content = this.editorRef.current.getInstance().getValue();
+    const content = this.editorRef.current.getValue();
     this.props.onSubmit(content);
-  }
+  };
 
   onSave = () => {
-    const content = this.editorRef.current.getInstance().getValue();
+    const content = this.editorRef.current.getValue();
     this.props.onSave(content);
     this.setState({ prevContent: content });
-  }
+  };
 
   componentWillUnmount() {
     clearInterval(this.state.timerID);
@@ -91,31 +78,10 @@ class TextEditor extends Component {
           </div>
         </FormGroup>
 
-        <Editor
-          previewStyle="vertical"
-          height="600px"
-          initialEditType="markdown"
-          usageStatistics={false}
-          useCommandShortcut={true}
-          ref={this.editorRef}
-          exts={[
-            {
-              name: "chart",
-              minWidth: 100,
-              maxWidth: 600,
-              minHeight: 100,
-              maxHeight: 300
-            },
-            "scrollSync",
-            "colorSyntax",
-            "uml",
-            "mark",
-            "table"
-          ]}
-        />
+        <CustomEditor ref={this.editorRef} />
       </div>
     );
   }
 }
 
-export default TextEditor;
+export default EditorForm;

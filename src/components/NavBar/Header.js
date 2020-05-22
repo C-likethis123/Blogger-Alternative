@@ -1,13 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar, NavbarBrand, Nav, NavLink, NavItem } from "reactstrap";
 
-class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+const Header = (props) => {
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -28,7 +23,6 @@ class Header extends Component {
         </Navbar>
       </div>
     );
-  }
 }
 
 export default Header;
