@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import TextEditor from "./TextEditor";
+import EditorForm from "../Editor/EditorForm";
 import SaveAlert from "../Alerts/Alerts";
 class EditPost extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class EditPost extends Component {
 
     this.state = {
       savedSuccess: null,
-      showAlert: false
+      showAlert: false,
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -66,11 +66,13 @@ class EditPost extends Component {
       )
       .then((res) => console.log(res.data))
       .then(() => this.setState({ savedSuccess: true, showAlert: true }))
-      .then(() => setTimeout(() => {
-        this.setState({
-          showAlert: false
-        });
-      }, 2000))
+      .then(() =>
+        setTimeout(() => {
+          this.setState({
+            showAlert: false,
+          });
+        }, 2000)
+      )
       .catch((err) => {
         console.log(err);
         this.setState({ savedSuccess: false, showAlert: true });
@@ -81,8 +83,11 @@ class EditPost extends Component {
     return (
       <div>
         <h3>Edit Post</h3>
-        <SaveAlert isSuccessful={this.state.savedSuccess} showAlert={this.state.showAlert} />
-        <TextEditor
+        <SaveAlert
+          isSuccessful={this.state.savedSuccess}
+          showAlert={this.state.showAlert}
+        />
+        <EditorForm
           title={this.state.title}
           content={this.state.content}
           isEdit={true}
