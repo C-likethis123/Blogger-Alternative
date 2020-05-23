@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@toast-ui/editor": "https://github.com/C-likethis123/tui.editor#toast-ui-editor-v2.1.1-gitpkg",
+    "@toast-ui/editor": "https://github.com/C-likethis123/tui.editor#toast-ui-editor-v2.1.2-gitpkg",
     "@toast-ui/editor-plugin-chart": "^1.0.0",
     "@toast-ui/editor-plugin-code-syntax-highlight": "^1.0.0",
     "@toast-ui/editor-plugin-color-syntax": "^1.0.0",
