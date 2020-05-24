@@ -1,16 +1,27 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let Post = new Schema({
-    title: {
-        type: String,
+  blog: mongoose.Types.ObjectId,
+  published: Date,
+  updated: Date,
+  url: String,
+  selfLink: String,
+  title: String,
+  content: String,
+  author: {
+    id: mongoose.Types.ObjectId,
+    displayName: String,
+    url: String,
+    image: {
+      url: String,
     },
-    content: {
-        type: String,
-    },
-    isDraft: {
-        type: Boolean,
-    }
+  },
+  replies: {
+    totalItems: Number,
+    selfLink: String,
+  },
+  isDraft: Boolean,
 });
 
-module.exports = mongoose.model('Post', Post);
+module.exports = mongoose.model("Post", Post);
