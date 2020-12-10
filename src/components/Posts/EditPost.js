@@ -4,6 +4,9 @@ import {Row, Col} from "reactstrap";
 
 import EditorForm from "../Editor/EditorForm";
 import SaveAlert from "../Alerts/Alerts";
+
+import Paths from '../../constants/paths';
+
 class EditPost extends Component {
   constructor(props) {
     super(props);
@@ -45,13 +48,13 @@ class EditPost extends Component {
       )
       .then((res) => console.log(res.data));
 
-    this.props.history.push("/");
+    this.props.history.push(Paths.PostsList);
   }
 
   onDelete() {
     axios
       .delete(`http://localhost:4000/posts/${this.props.match.params.id}`)
-      .then(() => this.props.history.push("/"));
+      .then(() => this.props.history.push(Paths.PostsList));
   }
 
   onSave(content) {
