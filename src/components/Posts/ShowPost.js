@@ -42,7 +42,7 @@ class ShowPost extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <h3 className="view-post">{this.state.title}</h3>
         <ViewerComponent
           initialValue={this.state.content}
@@ -50,7 +50,7 @@ class ShowPost extends Component {
         />
 
         <Button onClick={this.downloadPost}>Download as Word document</Button>
-      </div>
+      </React.Fragment>
     );
   }
 }

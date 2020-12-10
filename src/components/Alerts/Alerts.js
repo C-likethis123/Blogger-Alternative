@@ -28,15 +28,11 @@ const Failure = (props) => {
 };
 
 const SaveAlert = (props) => {
-    return (
-      <div>
-        {props.isSuccessful ? (
-          <Success showAlert={props.showAlert} />
-        ) : (
-          <Failure showAlert={props.showAlert} />
-        )}
-      </div>
-    );
+  return props.isSuccessful ? (
+      <Success showAlert={props.showAlert} />
+    ) : (
+      <Failure showAlert={props.showAlert} />
+    )
 }
 
 export default SaveAlert;

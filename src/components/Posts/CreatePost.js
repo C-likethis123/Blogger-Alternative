@@ -106,7 +106,7 @@ class CreatePost extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Row>
           <Col>
             <h3>Create New Post</h3>
@@ -125,7 +125,7 @@ class CreatePost extends Component {
           onDelete={this.onDelete}
           onSave={this.onSave}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }

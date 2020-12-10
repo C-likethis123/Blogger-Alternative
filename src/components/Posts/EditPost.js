@@ -85,7 +85,7 @@ class EditPost extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Row>
           <Col>
             <h3>Edit Post</h3>
@@ -106,7 +106,7 @@ class EditPost extends Component {
           onDelete={this.onDelete}
           onSave={this.onSave}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }

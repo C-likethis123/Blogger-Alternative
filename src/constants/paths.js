@@ -1,5 +1,4 @@
 const Paths = {
-  Home: '/',
   CreatePost: '/create',
   PostsList: '/posts',
   EditPost: '/edit',

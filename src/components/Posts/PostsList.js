@@ -72,17 +72,15 @@ class PostsList extends Component {
     });
 
     return (
-      <div>
-        <Table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>{posts}</tbody>
-        </Table>
-      </div>
+      <Table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>{posts}</tbody>
+      </Table>
     );
   }
 }
