@@ -18,6 +18,7 @@ class App extends Component {
           <Suspense fallback={<div>Loading...</div>}>
             <Switch>
               <Route exact path="/" component={HomePage} />
+              <Route exact path="/posts" component={PostsList} />
               <Route exact path="/create" component={CreatePost} />
               <Route exact path="/edit/:id" component={EditPost} />
               <Route path="/:id" component={ShowPost} />
