@@ -5,19 +5,21 @@ import { Table } from "reactstrap";
 
 import axios from "axios";
 
+import Paths from '../../constants/paths';
+
 const Post = (props) => (
   <tr>
     <td width="70%">
       {props.post.isDraft ? `${props.post.title} (draft)` : props.post.title}
     </td>
     <td width="10%">
-      <Link to={`/edit/${props.post._id}`}>Edit</Link>
+      <Link to={`${Paths.EditPost}/${props.post._id}`}>Edit</Link>
     </td>
     <td width="10%">
       <Link onClick={() => props.deletePost(props.post._id)}>Delete</Link>
     </td>
     <td width="10%">
-      <Link to={`/${props.post._id}`}>View</Link>
+      <Link to={`${Paths.Post}/${props.post._id}`}>View</Link>
     </td>
   </tr>
 );
@@ -70,17 +72,15 @@ class PostsList extends Component {
     });
 
     return (
-      <div>
-        <Table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>{posts}</tbody>
-        </Table>
-      </div>
+      <Table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>{posts}</tbody>
+      </Table>
     );
   }
 }

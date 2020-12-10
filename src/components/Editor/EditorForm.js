@@ -55,7 +55,7 @@ class EditorForm extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <FormGroup row>
           <Col sm={9}>
             <Input
@@ -77,9 +77,8 @@ class EditorForm extends Component {
             </Button>
           </div>
         </FormGroup>
-
         <CustomEditor ref={this.editorRef} />
-      </div>
+      </React.Fragment>
     );
   }
 }

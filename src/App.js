@@ -4,6 +4,8 @@ import "./App.css";
 
 import Header from "./components/NavBar/Header";
 import { Container } from "reactstrap";
+import Paths from './constants/paths';
+
 const CreatePost = lazy(() => import("./components/Posts/CreatePost.js"));
 const EditPost = lazy(() => import("./components/Posts/EditPost.js"));
 const PostsList = lazy(() => import("./components/Posts/PostsList.js"));
@@ -17,11 +19,11 @@ class App extends Component {
           <Header />
           <Suspense fallback={<div>Loading...</div>}>
             <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route exact path="/posts" component={PostsList} />
-              <Route exact path="/create" component={CreatePost} />
-              <Route exact path="/edit/:id" component={EditPost} />
-              <Route path="/:id" component={ShowPost} />
+              <Route path={Paths.PostsList} component={PostsList} />
+              <Route path={Paths.CreatePost} component={CreatePost} />
+              <Route path={`${Paths.EditPost}/:id`} component={EditPost} />
+              <Route path={`${Paths.Post}/:id`} component={ShowPost} />
+              <Route path={Paths.Default} component={HomePage} />
             </Switch>
           </Suspense>
         </Router>

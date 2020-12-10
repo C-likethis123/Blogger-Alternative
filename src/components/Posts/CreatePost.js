@@ -5,6 +5,9 @@ import {Row, Col} from "reactstrap";
 
 import EditorForm from "../Editor/EditorForm";
 import SaveAlert from "../Alerts/Alerts";
+
+import Paths from '../../constants/paths';
+
 class CreatePost extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +49,7 @@ class CreatePost extends Component {
         .then((res) => console.log(res.data));
     }
 
-    this.props.history.push("/");
+    this.props.history.push(Paths.PostsList);
   }
 
   onSave(content) {
@@ -93,17 +96,17 @@ class CreatePost extends Component {
 
   onDelete() {
     if (this.state.id === undefined) {
-      this.props.history.push("/");
+      this.props.history.push(Paths.PostsList);
     } else {
       axios
         .delete(`http://localhost:4000/posts/${this.state.id}`)
-        .then(() => this.props.history.push("/"));
+        .then(() => this.props.history.push(Paths.PostsList));
     }
   }
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Row>
           <Col>
             <h3>Create New Post</h3>
@@ -122,7 +125,7 @@ class CreatePost extends Component {
           onDelete={this.onDelete}
           onSave={this.onSave}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }
