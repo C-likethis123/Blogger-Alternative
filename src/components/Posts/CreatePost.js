@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import {Row, Col} from "reactstrap";
+
 import EditorForm from "../Editor/EditorForm";
 import SaveAlert from "../Alerts/Alerts";
 class CreatePost extends Component {
@@ -102,11 +104,17 @@ class CreatePost extends Component {
   render() {
     return (
       <div>
-        <h3>Create New Post</h3>
-        <SaveAlert
-          isSuccessful={this.state.savedSuccess}
-          showAlert={this.state.showAlert}
-        />
+        <Row>
+          <Col>
+            <h3>Create New Post</h3>
+          </Col>
+          <Col>
+            <SaveAlert
+              isSuccessful={this.state.savedSuccess}
+              showAlert={this.state.showAlert}
+            />
+          </Col>
+        </Row>
         <EditorForm
           isEdit={false}
           onSubmit={this.onSubmit}

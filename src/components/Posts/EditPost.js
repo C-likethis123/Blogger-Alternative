@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import {Row, Col} from "reactstrap";
 
 import EditorForm from "../Editor/EditorForm";
 import SaveAlert from "../Alerts/Alerts";
@@ -82,11 +83,17 @@ class EditPost extends Component {
   render() {
     return (
       <div>
-        <h3>Edit Post</h3>
-        <SaveAlert
-          isSuccessful={this.state.savedSuccess}
-          showAlert={this.state.showAlert}
-        />
+        <Row>
+          <Col>
+            <h3>Edit Post</h3>
+          </Col>
+          <Col>
+            <SaveAlert
+              isSuccessful={this.state.savedSuccess}
+              showAlert={this.state.showAlert}
+            />
+          </Col>
+        </Row>
         <EditorForm
           title={this.state.title}
           content={this.state.content}
