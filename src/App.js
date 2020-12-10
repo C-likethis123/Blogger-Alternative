@@ -25,9 +25,6 @@ class App extends Component {
             </Switch>
           </Suspense>
         </Router>
-        <a href="https://www.freepik.com/free-photos-vectors/mockup">
-          Mockup vector created by rawpixel.com - www.freepik.com
-        </a>
       </Container>
     );
   }
