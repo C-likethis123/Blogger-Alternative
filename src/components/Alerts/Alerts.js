@@ -1,38 +1,15 @@
 import React from "react";
-import { Alert } from "reactstrap";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const Success = (props) => {
+export const notify = (isSuccessful) => isSuccessful
+  ? toast.success("Post saved")
+  : toast.error("An error occurred when saving");
+
+const SaveAlert = () => {
   return (
-    <Alert
-      color="success"
-      style={
-        props.showAlert ? { visibility: "visible" } : { visibility: "hidden" }
-      }
-    >
-      Post is successfully saved!
-    </Alert>
+    <ToastContainer autoClose={2000} hideProgressBar />
   );
-};
-
-const Failure = (props) => {
-  return (
-    <Alert
-      color="danger"
-      style={
-        props.showAlert ? { visibility: "visible" } : { visibility: "hidden" }
-      }
-    >
-      An error occurred when saving the post. Please try again later.
-    </Alert>
-  );
-};
-
-const SaveAlert = (props) => {
-  return props.isSuccessful ? (
-      <Success showAlert={props.showAlert} />
-    ) : (
-      <Failure showAlert={props.showAlert} />
-    )
 }
 
 export default SaveAlert;

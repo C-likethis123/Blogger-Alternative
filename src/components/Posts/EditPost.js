@@ -3,14 +3,12 @@ import axios from "axios";
 import { Row, Col } from "reactstrap";
 
 import EditorForm from "../Editor/EditorForm";
-import SaveAlert from "../Alerts/Alerts";
+import SaveAlert, { notify } from "../Alerts/Alerts";
 
 import Paths from '../../constants/paths';
 import { useParams, useHistory } from "react-router-dom";
 
 function EditPost() {
-  const [savedSuccess, setSavedSuccess] = React.useState(null);
-  const [showAlert, setShowAlert] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
   const [isDraft, setIsDraft] = React.useState(true);
@@ -63,17 +61,10 @@ function EditPost() {
         `http://localhost:4000/posts/update/${id}`,
         newPost
       )
-      .then((res) => {
-        setSavedSuccess(true);
-        setShowAlert(true);
-        setTimeout(() => {
-          setShowAlert(false);
-        }, 2000);
-      })
+      .then(() => notify(true))
       .catch((err) => {
         console.log(err);
-        setSavedSuccess(false);
-        setShowAlert(true);
+        notify(false);
       });
   }
 
@@ -84,16 +75,13 @@ function EditPost() {
           <h3>Edit Post</h3>
         </Col>
         <Col>
-          <SaveAlert
-            isSuccessful={savedSuccess}
-            showAlert={showAlert}
-          />
+          <SaveAlert />
         </Col>
       </Row>
       <EditorForm
         title={title}
         content={content}
-        isEdit={true}
+        isEdit
         onSubmit={onSubmit}
         onChangeTitle={onChangeTitle}
         onDelete={onDelete}

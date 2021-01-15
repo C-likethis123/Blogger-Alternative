@@ -4,7 +4,7 @@ import axios from "axios";
 import { Row, Col } from "reactstrap";
 
 import EditorForm from "../Editor/EditorForm";
-import SaveAlert from "../Alerts/Alerts";
+import SaveAlert, { notify } from "../Alerts/Alerts";
 
 import Paths from '../../constants/paths';
 import { useHistory } from "react-router-dom";
@@ -12,8 +12,6 @@ import { useHistory } from "react-router-dom";
 function CreatePost() {
   const [title, setTitle] = React.useState("");
   const [isDraft, setIsDraft] = React.useState(true);
-  const [savedSuccess, setSavedSuccess] = React.useState(null);
-  const [showAlert, setShowAlert] = React.useState(false);
   const [id, setId] = React.useState(null);
 
   const history = useHistory();
@@ -49,28 +47,18 @@ function CreatePost() {
     if (id) {
       axios
         .post(`http://localhost:4000/posts/update/${id}`, newPost)
-        .then((res) => {
-          setSavedSuccess(true);
-          setShowAlert(true);
-          setTimeout(() => setShowAlert(false), 2000);
-        })
-        .catch((err) => {
-          setSavedSuccess(false);
-          setShowAlert(true);
-        });
+        .then((res) => notify(true))
+        .catch((err) => notify(false));
     } else {
       axios
         .post("http://localhost:4000/posts/add", newPost)
         .then((res) => {
           setId(res.data.post._id);
-          setSavedSuccess(true);
-          setShowAlert(true);
-          setTimeout(() => setShowAlert(false), 2000)
+          notify(true);
         })
         .catch((err) => {
           console.log(err);
-          setSavedSuccess(false);
-          setShowAlert(true);
+          notify(false);
         });
     }
   }
@@ -92,10 +80,7 @@ function CreatePost() {
           <h3>Create New Post</h3>
         </Col>
         <Col>
-          <SaveAlert
-            isSuccessful={savedSuccess}
-            showAlert={showAlert}
-          />
+          <SaveAlert />
         </Col>
       </Row>
       <EditorForm
