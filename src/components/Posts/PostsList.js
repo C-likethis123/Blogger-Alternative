@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import { Table } from "reactstrap";
@@ -24,65 +24,40 @@ const Post = (props) => (
   </tr>
 );
 
-class PostsList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: [],
-    };
-  }
+function PostsList() {
+  const [posts, setPosts] = React.useState([]);
 
-  componentDidMount() {
+  React.useEffect(() => {
     axios
       .get("http://localhost:4000/posts/")
-      .then((response) => {
-        this.setState({ posts: response.data });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+      .then((response) => setPosts(response.data))
+      .catch((error) => console.log(error));
+  }, []);
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.posts.length === 0) {
-      axios
-        .get("http://localhost:4000/posts/")
-        .then((response) => {
-          this.setState({ posts: response.data });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-  }
-
-  deletePost = (id) => {
-    axios.delete(`http://localhost:4000/posts/${id}`).then(() =>
-      this.setState((prevState, prevProps) => {
-        return {
-          posts: prevState.posts.filter((post) => post._id !== id),
-        };
-      })
-    );
+  const deletePost = (id) => {
+    axios.delete(`http://localhost:4000/posts/${id}`)
+      .then(() => setPosts(posts.filter((post) => post._id !== id)))
   };
 
-  render() {
-    let posts = this.state.posts.map((currentPost, i) => {
-      return <Post post={currentPost} key={i} deletePost={this.deletePost} />;
-    });
-
-    return (
-      <Table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>{posts}</tbody>
-      </Table>
-    );
-  }
+  return (
+    <Table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {posts.map((currentPost, i) => (
+          <Post
+            post={currentPost}
+            key={i}
+            deletePost={deletePost}
+          />)
+        )}
+      </tbody>
+    </Table>
+  )
 }
 
 export default PostsList;
