@@ -9,9 +9,8 @@ import SaveAlert from "../Alerts/Alerts";
 import Paths from '../../constants/paths';
 import { useHistory } from "react-router-dom";
 
-function CreatePost(props) {
+function CreatePost() {
   const [title, setTitle] = React.useState("");
-  const [content, setContent] = React.useState("");
   const [isDraft, setIsDraft] = React.useState(true);
   const [savedSuccess, setSavedSuccess] = React.useState(null);
   const [showAlert, setShowAlert] = React.useState(false);
@@ -51,13 +50,11 @@ function CreatePost(props) {
       axios
         .post(`http://localhost:4000/posts/update/${id}`, newPost)
         .then((res) => {
-          console.log(res.data);
           setSavedSuccess(true);
           setShowAlert(true);
           setTimeout(() => setShowAlert(false), 2000);
         })
         .catch((err) => {
-          console.log(err);
           setSavedSuccess(false);
           setShowAlert(true);
         });
