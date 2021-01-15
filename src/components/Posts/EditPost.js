@@ -1,114 +1,106 @@
-import React, { Component } from "react";
+import React from "react";
 import axios from "axios";
-import {Row, Col} from "reactstrap";
+import { Row, Col } from "reactstrap";
 
 import EditorForm from "../Editor/EditorForm";
 import SaveAlert from "../Alerts/Alerts";
 
 import Paths from '../../constants/paths';
+import { useParams, useHistory } from "react-router-dom";
 
-class EditPost extends Component {
-  constructor(props) {
-    super(props);
+function EditPost() {
+  const [savedSuccess, setSavedSuccess] = React.useState(null);
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [title, setTitle] = React.useState("");
+  const [content, setContent] = React.useState("");
+  const [isDraft, setIsDraft] = React.useState(true);
+  const history = useHistory();
+  const { id } = useParams();
 
-    this.state = {
-      savedSuccess: null,
-      showAlert: false,
-    };
-
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
-    this.onDelete = this.onDelete.bind(this);
-    this.onSave = this.onSave.bind(this);
-  }
-
-  componentDidMount() {
+  React.useState(() => {
     axios
-      .get(`http://localhost:4000/posts/${this.props.match.params.id}`)
-      .then((response) => this.setState({ ...response.data }))
+      .get(`http://localhost:4000/posts/${id}`)
+      .then(({ data: { title, content, isDraft } }) => {
+        setTitle(title);
+        setContent(content);
+        setIsDraft(isDraft);
+      })
       .catch((error) => console.log(error));
-  }
+  }, []);
 
-  onChangeTitle(e) {
-    const title = e.target.value;
-    this.setState({ title });
-  }
+  const onChangeTitle = (e) => setTitle(e.target.value);
 
-  onSubmit(content) {
+  const onSubmit = (content) => {
     const newPost = {
-      title: this.state.title,
-      content: content,
+      title,
+      content,
       isDraft: false,
     };
 
     axios
       .post(
-        `http://localhost:4000/posts/update/${this.props.match.params.id}`,
+        `http://localhost:4000/posts/update/${id}`,
         newPost
-      )
-      .then((res) => console.log(res.data));
+      );
 
-    this.props.history.push(Paths.PostsList);
+    history.push(Paths.PostsList);
   }
 
-  onDelete() {
+  const onDelete = () => {
     axios
-      .delete(`http://localhost:4000/posts/${this.props.match.params.id}`)
-      .then(() => this.props.history.push(Paths.PostsList));
+      .delete(`http://localhost:4000/posts/${id}`)
+      .then(() => history.push(Paths.PostsList));
   }
 
-  onSave(content) {
+  const onSave = (content) => {
     const newPost = {
-      title: this.state.title,
+      title,
       content: content,
-      isDraft: this.state.isDraft,
+      isDraft,
     };
     axios
       .post(
-        `http://localhost:4000/posts/update/${this.props.match.params.id}`,
+        `http://localhost:4000/posts/update/${id}`,
         newPost
       )
-      .then((res) => console.log(res.data))
-      .then(() => this.setState({ savedSuccess: true, showAlert: true }))
-      .then(() =>
+      .then((res) => {
+        setSavedSuccess(true);
+        setShowAlert(true);
         setTimeout(() => {
-          this.setState({
-            showAlert: false,
-          });
-        }, 2000)
-      )
+          setShowAlert(false);
+        }, 2000);
+      })
       .catch((err) => {
         console.log(err);
-        this.setState({ savedSuccess: false, showAlert: true });
+        setSavedSuccess(false);
+        setShowAlert(true);
       });
   }
 
-  render() {
-    return (
-      <React.Fragment>
-        <Row>
-          <Col>
-            <h3>Edit Post</h3>
-          </Col>
-          <Col>
-            <SaveAlert
-              isSuccessful={this.state.savedSuccess}
-              showAlert={this.state.showAlert}
-            />
-          </Col>
-        </Row>
-        <EditorForm
-          title={this.state.title}
-          content={this.state.content}
-          isEdit={true}
-          onSubmit={this.onSubmit}
-          onChangeTitle={this.onChangeTitle}
-          onDelete={this.onDelete}
-          onSave={this.onSave}
-        />
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <Row>
+        <Col>
+          <h3>Edit Post</h3>
+        </Col>
+        <Col>
+          <SaveAlert
+            isSuccessful={savedSuccess}
+            showAlert={showAlert}
+          />
+        </Col>
+      </Row>
+      <EditorForm
+        title={title}
+        content={content}
+        isEdit={true}
+        onSubmit={onSubmit}
+        onChangeTitle={onChangeTitle}
+        onDelete={onDelete}
+        onSave={onSave}
+      />
+    </React.Fragment>
+  );
 }
 
 export default EditPost;
