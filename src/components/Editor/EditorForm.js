@@ -1,86 +1,63 @@
-import React, { Component } from "react";
+import React from "react";
 import CustomEditor from "./CustomEditor";
 import { Button, Input, FormGroup, Col } from "reactstrap";
+import { useInterval } from "../../hooks/useInterval";
 
-class EditorForm extends Component {
-  constructor(props) {
-    super(props);
-    this.editorRef = React.createRef();
-    this.state = {
-      timerID: null,
-      prevContent: null,
-    };
-  }
+function EditorForm(props) {
+  const editorRef = React.useRef();
+  const [prevContent, setPrevContent] = React.useState(null);
 
-  onAutoSave = () => {
-    const currContent = this.editorRef.current.getValue();
-    if (this.state.prevContent !== currContent) {
-      this.onSave();
+  const onAutoSave = () => {
+    const currContent = editorRef.current.getValue();
+    if (prevContent !== currContent) {
+      onSave();
     }
   };
+  useInterval(onAutoSave, 6000);
 
-  componentDidMount() {
-    this.setState({
-      timerID: setInterval(this.onAutoSave, 6000),
-    });
-  }
+  React.useEffect(() => {
+    const content = props.content;
+    editorRef.current.getInstance().setMarkdown(content);
+    setPrevContent(content);
+  }, [props.content]);
 
-  /* 
-    needed as the props updates after the first render because of EditToDo's asynchronous data 
-    fetching operation during its
-    componentDidMount method. The second render provided the actual content of the blog post. 
-  */
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.content !== this.props.content) {
-      const content = this.props.content;
-      this.editorRef.current.getInstance().setMarkdown(content);
-      this.setState({ prevContent: content });
-    }
-  }
-
-  onSubmit = () => {
-    const content = this.editorRef.current.getValue();
-    this.props.onSubmit(content);
+  const onSubmit = () => {
+    const content = editorRef.current.getValue();
+    props.onSubmit(content);
   };
 
-  onSave = () => {
-    const content = this.editorRef.current.getValue();
-    this.props.onSave(content);
-    this.setState({ prevContent: content });
+  const onSave = () => {
+    const content = editorRef.current.getValue();
+    props.onSave(content);
+    setPrevContent(content);
   };
 
-  componentWillUnmount() {
-    clearInterval(this.state.timerID);
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <FormGroup row>
-          <Col sm={9}>
-            <Input
-              type="text"
-              onChange={this.props.onChangeTitle}
-              placeholder="Post Title"
-              value={this.props.title}
-            />
-          </Col>
-          <div className="col ml-5" sm={1}>
-            <Button color="success" sm={1} onClick={this.onSubmit}>
-              {this.props.isEdit ? "Edit" : "Post"}
+  return (
+    <React.Fragment>
+      <FormGroup row>
+        <Col sm={9}>
+          <Input
+            type="text"
+            onChange={props.onChangeTitle}
+            placeholder="Post Title"
+            value={props.title}
+          />
+        </Col>
+        <div className="col ml-5" sm={1}>
+          <Button color="success" sm={1} onClick={onSubmit}>
+            {props.isEdit ? "Edit" : "Post"}
+          </Button>{" "}
+          <Button color="info" sm={1} onClick={onSave}>
+            Save
             </Button>{" "}
-            <Button color="info" sm={1} onClick={this.onSave}>
-              Save
-            </Button>{" "}
-            <Button color="danger" sm={1} onClick={this.props.onDelete}>
-              Delete
-            </Button>
-          </div>
-        </FormGroup>
-        <CustomEditor ref={this.editorRef} />
-      </React.Fragment>
-    );
-  }
+          <Button color="danger" sm={1} onClick={props.onDelete}>
+            Delete
+          </Button>
+        </div>
+      </FormGroup>
+      <CustomEditor ref={editorRef} />
+    </React.Fragment>
+  );
 }
 
 export default EditorForm;
