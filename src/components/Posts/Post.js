@@ -5,7 +5,7 @@ import Paths from '../../constants/paths';
 import { useHistory } from "react-router-dom";
 
 const Button = styled(BootstrapButton)`
-margin-left: 30px;
+margin-left: 15px;
 `
 
 const Card = styled(BootstrapCard)`

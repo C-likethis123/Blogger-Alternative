@@ -16,7 +16,7 @@ export default function App() {
     <Router>
       <Header />
       <Suspense fallback={<Loading />}>
-        <Container>
+        <Container fluid="xl">
           <Switch>
             <Route path={Paths.PostsList} component={PostsList} />
             <Route path={Paths.CreatePost} component={CreatePost} />
