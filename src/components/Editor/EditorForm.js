@@ -59,7 +59,7 @@ export default function EditorForm(props) {
   return (
     <React.Fragment>
       <FormGroup row>
-        <Col sm={9}>
+        <Col>
           <Input
             type="text"
             onChange={props.onChangeTitle}
@@ -67,17 +67,17 @@ export default function EditorForm(props) {
             value={props.title}
           />
         </Col>
-        <div className="col ml-5" sm={1}>
-          <Button color="success" sm={1} onClick={onSubmit}>
+        <Col xs="auto">
+          <Button color="success" onClick={onSubmit}>
             {props.isEdit ? "Edit" : "Post"}
           </Button>{" "}
-          <Button color="info" sm={1} onClick={onSave}>
+          <Button color="info" onClick={onSave}>
             Save
             </Button>{" "}
-          <Button color="danger" sm={1} onClick={props.onDelete}>
+          <Button color="danger" onClick={props.onDelete}>
             Delete
           </Button>
-        </div>
+        </Col>
       </FormGroup>
       <Editor
         ref={editorRef}
