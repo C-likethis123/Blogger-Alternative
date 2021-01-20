@@ -6,6 +6,7 @@ import { Table } from "reactstrap";
 import axios from "axios";
 
 import Paths from '../../constants/paths';
+import styled from 'styled-components';
 
 const Post = (props) => (
   <tr>
@@ -39,24 +40,31 @@ function PostsList() {
       .then(() => setPosts(posts.filter((post) => post._id !== id)))
   };
 
+  const Title = styled.h3`
+    margin: 24px 0;
+  `;
+
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {posts.map((currentPost, i) => (
-          <Post
-            post={currentPost}
-            key={i}
-            deletePost={deletePost}
-          />)
-        )}
-      </tbody>
-    </Table>
+    <>
+      <Title>Your Posts</Title>
+      <Table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {posts.map((currentPost, i) => (
+            <Post
+              post={currentPost}
+              key={i}
+              deletePost={deletePost}
+            />)
+          )}
+        </tbody>
+      </Table>
+    </>
   )
 }
 
