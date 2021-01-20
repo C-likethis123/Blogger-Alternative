@@ -1,22 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import axios from "axios";
 import "../../App.css";
 import { Button } from "reactstrap";
-import ViewerComponent from "./Viewer";
+import Viewer from "./Viewer";
 import { asBlob } from "html-docx-js-typescript";
 import { saveAs } from "file-saver";
+import { useParams } from "react-router-dom";
 
-class ShowPost extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: "",
-      content: "",
-    };
-    this.viewerRef = React.createRef();
-  }
-
-  downloadPost = async () => {
+function ShowPost(props) {
+  const [title, setTitle] = React.useState("");
+  const [content, setContent] = React.useState("");
+  const viewerRef = React.useRef();
+  const { id } = useParams();
+  const downloadPost = async () => {
     const header = `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -26,33 +22,32 @@ class ShowPost extends Component {
     <body>`;
     const footer = `</body>
     </html>`;
-    const content =
-      header + this.viewerRef.current.rootEl.current.innerHTML + footer;
-    const title = `${this.state.title}.docx`;
+    const content = `${header}${viewerRef.current.rootEl.current.innerHTML}${footer}`;
+    const fileName = `${title}.docx`;
     const fileData = await asBlob(content);
-    saveAs(fileData, title);
+    saveAs(fileData, fileName);
   };
 
-  componentDidMount() {
+  React.useEffect(() => {
     axios
-      .get(`http://localhost:4000/posts/${this.props.match.params.id}`)
-      .then((response) => this.setState({ ...response.data }))
+      .get(`/posts/${id}`)
+      .then(({ data: { title, content } }) => {
+        setTitle(title);
+        setContent(content);
+      })
       .catch((error) => console.log(error));
-  }
+  }, [id]);
 
-  render() {
-    return (
-      <React.Fragment>
-        <h3 className="view-post">{this.state.title}</h3>
-        <ViewerComponent
-          initialValue={this.state.content}
-          ref={this.viewerRef}
-        />
-
-        <Button onClick={this.downloadPost}>Download as Word document</Button>
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <h3 className="view-post">{title}</h3>
+      <Viewer
+        initialValue={content}
+        ref={viewerRef}
+      />
+      <Button onClick={downloadPost}>Download as Word document</Button>
+    </React.Fragment>
+  );
 }
 
 export default ShowPost;
