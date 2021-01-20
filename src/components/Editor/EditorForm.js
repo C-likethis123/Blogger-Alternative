@@ -47,6 +47,15 @@ export default function EditorForm(props) {
     setPrevContent(content);
   };
 
+  const chartOptions = {
+    minWidth: 100,
+    maxWidth: 600,
+    minHeight: 100,
+    maxHeight: 300,
+  };
+
+  const codeSyntaxHighlightOptions = { hljs };
+
   return (
     <React.Fragment>
       <FormGroup row>
@@ -77,13 +86,8 @@ export default function EditorForm(props) {
         initialEditType="markdown"
         usageStatistics={false}
         plugins={[
-          [chart, {
-            minWidth: 100,
-            maxWidth: 600,
-            minHeight: 100,
-            maxHeight: 300,
-          }],
-          [codeSyntaxHighlight, { hljs }],
+          [chart, chartOptions],
+          [codeSyntaxHighlight, codeSyntaxHighlightOptions],
           colorSyntax,
           tableMergedCell,
           uml,
