@@ -6,7 +6,7 @@ import Viewer from "./Viewer";
 import { asBlob } from "html-docx-js-typescript";
 import { saveAs } from "file-saver";
 import { useParams } from "react-router-dom";
-
+import Title from "../Utils/Title";
 function ShowPost(props) {
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
@@ -40,7 +40,7 @@ function ShowPost(props) {
 
   return (
     <React.Fragment>
-      <h3 className="view-post">{title}</h3>
+      <Title>{title}</Title>
       <Viewer
         initialValue={content}
         ref={viewerRef}
