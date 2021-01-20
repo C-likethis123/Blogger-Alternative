@@ -1,9 +1,9 @@
 import React from "react";
 import CustomEditor from "./CustomEditor";
 import { Button, Input, FormGroup, Col } from "reactstrap";
-import { useInterval } from "../../hooks/useInterval";
+import useInterval from '@use-it/interval';
 
-function EditorForm(props) {
+export default function EditorForm(props) {
   const editorRef = React.useRef();
   const [prevContent, setPrevContent] = React.useState(null);
 
@@ -58,6 +58,4 @@ function EditorForm(props) {
       <CustomEditor ref={editorRef} />
     </React.Fragment>
   );
-}
-
-export default EditorForm;
+};
