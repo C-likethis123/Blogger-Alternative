@@ -13,16 +13,16 @@ function ShowPost(props) {
   const viewerRef = React.useRef();
   const { id } = useParams();
   const downloadPost = async () => {
-    const header = `<!DOCTYPE html>
+    const content = `<!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
       <title>Document</title>
     </head>
-    <body>`;
-    const footer = `</body>
+    <body>
+    ${viewerRef.current.rootEl.current.innerHTML}
+    </body>
     </html>`;
-    const content = `${header}${viewerRef.current.rootEl.current.innerHTML}${footer}`;
     const fileName = `${title}.docx`;
     const fileData = await asBlob(content);
     saveAs(fileData, fileName);
