@@ -17,7 +17,7 @@ function EditPost() {
 
   React.useState(() => {
     axios
-      .get(`http://localhost:4000/posts/${id}`)
+      .get(`/posts/${id}`)
       .then(({ data: { title, content, isDraft } }) => {
         setTitle(title);
         setContent(content);
@@ -37,7 +37,7 @@ function EditPost() {
 
     axios
       .post(
-        `http://localhost:4000/posts/update/${id}`,
+        `/posts/update/${id}`,
         newPost
       );
 
@@ -46,7 +46,7 @@ function EditPost() {
 
   const onDelete = () => {
     axios
-      .delete(`http://localhost:4000/posts/${id}`)
+      .delete(`/posts/${id}`)
       .then(() => history.push(Paths.PostsList));
   }
 
@@ -58,7 +58,7 @@ function EditPost() {
     };
     axios
       .post(
-        `http://localhost:4000/posts/update/${id}`,
+        `/posts/update/${id}`,
         newPost
       )
       .then(() => notify(true))

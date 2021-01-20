@@ -30,7 +30,7 @@ function ShowPost(props) {
 
   React.useEffect(() => {
     axios
-      .get(`http://localhost:4000/posts/${id}`)
+      .get(`/posts/${id}`)
       .then(({ data: { title, content } }) => {
         setTitle(title);
         setContent(content);

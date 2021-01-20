@@ -27,11 +27,11 @@ function CreatePost() {
 
     if (id) {
       axios
-        .post(`http://localhost:4000/posts/update/${id}`, newPost)
+        .post(`/posts/update/${id}`, newPost)
         .then((res) => console.log(res.data));
     } else {
       axios
-        .post("http://localhost:4000/posts/add", newPost)
+        .post("/posts/add", newPost)
         .then((res) => setId(res.data.post._id));
     }
     history.push(Paths.PostsList);
@@ -46,12 +46,12 @@ function CreatePost() {
 
     if (id) {
       axios
-        .post(`http://localhost:4000/posts/update/${id}`, newPost)
+        .post(`/posts/update/${id}`, newPost)
         .then((res) => notify(true))
         .catch((err) => notify(false));
     } else {
       axios
-        .post("http://localhost:4000/posts/add", newPost)
+        .post("/posts/add", newPost)
         .then((res) => {
           setId(res.data.post._id);
           notify(true);
@@ -66,7 +66,7 @@ function CreatePost() {
   const onDelete = () => {
     if (id) {
       axios
-        .delete(`http://localhost:4000/posts/${id}`)
+        .delete(`/posts/${id}`)
         .then(() => history.push(Paths.PostsList));
     } else {
       history.push(Paths.PostsList);

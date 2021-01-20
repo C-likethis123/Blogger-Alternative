@@ -29,13 +29,13 @@ function PostsList() {
 
   React.useEffect(() => {
     axios
-      .get("http://localhost:4000/posts/")
+      .get("/posts/")
       .then((response) => setPosts(response.data))
       .catch((error) => console.log(error));
   }, []);
 
   const deletePost = (id) => {
-    axios.delete(`http://localhost:4000/posts/${id}`)
+    axios.delete(`/posts/${id}`)
       .then(() => setPosts(posts.filter((post) => post._id !== id)))
   };
 
