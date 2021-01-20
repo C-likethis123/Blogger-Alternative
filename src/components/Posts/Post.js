@@ -13,7 +13,7 @@ margin-bottom: 30px;
 `
 
 const ButtonGroup = styled(({ className, children }) => (
-  <Col className={className}>
+  <Col className={className} xs="auto">
     {children}
   </Col>
 ))`
@@ -28,7 +28,7 @@ export default function Post(props) {
       props.deletePost(props.post._id);
     }
   };
-  
+
   const goToView = () => history.push(`${Paths.Post}/${props.post._id}`);
   return (
     <Card>
