@@ -6,7 +6,7 @@ import { Table } from "reactstrap";
 import axios from "axios";
 
 import Paths from '../../constants/paths';
-import styled from 'styled-components';
+import Title from '../Utils/Title';
 
 const Post = (props) => (
   <tr>
@@ -39,10 +39,6 @@ function PostsList() {
     axios.delete(`/posts/${id}`)
       .then(() => setPosts(posts.filter((post) => post._id !== id)))
   };
-
-  const Title = styled.h3`
-    margin: 24px 0;
-  `;
 
   return (
     <>
