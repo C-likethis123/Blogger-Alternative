@@ -23,7 +23,12 @@ const ButtonGroup = styled(({ className, children }) => (
 export default function Post(props) {
   const history = useHistory();
   const goToEdit = () => history.push(`${Paths.EditPost}/${props.post._id}`);
-  const deletePost = () => props.deletePost(props.post._id);
+  const deletePost = () => {
+    if (window.confirm(`Are you sure you want to delete '${props.post.title || '(Untitled)'}'?`)) {
+      props.deletePost(props.post._id);
+    }
+  };
+  
   const goToView = () => history.push(`${Paths.Post}/${props.post._id}`);
   return (
     <Card>
