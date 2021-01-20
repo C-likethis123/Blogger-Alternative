@@ -1,5 +1,6 @@
 import React from "react";
 import CustomEditor from "./CustomEditor";
+import { Editor } from "@toast-ui/react-editor";
 import { Button, Input, FormGroup, Col } from "reactstrap";
 import useInterval from '@use-it/interval';
 
