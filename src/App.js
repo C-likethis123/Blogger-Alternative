@@ -5,7 +5,7 @@ import "./App.css";
 import Header from "./components/NavBar/Header";
 import { Container } from "reactstrap";
 import Paths from './constants/paths';
-
+import Loading from "./components/Utils/Loading";
 const CreatePost = lazy(() => import("./components/Posts/CreatePost.js"));
 const EditPost = lazy(() => import("./components/Posts/EditPost.js"));
 const PostsList = lazy(() => import("./components/Posts/PostsList.js"));
@@ -15,7 +15,7 @@ export default function App() {
   return (
     <Router>
       <Header />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
         <Container>
           <Switch>
             <Route path={Paths.PostsList} component={PostsList} />
