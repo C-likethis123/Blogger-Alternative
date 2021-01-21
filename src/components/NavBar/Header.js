@@ -19,12 +19,6 @@ const Header = () => {
               Posts
             </NavLink>
           </NavItem>
-
-          <NavItem>
-            <NavLink tag={Link} to={Paths.CreatePost}>
-              Create
-            </NavLink>
-          </NavItem>
         </Nav>
       </Container>
     </AppBar>

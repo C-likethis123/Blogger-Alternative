@@ -2,12 +2,13 @@ import React from "react";
 
 import axios from "axios";
 
-import Title from '../Utils/Title';
 import Post from './Post';
-
+import { Row, Col, Button } from "reactstrap";
+import { useHistory } from 'react-router-dom';
+import Paths from "../../constants/paths";
 function PostsList() {
   const [posts, setPosts] = React.useState([]);
-
+  const history = useHistory();
   React.useEffect(() => {
     axios
       .get("/posts/")
@@ -20,9 +21,18 @@ function PostsList() {
       .then(() => setPosts(posts.filter((post) => post._id !== id)))
   };
 
+  const createPost = () => history.push(Paths.CreatePost);
+
   return (
     <>
-      <Title>Your Posts</Title>
+      <Row style={{ marginBottom: "24px" }}>
+        <Col>
+          <h3>Your Posts</h3>
+        </Col>
+        <Col style={{ textAlign: "end" }}>
+          <Button onClick={createPost}>Create Post</Button>
+        </Col>
+      </Row>
       {posts.map((currentPost) => (
         <Post
           post={currentPost}
