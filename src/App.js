@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
 import Header from "./components/NavBar/Header";
-import { Container } from "reactstrap";
+import Container from "./components/Utils/Container";
 import Paths from './constants/paths';
 import Loading from "./components/Utils/Loading";
 const CreatePost = lazy(() => import("./components/Posts/CreatePost.js"));
@@ -16,7 +16,7 @@ export default function App() {
     <Router>
       <Header />
       <Suspense fallback={<Loading />}>
-        <Container fluid="xl">
+        <Container>
           <Switch>
             <Route path={Paths.PostsList} component={PostsList} />
             <Route path={Paths.CreatePost} component={CreatePost} />

@@ -8,7 +8,6 @@ import SaveAlert, { notify } from "../Alerts/Alerts";
 
 import Paths from '../../constants/paths';
 import { useHistory } from "react-router-dom";
-import Title from '../Utils/Title';
 
 function CreatePost() {
   const [title, setTitle] = React.useState("");
@@ -78,7 +77,7 @@ function CreatePost() {
     <React.Fragment>
       <Row>
         <Col>
-          <Title>Create Post</Title>
+          <h3>Create Post</h3>
         </Col>
         <Col>
           <SaveAlert />
