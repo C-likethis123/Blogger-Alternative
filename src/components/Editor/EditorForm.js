@@ -56,6 +56,12 @@ export default function EditorForm(props) {
 
   const codeSyntaxHighlightOptions = { hljs };
 
+  const onDelete = () => {
+    if (window.confirm(`Are you sure you want to delete ${props.title || '(Untitled)'}?`)) {
+      props.onDelete();
+    }
+  };
+
   return (
     <React.Fragment>
       <FormGroup row>
@@ -74,7 +80,7 @@ export default function EditorForm(props) {
           <Button color="info" onClick={onSave}>
             Save
             </Button>{" "}
-          <Button color="danger" onClick={props.onDelete}>
+          <Button color="danger" onClick={onDelete}>
             Delete
           </Button>
         </Col>
