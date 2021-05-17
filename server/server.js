@@ -15,7 +15,7 @@ mongoose
 const connection = mongoose.connection;
 
 connection
-  .once("open", function() {
+  .once("open", function () {
     console.log("MongoDB database connection established successfully");
   })
   .catch(err => console.log("Unable to start server"));
@@ -26,8 +26,8 @@ app.use(bodyParser.json({ limit: "50mb" }));
 let Post = require("./post.model");
 const postRoutes = express.Router();
 
-postRoutes.route("/").get(function(req, res) {
-  Post.find(function(err, posts) {
+postRoutes.route("/").get(function (req, res) {
+  Post.find(function (err, posts) {
     if (err) {
       console.log(err);
     } else {
@@ -36,9 +36,9 @@ postRoutes.route("/").get(function(req, res) {
   });
 });
 
-postRoutes.route("/:id").get(function(req, res) {
+postRoutes.route("/:id").get(function (req, res) {
   let id = req.params.id;
-  Post.findById(id, function(err, post) {
+  Post.findById(id, function (err, post) {
     if (!post) {
       res.status(404).send("Cannot find the requested content");
     }
@@ -46,7 +46,7 @@ postRoutes.route("/:id").get(function(req, res) {
   });
 });
 
-postRoutes.route("/add").post(function(req, res) {
+postRoutes.route("/add").post(function (req, res) {
   let post = new Post(req.body);
   post
     .save()
@@ -58,8 +58,8 @@ postRoutes.route("/add").post(function(req, res) {
     });
 });
 
-postRoutes.route("/update/:id").post(function(req, res) {
-  Post.findById(req.params.id, function(err, post) {
+postRoutes.route("/update/:id").post(function (req, res) {
+  Post.findById(req.params.id, function (err, post) {
     if (!post) {
       res.status(404).send("data is not found");
     } else {
@@ -79,8 +79,8 @@ postRoutes.route("/update/:id").post(function(req, res) {
   });
 });
 
-postRoutes.route("/:id").delete(function(req, res) {
-  Post.findByIdAndDelete(req.params.id, function(err, post) {
+postRoutes.route("/:id").delete(function (req, res) {
+  Post.findByIdAndDelete(req.params.id, function (err, post) {
     if (!post) {
       res.status(404).send("The requested post cannot be found!");
     } else {
@@ -91,6 +91,6 @@ postRoutes.route("/:id").delete(function(req, res) {
 
 app.use("/posts", postRoutes);
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log("Server is running on PORT: " + PORT);
 });
