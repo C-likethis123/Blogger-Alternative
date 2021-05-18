@@ -1,3 +1,4 @@
+const keys = require("./keys");
 const express = require("express");
 const app = express();
 
@@ -8,7 +9,7 @@ const mongoose = require("mongoose");
 const PORT = 4000;
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/posts", {
+  .connect(keys.mongodb.dbURI, {
     useUnifiedTopology: true,
     useNewUrlParser: true
   });
@@ -24,10 +25,8 @@ app.use(cors());
 app.use(bodyParser.json({ limit: "50mb" }));
 
 const postRoutes = require('./routes/postRoutes');
-const authRoutes = require('./routes/authRoutes');
 
 app.use("/posts", postRoutes);
-app.use("/auth", authRoutes);
 
 app.listen(PORT, function () {
   console.log("Server is running on PORT: " + PORT);
