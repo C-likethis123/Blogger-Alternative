@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Navbar, NavbarBrand, Nav, NavLink, NavItem } from "reactstrap";
+import { Container, Navbar, NavbarBrand, Nav, NavLink, NavItem, Button } from "reactstrap";
 import Paths from '../../constants/paths';
 import styled from 'styled-components';
 
@@ -18,6 +18,9 @@ const Header = () => {
             <NavLink tag={Link} to={Paths.PostsList}>
               Posts
             </NavLink>
+          </NavItem>
+          <NavItem>
+            <Button tag={NavLink} href="http://localhost:4000/auth/google">Login</Button>
           </NavItem>
         </Nav>
       </Container>
