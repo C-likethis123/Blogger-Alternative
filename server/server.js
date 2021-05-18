@@ -24,8 +24,10 @@ app.use(cors());
 app.use(bodyParser.json({ limit: "50mb" }));
 
 const postRoutes = require('./routes/postRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 app.use("/posts", postRoutes);
+app.use("/auth", authRoutes);
 
 app.listen(PORT, function () {
   console.log("Server is running on PORT: " + PORT);
