@@ -5,7 +5,7 @@ import Paths from '../../constants/paths';
 import styled from 'styled-components';
 import GoogleLogin from 'react-google-login';
 import { AuthContext } from '../../contexts/AuthContext';
-import { google } from "../../../keys";
+import { google } from "../../keys";
 const AppBar = styled(Navbar)`
   background-color: #212121;
 `;

@@ -6,6 +6,7 @@ import Header from "./components/NavBar/Header";
 import Container from "./components/Utils/Container";
 import Paths from './constants/paths';
 import Loading from "./components/Utils/Loading";
+import AuthenticatedRoute from "./components/Utils/AuthenticatedRoute";
 const CreatePost = lazy(() => import("./components/Posts/CreatePost.js"));
 const EditPost = lazy(() => import("./components/Posts/EditPost.js"));
 const PostsList = lazy(() => import("./components/Posts/PostsList.js"));
@@ -19,10 +20,10 @@ export default function App() {
         <Suspense fallback={<Loading />}>
           <Container>
             <Switch>
-              <Route path={Paths.PostsList} component={PostsList} />
-              <Route path={Paths.CreatePost} component={CreatePost} />
-              <Route path={`${Paths.EditPost}/:id`} component={EditPost} />
-              <Route path={`${Paths.Post}/:id`} component={ShowPost} />
+              <AuthenticatedRoute path={Paths.PostsList} component={PostsList} />
+              <AuthenticatedRoute path={Paths.CreatePost} component={CreatePost} />
+              <AuthenticatedRoute path={`${Paths.EditPost}/:id`} component={EditPost} />
+              <AuthenticatedRoute path={`${Paths.Post}/:id`} component={ShowPost} />
               <Route path={Paths.Default} component={HomePage} />
             </Switch>
           </Container>
