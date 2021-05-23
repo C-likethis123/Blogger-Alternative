@@ -1,7 +1,5 @@
 import React from "react";
 
-import axios from "axios";
-
 import Post from './Post';
 import { Row, Col, Button } from "reactstrap";
 import { useHistory } from 'react-router-dom';
@@ -10,14 +8,16 @@ function PostsList() {
   const [posts, setPosts] = React.useState([]);
   const history = useHistory();
   React.useEffect(() => {
-    axios
-      .get("/posts/")
-      .then((response) => setPosts(response.data))
+    fetch("/posts/")
+      .then(response => response.json())
+      .then((response) => setPosts(response))
       .catch((error) => console.log(error));
   }, []);
 
   const deletePost = (id) => {
-    axios.delete(`/posts/${id}`)
+    fetch(`/posts/${id}`, {
+      method: 'DELETE'
+    })
       .then(() => setPosts(posts.filter((post) => post._id !== id)))
   };
 

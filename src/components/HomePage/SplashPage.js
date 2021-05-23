@@ -1,14 +1,14 @@
 import React from "react";
-import { Row } from "reactstrap";
+import { Row, Col } from "reactstrap";
 function SplashPage() {
   return (
     <Row className="mb-5">
-      <div className="col-9 mx-auto">
+      <Col>
         <div className="display-1">Blogger Alternative</div>
         <div className="lead">
           An alternative website for managing Google Blogger posts
         </div>
-      </div>
+      </Col>
     </Row>
   );
 }

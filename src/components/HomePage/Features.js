@@ -1,12 +1,11 @@
 import React from "react";
-import { Container } from "reactstrap";
 import MarkdownEditor from "./../../images/markdown-editor.png";
 import Keyboard from "./../../images/keyboard.png";
 function Features() {
   return (
-    <Container>
-      <div style={{ display: "flex" }}>
-        <div className="col-6 mb-1">
+    <>
+      <div className="row">
+        <div className="text-center text-md-left col-md-6 mb-1">
           <h2>Markdown support</h2>
           With TUI editor plugins, enjoy:
           <ul>
@@ -15,20 +14,20 @@ function Features() {
             <li>Chart rendering</li>
           </ul>
         </div>
-        <div className="col-6 mb-5">
+        <div className="col-md-6 mb-5">
           <img src={MarkdownEditor} width="410" alt="Markdown editor" />
         </div>
       </div>
-      <div style={{ display: "flex" }}>
-        <div className="col-6 mb-5">
+      <div className="row flex-column-reverse flex-md-row">
+        <div className="col-md-6 mb-5">
           <img src={Keyboard} width="410" alt="Keyboard" />
         </div>
-        <div className="col-6 mb-5">
+        <div className="text-center text-md-left col-md-6 mb-5">
           <h2>More keyboard shortcuts</h2>
           <p>Supercharge your blogging with more keyboard shortcuts</p>
         </div>
       </div>
-    </Container>
+    </>
   );
 }
 
