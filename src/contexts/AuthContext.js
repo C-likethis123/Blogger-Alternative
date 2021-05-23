@@ -9,8 +9,9 @@ export const AuthContextProvider = props => {
     () => setIsAuthenticated(accessToken !== ''),
     [accessToken]
   );
+  const logout = () => setAccessToken('');
   return (
-    <AuthContext.Provider value={{ accessToken, isAuthenticated, setAccessToken }}>
+    <AuthContext.Provider value={{ accessToken, isAuthenticated, setAccessToken, logout }}>
       {props.children}
     </AuthContext.Provider>
   )
