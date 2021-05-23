@@ -1,6 +1,7 @@
 import React from "react";
 
 import Post from './Post';
+import Dropdown from '../Utils/Dropdown';
 import { Row, Col, Button } from "reactstrap";
 import { useHistory } from 'react-router-dom';
 import Paths from "../../constants/paths";
@@ -31,6 +32,12 @@ function PostsList() {
         </Col>
         <Col style={{ textAlign: "end" }}>
           <Button onClick={createPost}>Create Post</Button>
+        </Col>
+      </Row>
+      <Row style={{ marginBottom: "20px", alignItems: "center" }}>
+        <Col className="col-auto">Select blog posts from:</Col>
+        <Col>
+          <Dropdown />
         </Col>
       </Row>
       {posts.map((currentPost) => (
