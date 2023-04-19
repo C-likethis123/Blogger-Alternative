@@ -1,11 +1,7 @@
-import express, {Express, Request, Response} from 'express';
+import App from './app';
+import PostsController from "./controllers/posts";
 
-const app: Express = express();
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express server');
-});
-
-app.listen(8000, () => {
-  console.log('server is running');
-});
+const app = new App([
+  new PostsController()
+], 8000);
+app.listen();
