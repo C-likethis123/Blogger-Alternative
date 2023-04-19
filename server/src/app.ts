@@ -1,5 +1,6 @@
 import express from 'express';
 import Controller from './controllers/controller';
+import loggerMiddleware from './middleware/logger';
 
 class App {
     public app: express.Application;
@@ -14,7 +15,7 @@ class App {
     }
 
     private initialiseMiddlewares() {
-
+        this.app.use(loggerMiddleware);
     }
 
     private initialiseControllers(controllers: Controller[]) {
