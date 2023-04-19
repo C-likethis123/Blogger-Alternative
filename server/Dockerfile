@@ -2,7 +2,7 @@ FROM node:18.16
 
 WORKDIR /app
 
-COPY ["package.json", "yarn.lock", "tsconfig.json", "./"]
+COPY ["package.json", "yarn.lock", "tsconfig.json", ".env", "./"]
 
 RUN yarn
 

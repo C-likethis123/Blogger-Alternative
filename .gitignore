@@ -27,5 +27,4 @@ blog app.code-workspace
 .vscode
 
 # environment keys
-server/keys.js
-src/keys.js
+.env
