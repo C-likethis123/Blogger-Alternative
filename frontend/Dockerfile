@@ -11,7 +11,7 @@ RUN git config --global url."https://".insteadOf git://
 # see: https://github.com/webpack/webpack/issues/14532
 
 # copy uncommonly changed dependencies
-COPY package.json .
+COPY ["package.json", "yarn.lock", "./"]
 
 RUN yarn
 
