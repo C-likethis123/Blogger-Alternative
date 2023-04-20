@@ -27,9 +27,12 @@ interface EditorFormProps {
   onDelete: () => void;
   onSave: (content: string) => void;
 }
-export default function EditorForm(props: EditorFormProps) {
-  const editorRef = React.useRef<Editor>();
-  const [prevContent, setPrevContent] = React.useState(null);
+export default function EditorForm({
+  content = '',
+  ...props,
+}: EditorFormProps) {
+  const editorRef = React.useRef<Editor>(null);
+  const [prevContent, setPrevContent] = React.useState<EditorFormProps['content']>();
 
   const getMarkdown = () => editorRef.current.getInstance().getMarkdown();
   const setMarkdown = (content: string) => editorRef.current.getInstance().setMarkdown(content);
@@ -42,10 +45,9 @@ export default function EditorForm(props: EditorFormProps) {
   useInterval(onAutoSave, 6000);
 
   React.useEffect(() => {
-    const content = props.content;
     setMarkdown(content);
     setPrevContent(content);
-  }, [props.content]);
+  }, [content]);
 
   const onSubmit = () => {
     const content = getMarkdown();

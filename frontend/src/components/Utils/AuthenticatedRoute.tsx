@@ -1,7 +1,12 @@
-import React, { useContext } from "react";
-import { Route } from "react-router-dom";
+import React from "react";
+import { Route, RouteProps } from "react-router-dom";
 import Unauthorized from "./Unauthorized";
-const AuthenticatedRoute = ({ path, component }) => {
+
+interface AuthenticatedRouteProps {
+  path: string;
+  component: RouteProps['component'];
+}
+const AuthenticatedRoute = ({ path, component }: AuthenticatedRouteProps) => {
   return <Route path={path} component={component} />
 };
 

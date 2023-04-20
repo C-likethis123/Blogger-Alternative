@@ -8,13 +8,15 @@ import SaveAlert, { notify } from "../Alerts/Alerts";
 import Paths from '../../constants/paths';
 import { useParams, useHistory } from "react-router-dom";
 
+type RouteParams = {
+  id: string;
+}
 function EditPost() {
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
   const [isDraft, setIsDraft] = React.useState(true);
   const history = useHistory();
-  // TODO: fix this typescript error
-  const { id } = useParams();
+  const { id } = useParams<RouteParams>();
 
   React.useEffect(() => {
     axios
