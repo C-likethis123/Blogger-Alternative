@@ -16,12 +16,23 @@ import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
 import uml from "@toast-ui/editor-plugin-uml";
 import useInterval from '@use-it/interval';
 
-export default function EditorForm(props) {
-  const editorRef = React.useRef();
+// TODO: fix typescript errors
+
+interface EditorFormProps {
+  title?: string;
+  content?: string;
+  isEdit: boolean
+  onSubmit: (content: string) => void;
+  onChangeTitle: React.ChangeEventHandler<HTMLInputElement>;
+  onDelete: () => void;
+  onSave: (content: string) => void;
+}
+export default function EditorForm(props: EditorFormProps) {
+  const editorRef = React.useRef<Editor>();
   const [prevContent, setPrevContent] = React.useState(null);
 
   const getMarkdown = () => editorRef.current.getInstance().getMarkdown();
-  const setMarkdown = (content) => editorRef.current.getInstance().setMarkdown(content);
+  const setMarkdown = (content: string) => editorRef.current.getInstance().setMarkdown(content);
   const onAutoSave = () => {
     const currContent = getMarkdown();
     if (prevContent !== currContent) {

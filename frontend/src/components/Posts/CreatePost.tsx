@@ -16,9 +16,9 @@ function CreatePost() {
 
   const history = useHistory();
 
-  const onChangeTitle = (e) => setTitle(e.target.value);
+  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
 
-  const onSubmit = (content) => {
+  const onSubmit = (content: string) => {
     const newPost = {
       title,
       content,
@@ -37,7 +37,7 @@ function CreatePost() {
     history.push(Paths.PostsList);
   }
 
-  const onSave = (content) => {
+  const onSave = (content: string) => {
     const newPost = {
       title,
       content,

@@ -13,9 +13,10 @@ function EditPost() {
   const [content, setContent] = React.useState("");
   const [isDraft, setIsDraft] = React.useState(true);
   const history = useHistory();
+  // TODO: fix this typescript error
   const { id } = useParams();
 
-  React.useState(() => {
+  React.useEffect(() => {
     axios
       .get(`/posts/${id}`)
       .then(({ data: { title, content, isDraft } }) => {
@@ -26,9 +27,9 @@ function EditPost() {
       .catch((error) => console.log(error));
   }, []);
 
-  const onChangeTitle = (e) => setTitle(e.target.value);
+  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
 
-  const onSubmit = (content) => {
+  const onSubmit = (content: string) => {
     const newPost = {
       title,
       content,
@@ -50,7 +51,7 @@ function EditPost() {
       .then(() => history.push(Paths.PostsList));
   }
 
-  const onSave = (content) => {
+  const onSave = (content: string) => {
     const newPost = {
       title,
       content: content,

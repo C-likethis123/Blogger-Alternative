@@ -12,6 +12,8 @@ const Card = styled(BootstrapCard)`
 margin-bottom: 30px;
 `
 
+// TODO: fix typescript errors. To use styled-components or no?
+
 const ButtonGroup = styled(({ className, children }) => (
   <Col className={className} xs="auto">
     {children}
@@ -19,8 +21,16 @@ const ButtonGroup = styled(({ className, children }) => (
 ))`
   text-align: center;
 `
-
-export default function Post(props) {
+export interface Post {
+  _id: string | number;
+  title?: string;
+  isDraft: boolean;
+}
+interface PostProps {
+  post: Post;
+  deletePost: (id: Post['_id']) => void;
+}
+export default function Post(props: PostProps) {
   const history = useHistory();
   const goToEdit = () => history.push(`${Paths.EditPost}/${props.post._id}`);
   const deletePost = () => {

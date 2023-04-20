@@ -7,7 +7,8 @@ import { asBlob } from "html-docx-js-typescript";
 import { saveAs } from "file-saver";
 import { useParams } from "react-router-dom";
 
-function ShowPost(props) {
+interface ShowPostProps {}
+function ShowPost(props: ShowPostProps) {
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
   const viewerRef = React.useRef();
