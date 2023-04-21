@@ -1,4 +1,6 @@
 interface EditorProps {
+    title?: string;
+    content?: string;
     isEdit: boolean;
     onSubmit: (content: string) => void; 
     onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void; 
