@@ -1,11 +1,11 @@
 import React from "react";
 
-import Post from './Post';
+import Post, { Post as PostType } from './Post';
 import { Row, Col, Button } from "reactstrap";
 import { useHistory } from 'react-router-dom';
 import Paths from "../../constants/paths";
 function PostsList() {
-  const [posts, setPosts] = React.useState([]);
+  const [posts, setPosts] = React.useState<PostType[]>([]);
   const history = useHistory();
   React.useEffect(() => {
     fetch("/posts/")
@@ -14,7 +14,7 @@ function PostsList() {
       .catch((error) => console.log(error));
   }, []);
 
-  const deletePost = (id) => {
+  const deletePost = (id: PostType['_id']) => {
     fetch(`/posts/${id}`, {
       method: 'DELETE'
     })

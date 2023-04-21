@@ -2,7 +2,7 @@ import React from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const notify = (isSuccessful) => isSuccessful
+export const notify = (isSuccessful: boolean) => isSuccessful
   ? toast.success("Post saved")
   : toast.error("An error occurred when saving");
 
