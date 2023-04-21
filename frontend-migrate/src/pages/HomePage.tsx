@@ -1,7 +1,7 @@
 import React from "react";
 import MarkdownEditor from "./../images/markdown-editor.png";
 import Keyboard from "./../images/keyboard.png";
-export function Component() {
+export default function Component() {
     return <div>
         <div>
             <div>Blogger Alternative</div>

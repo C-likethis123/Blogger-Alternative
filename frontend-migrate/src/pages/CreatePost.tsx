@@ -3,14 +3,15 @@ import axios from "axios";
 
 import EditorForm from "../components/Editor";
 
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import Paths from "../utils/paths";
 
-export function Component() {
+export default function Component() {
   const [title, setTitle] = React.useState("");
   const [isDraft, setIsDraft] = React.useState(true);
   const [id, setId] = React.useState(null);
 
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
 
@@ -30,7 +31,7 @@ export function Component() {
         .post("/posts/add", newPost)
         .then((res) => setId(res.data.post._id));
     }
-    navigate('/posts');
+    history.push(Paths.PostsList);
   }
 
   const onSave = (content: string) => {
@@ -59,9 +60,9 @@ export function Component() {
     if (id) {
       axios
         .delete(`/posts/${id}`)
-        .then(() => navigate('/posts'));
+        .then(() => history.push(Paths.PostsList));
     } else {
-      navigate('/posts');
+      history.push(Paths.PostsList);
     };
   }
 

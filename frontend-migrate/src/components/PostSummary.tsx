@@ -1,20 +1,20 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 interface PostSummaryProps {
     post: Post;
     deletePost: (id: Post['_id']) => void;
 }
 export default function PostSummary(props: PostSummaryProps) {
-    const navigate = useNavigate();
-    const goToEdit = () => navigate(`edit/${props.post._id}`);
+    const history = useHistory();
+    const goToEdit = () => history.push(`edit/${props.post._id}`);
     const deletePost = () => {
         if (window.confirm(`Are you sure you want to delete '${props.post.title || '(Untitled)'}'?`)) {
             props.deletePost(props.post._id);
         }
     };
 
-    const goToView = () => navigate(`post/${props.post._id}`);
+    const goToView = () => history.push(`post/${props.post._id}`);
     return (
         <div>
             <h5>

@@ -4,7 +4,7 @@ import "../styles/App.css";
 import Viewer from "../components/Viewer";
 import { useParams } from "react-router-dom";
 
-export function Component() {
+export default function Component() {
     const [title, setTitle] = React.useState("");
     const [content, setContent] = React.useState("");
     const { id } = useParams<{ id: string }>();

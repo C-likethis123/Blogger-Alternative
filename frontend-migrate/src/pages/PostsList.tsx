@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import PostSummary from "../components/PostSummary";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import Paths from "../utils/paths";
 
-export function Component() {
+export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
-    const navigate = useNavigate();
+    const history = useHistory();
     useEffect(() => {
         fetch("/posts/")
             .then(response => response.json())
@@ -18,7 +19,7 @@ export function Component() {
             .then(() => setPosts(posts.filter((post) => post._id !== id)))
     };
 
-    const createPost = () => navigate('/posts');
+    const createPost = () => history.push(Paths.CreatePost);
     return <div>
         <h3>Your Posts</h3>
         <button onClick={createPost}>Create Post</button>

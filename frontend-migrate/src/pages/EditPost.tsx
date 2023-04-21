@@ -2,22 +2,22 @@ import React from "react";
 import axios from "axios";
 
 import Editor from "../components/Editor";
-import { useNavigate, useParams } from "react-router-dom";
-
+import { useHistory, useParams } from "react-router-dom";
+import { fetchPost } from "../loaders/posts";
+import Paths from "../utils/paths";
 type RouteParams = {
     id: string;
 }
 
-export function Component() {
+export default function Component() {
     const [title, setTitle] = React.useState("");
     const [content, setContent] = React.useState("");
     const [isDraft, setIsDraft] = React.useState(true);
-    const navigate = useNavigate();
+    const history = useHistory();
     const { id } = useParams<RouteParams>();
 
     React.useEffect(() => {
-        axios
-            .get(`/posts/${id}`)
+        fetchPost(id)
             .then(({ data: { title, content, isDraft } }) => {
                 setTitle(title);
                 setContent(content);
@@ -40,12 +40,12 @@ export function Component() {
                 newPost
             );
 
-        navigate('/posts');
+        history.push(Paths.PostsList);
     }
     const onDelete = () => {
         axios
             .delete(`/posts/${id}`)
-            .then(() => navigate('/posts'));
+            .then(() => history.push(Paths.PostsList));
     }
 
     const onSave = (content: string) => {
