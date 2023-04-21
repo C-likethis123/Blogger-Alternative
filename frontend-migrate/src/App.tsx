@@ -2,11 +2,11 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const ROUTES = createBrowserRouter([{
-  path: 'create',
+  path: '/create',
   lazy: () => import("./pages/CreatePost"),
 },
 {
-  path: '/edit',
+  path: '/edit/:id',
   lazy: () => import("./pages/EditPost"),
 },
 {
@@ -14,7 +14,7 @@ const ROUTES = createBrowserRouter([{
   lazy: () => import("./pages/PostsList"),
 },
 {
-  path: '/post',
+  path: '/post/:id',
   lazy: () => import("./pages/ShowPost"),
 },
 {

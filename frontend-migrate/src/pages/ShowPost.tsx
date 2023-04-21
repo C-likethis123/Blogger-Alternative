@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import "../../styles/App.css";
+import "../styles/App.css";
 import Viewer from "../components/Viewer";
 import { useParams } from "react-router-dom";
 
