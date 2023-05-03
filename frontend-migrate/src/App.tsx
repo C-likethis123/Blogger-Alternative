@@ -1,20 +1,13 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
+import { Paths } from "./utils/paths"
 
 const CreatePost = lazy(() => import("./pages/CreatePost"));
 const EditPost = lazy(() => import("./pages/EditPost"));
 const PostsList = lazy(() => import("./pages/PostsList"));
 const ShowPost = lazy(() => import("./pages/ShowPost"));
 const HomePage = lazy(() => import("./pages/HomePage"));
-
-const Paths = {
-  CreatePost: '/create',
-  PostsList: '/posts',
-  EditPost: '/edit',
-  Post: '/post',
-  Default: '*'
-}
 
 const Loading = () => <div>Loading...</div>
 

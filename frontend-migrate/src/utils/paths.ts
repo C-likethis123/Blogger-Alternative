@@ -1,4 +1,4 @@
-const Paths = {
+export const Paths = {
     CreatePost: '/create',
     PostsList: '/posts',
     EditPost: '/edit',
@@ -9,5 +9,4 @@ const Paths = {
 export const ServerPaths = {
   Login: 'http://localhost:8000/login/google',
 }
-  export default Paths
   

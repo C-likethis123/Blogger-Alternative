@@ -4,7 +4,7 @@ import axios from "axios";
 import EditorForm from "../components/Editor";
 
 import { useHistory } from "react-router-dom";
-import Paths from "../utils/paths";
+import { Paths } from "../utils/paths";
 
 export default function Component() {
   const [title, setTitle] = React.useState("");

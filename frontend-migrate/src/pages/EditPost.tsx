@@ -4,7 +4,7 @@ import axios from "axios";
 import Editor from "../components/Editor";
 import { useHistory, useParams } from "react-router-dom";
 import { fetchPost } from "../loaders/posts";
-import Paths from "../utils/paths";
+import { Paths } from "../utils/paths";
 type RouteParams = {
     id: string;
 }

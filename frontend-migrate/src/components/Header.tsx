@@ -1,6 +1,6 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import Paths, { ServerPaths } from "../utils/paths";
+import { Link } from "react-router-dom";
+import { Paths, ServerPaths } from "../utils/paths";
 
 export default function Header() {
     return (

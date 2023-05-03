@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import PostSummary from "../components/PostSummary";
 import { useHistory } from "react-router-dom";
-import Paths from "../utils/paths";
+import { Paths } from "../utils/paths";
 
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
