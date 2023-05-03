@@ -6,5 +6,8 @@ const Paths = {
     Default: '*'
   }
   
+export const ServerPaths = {
+  Login: 'http://localhost:8000/login/google',
+}
   export default Paths
   

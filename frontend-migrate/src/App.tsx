@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Header from "./components/Header";
 
 const CreatePost = lazy(() => import("./pages/CreatePost"));
 const EditPost = lazy(() => import("./pages/EditPost"));
@@ -20,6 +21,7 @@ const Loading = () => <div>Loading...</div>
 export default function App() {
   return (
     <Router>
+      <Header />
       <Suspense fallback={<Loading />}>
           <Switch>
             <Route path={Paths.PostsList} component={PostsList} />
