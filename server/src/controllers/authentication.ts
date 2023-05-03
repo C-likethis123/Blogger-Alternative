@@ -1,9 +1,9 @@
 import Controller from "./controller";
-import express from "express";
+import express, {Request, Response, NextFunction} from "express";
 import passport from "passport";
 import dotenv from 'dotenv';
 import {Strategy as GoogleStrategy} from "passport-google-oauth20";
-
+import path from "path";
 interface User {
     id: string;
     username: string;
@@ -36,6 +36,13 @@ passport.deserializeUser(function(user, cb) {
     })
 })
 
+function checkAuthenticated(req: Request, res: Response, next:NextFunction) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
+
 class AuthenticationController implements Controller {
     public router = express.Router();
 
@@ -44,17 +51,23 @@ class AuthenticationController implements Controller {
             scope: ["email"]
         }));
         this.router.get('/oauth/redirect/google', passport.authenticate("google", {
-            successReturnToOrRedirect: 'http://localhost:3000/posts',
-            failureRedirect: 'http://localhost:3000',
+            successReturnToOrRedirect: 'http://localhost:8000/test',
+            failureRedirect: 'http://localhost:8000/login',
         }));
         this.router.post('/logout', function(req, res, next) {
             req.logout(function(err) {
                 if (err) {
                     return next(err);
                 }
-                res.redirect('http://localhost:3000');
+                res.redirect('http://localhost:8000/login');
             })
         })
+        this.router.get("/test", checkAuthenticated, (req, res) => {
+            res.send("authenticated");
+        });
+        this.router.get("/login", (req, res) => {
+            res.sendFile(path.resolve(__dirname, '../../index.html'));
+        });
     }
 
 }

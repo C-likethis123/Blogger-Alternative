@@ -27,8 +27,10 @@ class App {
             secret: process.env.EXPRESS_SESSION_SECRET,
             resave: false,
             saveUninitialized: false,
-            cookie: { secure: true }
+            cookie: { secure: false, httpOnly: false },
         }))
+        this.app.use(passport.initialize());
+        this.app.use(passport.session());
         this.app.use(passport.authenticate("session"));
     }
 

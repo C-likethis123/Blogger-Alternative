@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Paths, ServerPaths } from "../utils/paths";
+/**
+ * A UI component that shows important links to the user
+ */
 
 export default function Header() {
     return (
