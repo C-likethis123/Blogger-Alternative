@@ -40,7 +40,7 @@ function checkAuthenticated(req: Request, res: Response, next:NextFunction) {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect("/login");
+    res.redirect("http://localhost:3000");
 }
 
 class AuthenticationController implements Controller {
@@ -51,8 +51,8 @@ class AuthenticationController implements Controller {
             scope: ["email"]
         }));
         this.router.get('/oauth/redirect/google', passport.authenticate("google", {
-            successReturnToOrRedirect: 'http://localhost:8000/test',
-            failureRedirect: 'http://localhost:8000/login',
+            successReturnToOrRedirect: 'http://localhost:3000/posts',
+            failureRedirect: 'http://localhost:3000',
         }));
         this.router.post('/logout', function(req, res, next) {
             req.logout(function(err) {
@@ -62,9 +62,6 @@ class AuthenticationController implements Controller {
                 res.redirect('http://localhost:8000/login');
             })
         })
-        this.router.get("/test", checkAuthenticated, (req, res) => {
-            res.send("authenticated");
-        });
         this.router.get("/login", (req, res) => {
             res.sendFile(path.resolve(__dirname, '../../index.html'));
         });

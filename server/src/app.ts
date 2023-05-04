@@ -22,7 +22,10 @@ class App {
 
     private initialiseMiddlewares() {
         this.app.use(loggerMiddleware);
-        this.app.use(cors());
+        this.app.use(cors({
+            credentials: true,
+            origin: "http://localhost:3000"
+        }));
         this.app.use(session({
             secret: process.env.EXPRESS_SESSION_SECRET,
             resave: false,
