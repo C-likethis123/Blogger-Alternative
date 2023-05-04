@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import { Paths } from "./utils/paths"
+import { AuthProvider } from "./AuthContext";
 
 const CreatePost = lazy(() => import("./pages/CreatePost"));
 const EditPost = lazy(() => import("./pages/EditPost"));
@@ -13,9 +14,10 @@ const Loading = () => <div>Loading...</div>
 
 export default function App() {
   return (
-    <Router>
-      <Header />
-      <Suspense fallback={<Loading />}>
+    <AuthProvider>
+      <Router>
+        <Header />
+        <Suspense fallback={<Loading />}>
           <Switch>
             <Route path={Paths.PostsList} component={PostsList} />
             <Route path={Paths.CreatePost} component={CreatePost} />
@@ -23,7 +25,8 @@ export default function App() {
             <Route path={`${Paths.Post}/:id`} component={ShowPost} />
             <Route path={Paths.Default} component={HomePage} />
           </Switch>
-      </Suspense>
-    </Router>
+        </Suspense>
+      </Router>
+    </AuthProvider>
   );
 };

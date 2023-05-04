@@ -5,7 +5,7 @@ class PostsController implements Controller {
    public router = express.Router();
 
    constructor() {
-      this.router.get('/posts/', (req: Request, res: Response) => {
+      this.router.get('/api/posts/', (req: Request, res: Response) => {
          res.send('Getting a post');
       });
    }
