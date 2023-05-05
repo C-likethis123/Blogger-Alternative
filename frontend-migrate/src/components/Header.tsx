@@ -1,17 +1,13 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Paths, ServerPaths } from "../utils/paths";
-import axios from "axios";
-import AuthContext from "../AuthContext";
+import AuthContext from "../contexts/AuthContext";
 /**
  * A UI component that shows important links to the user
  */
 
 export default function Header() {
-    const isAuthenticated = useContext(AuthContext);
-    const logout = () => {
-        axios.post(ServerPaths.Logout, {withCredential: true});
-    }
+    const {isAuthenticated, logout} = useContext(AuthContext);
     return (
         <div>
             <div>Blogger Alternative</div>
@@ -21,7 +17,7 @@ export default function Header() {
                 </li>
                 <li>{
                     isAuthenticated
-                        ? <a onClick={logout}>Logout</a>
+                        ? <button onClick={logout}>Logout</button>
                         : <a href={ServerPaths.Login}>Login to Google</a>
                 }</li>
             </ul>

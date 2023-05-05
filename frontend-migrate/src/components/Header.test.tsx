@@ -3,6 +3,11 @@ import userEvent from '@testing-library/user-event';
 import Header from './Header';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import { AuthProvider } from '../contexts/AuthContext';
+import axios from "axios";
+
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 test('navigates to a list of posts when clicking on "Posts"', () => {
     const history = createMemoryHistory();
@@ -19,8 +24,21 @@ test('shows "Login with Google" when user is not logged in', () => {
     expect(screen.getByRole('link', { name: /login/i })).toBeInTheDocument();
 })
 
-test('shows "Logout" when user is logged in', () => {
+test('shows "Logout" when user is logged in', async () => {
+    jest.spyOn(document, 'cookie', 'get').mockImplementation(() => "connect.sid=test");
+    const mockLogout = jest.fn((url) => {
+        return Promise.resolve(jest.spyOn(document, 'cookie', 'get').mockImplementationOnce(() => ""))
+    });
+    mockedAxios.post.mockImplementation(mockLogout);
     const history = createMemoryHistory();
-    render(<Router history={history}><Header /></Router>);
-    expect(screen.getByRole('link', { name: /logout/i })).toBeInTheDocument();
+    render(<Router history={history}>
+        <AuthProvider>
+            <Header />
+        </AuthProvider>
+    </Router>);
+    // login method here 
+    expect(screen.getByRole('button', { name: /logout/i })).toBeInTheDocument();
+    userEvent.click(screen.getByRole('button', { name: /logout/i }));
+    expect(screen.getByRole('link', { name: /login/i })).toBeInTheDocument();
+    expect(history.location.pathname).toBe("/");
 })

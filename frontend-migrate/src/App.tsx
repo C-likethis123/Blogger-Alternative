@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import { Paths } from "./utils/paths"
-import { AuthProvider } from "./AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const CreatePost = lazy(() => import("./pages/CreatePost"));
 const EditPost = lazy(() => import("./pages/EditPost"));
