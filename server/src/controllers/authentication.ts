@@ -36,13 +36,6 @@ passport.deserializeUser(function (user, cb) {
     })
 })
 
-function checkAuthenticated(req: Request, res: Response, next: NextFunction) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/");
-}
-
 class AuthenticationController implements Controller {
     public router = express.Router();
 

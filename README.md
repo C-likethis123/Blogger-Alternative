@@ -32,6 +32,7 @@ This project is started to develop a web application with a better blog editing 
 <!-- 2. Go to the frontend directory and run `docker build --rm . -t frontend && docker run -p 3000:3000 -d frontend` -->
 2. Go to the frontend directory and run `yarn build`
 3. Go to the backend directory and run `docker build --rm . -t server && docker run -p 8000:8000 -d server`
+4. Access the app at localhost:8000
 
 ### PR process
 

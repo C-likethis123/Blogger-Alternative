@@ -52,6 +52,10 @@ class App {
             console.log(`App is running in port ${this.port}`);
         })
     }
+
+    public getServer() {
+        return this.app;
+    }
 }
 
 export default App;
