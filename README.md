@@ -29,9 +29,9 @@ This project is started to develop a web application with a better blog editing 
 ### Setting up
 
 1. Run `git clone https://github.com/C-likethis123/Blogger-Alternative.git` to get a working copy in your computer
-2. Go to the frontend directory and run `docker build --rm . -t frontend && docker run -p 3000:3000 -d frontend`
+<!-- 2. Go to the frontend directory and run `docker build --rm . -t frontend && docker run -p 3000:3000 -d frontend` -->
+2. Go to the frontend directory and run `yarn build`
 3. Go to the backend directory and run `docker build --rm . -t server && docker run -p 8000:8000 -d server`
-5. Run `yarn server` to start the database (will phase out as soon as I integrate the Google Blogger API)
 
 ### PR process
 

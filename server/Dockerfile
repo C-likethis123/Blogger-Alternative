@@ -10,6 +10,8 @@ COPY . .
 
 RUN yarn build
 
+COPY "public" "./public"
+
 EXPOSE 8000
 
 CMD ["yarn", "start"]

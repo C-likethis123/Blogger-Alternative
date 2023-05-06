@@ -8,6 +8,13 @@ class PostsController implements Controller {
       this.router.get('/api/posts/', (req: Request, res: Response) => {
          res.send('Getting a post');
       });
+      this.router.get('/post/1', (req, res) => {
+         res.send(JSON.stringify({
+            title: 'Test',
+            content: 'Test',
+            _id: '1'
+         }))
+      })
    }
 }
 export default PostsController;

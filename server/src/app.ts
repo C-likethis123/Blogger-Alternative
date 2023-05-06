@@ -5,6 +5,7 @@ import session from "express-session";
 import passport from 'passport';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config();
 
@@ -18,13 +19,13 @@ class App {
 
         this.initialiseMiddlewares();
         this.initialiseControllers(controllers);
+        this.initialiseViews();
     }
 
     private initialiseMiddlewares() {
         this.app.use(loggerMiddleware);
         this.app.use(cors({
             credentials: true,
-            origin: "http://localhost:3000"
         }));
         this.app.use(session({
             secret: process.env.EXPRESS_SESSION_SECRET,
@@ -39,6 +40,11 @@ class App {
 
     private initialiseControllers(controllers: Controller[]) {
         controllers.forEach((controller) => this.app.use('/', controller.router));
+    }
+
+    private initialiseViews() {
+        this.app.use('/', express.static(path.join(__dirname, '../public')));
+        this.app.get('/*', (req, res) => res.sendFile(path.join(__dirname, "../public/index.html")));
     }
 
     public listen() {
