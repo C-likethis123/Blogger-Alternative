@@ -25,7 +25,6 @@ passport.serializeUser(function (user: User, cb) {
     process.nextTick(function () {
         return cb(null, {
             id: user.id,
-            username: user.username,
         })
     })
 })
