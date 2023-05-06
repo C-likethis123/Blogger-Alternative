@@ -5,17 +5,15 @@ import checkAuthenticated from '../middleware/authenticator';
 class PostsController implements Controller {
    public router = express.Router();
 
+   private posts = [{
+      title: 'Test',
+      content: 'Test', 
+      _id: '1',
+   }]
    constructor() {
-      this.router.get('/api/posts/', checkAuthenticated, (req: Request, res: Response) => {
-         res.send('Getting a post');
+      this.router.get('/api/posts', checkAuthenticated, (req: Request, res: Response) => {
+         res.json(this.posts);
       });
-      this.router.get('/post/1', (req, res) => {
-         res.send(JSON.stringify({
-            title: 'Test',
-            content: 'Test',
-            _id: '1'
-         }))
-      })
    }
 }
 export default PostsController;
