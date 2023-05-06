@@ -24,7 +24,7 @@ This project is started to develop a web application with a better blog editing 
 ### Prerequisites
 
 1. Yarn, as the package manager of choice
-2. MongoDB
+2. Docker
 
 ### Setting up
 
@@ -33,6 +33,10 @@ This project is started to develop a web application with a better blog editing 
 2. Go to the frontend directory and run `yarn build`
 3. Go to the backend directory and run `docker build --rm . -t server && docker run -p 8000:8000 -d server`
 4. Access the app at localhost:8000
+
+### Testing
+
+To test frontend/backend, navigate to the respective folders and type `yarn test`
 
 ### PR process
 
