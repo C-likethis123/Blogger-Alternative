@@ -3,7 +3,7 @@ import express, { Request, Response, NextFunction } from "express";
 import passport from "passport";
 import dotenv from 'dotenv';
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import path from "path";
+
 interface User {
     id: string;
     username: string;
@@ -55,16 +55,15 @@ class AuthenticationController implements Controller {
             failureRedirect: '/',
         }));
         this.router.post('/logout', function (req, res, next) {
-            req.logout(function (err) {
-                if (err) {
-                    return next(err);
-                }
-                res.clearCookie("connect.sid", {
-                    httpOnly: false,
-                    secure: false,
+            req.logout(() => {
+                req.session.destroy(function (err) {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.clearCookie('connect.sid');
+                    res.redirect('/')
                 })
-                    .redirect("/");
-            })
+            });
         });
     }
 

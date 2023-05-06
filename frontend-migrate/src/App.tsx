@@ -14,8 +14,8 @@ const Loading = () => <div>Loading...</div>
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <Header />
         <Suspense fallback={<Loading />}>
           <Switch>
@@ -26,7 +26,7 @@ export default function App() {
             <Route path={Paths.Default} component={HomePage} />
           </Switch>
         </Suspense>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 };

@@ -7,7 +7,7 @@ export const Paths = {
   }
   
 export const ServerPaths = {
-  Login: 'http://localhost:8000/login/google',
-  Logout: 'http://localhost:8000/logout',
+  Login: '/login/google',
+  Logout: '/logout',
 }
   
