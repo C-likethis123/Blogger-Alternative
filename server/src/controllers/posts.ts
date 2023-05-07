@@ -3,6 +3,7 @@ import Controller from './controller';
 import checkAuthenticated from '../middleware/authenticator';
 import { google } from 'googleapis';
 import type { Credentials } from 'google-auth-library';
+import PostService from '../services/posts';
 
 type User = {
    id: string;
@@ -17,14 +18,10 @@ What do I need to test here?
 class PostsController implements Controller {
    public router = express.Router();
 
-   private posts = [{
-      title: 'Test',
-      content: 'Test',
-      _id: '1',
-   }]
    constructor() {
       this.router.get('/api/posts', checkAuthenticated, (req: Request, res: Response) => {
-         res.json(this.posts);
+         const posts = PostService.getPosts();
+         res.json(posts);
       });
       this.router.get('/api/blogs', checkAuthenticated, async (req: Request, res: Response) => {
          // from user ID, retrieve access token directly
