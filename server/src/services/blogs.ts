@@ -2,11 +2,10 @@ import { blogger_v3, google } from 'googleapis';
 import type { OAuth2Client } from 'google-auth-library';
 
 /*
-A PostService that takes in an OAuth2Client for authentication and provides an interface for the blogger API
-// TODO: refactor to actually accomodate posts
+A BlogService that takes in an OAuth2Client for authentication and provides an interface for the blogger API
 */
 
-class PostService {
+class BlogService {
     private bloggerClient: blogger_v3.Resource$Blogs;
     constructor(oauth2Client: OAuth2Client) {
         this.bloggerClient = google.blogger({
@@ -27,5 +26,5 @@ class PostService {
         return blogs.data.items || [];
     }
 }
-export default PostService;
+export default BlogService;
 
