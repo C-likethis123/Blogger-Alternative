@@ -17,7 +17,8 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
-    "test": "ENV_FILE=./config/.env.test jest",
+    "test:unit": "ENV_FILE=./config/.env.test jest test/**",
+    "test:all": "ENV_FILE=./config/.env.test jest",
     "dockerise": "docker build --rm . -t server && docker run -p 8000:8000 -d server"
   },
   "devDependencies": {

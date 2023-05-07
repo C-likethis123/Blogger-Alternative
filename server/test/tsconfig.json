@@ -1,4 +1,4 @@
 {
     "extends": "../tsconfig.json",
-    "include": ["."]
+    "include": [".", "../integrationTest/api/unauthorised-posts.test.ts"]
 }
