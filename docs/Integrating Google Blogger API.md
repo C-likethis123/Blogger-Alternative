@@ -94,9 +94,22 @@ const createResponse = await client.documents.create({
 console.log(createResponse.data);
 ```
 
+The Google API client library was selected over manually implementation. It provides a layer of abstraction over making the requests ourselves, and helps parse response data into a Javascript object.
+
 ## Version
 
 There are two versions - Google Blogger API v2 and v3. I'm using Google Blogger API v3.
+
+## Code organisation
+
+The controller is where the express router lives. It retrieves data from a service.
+
+The service is an abstraction of business logic. The controller takes data computed from the service and wraps it into a response.
+
+There are a few issues to the controller and service being separated:
+- we could access the access tokens from the user object, which lives in the request. How do we pass this data into the service?
+
+- do we create an abstraction over the client library?
 
 ## Errors
 
