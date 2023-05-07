@@ -1,5 +1,5 @@
-import PostsController from "../../src/controllers/posts";
-import App from "../../src/app";
+import PostsController from "controllers/posts";
+import App from "src/app";
 import request from "supertest";
 import express from 'express';
 

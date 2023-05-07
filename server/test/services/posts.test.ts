@@ -1,4 +1,4 @@
-import PostService from "../../src/services/posts";
+import PostService from "services/posts";
 
 describe("Posts Service", () => {
     test('PostService.getPosts()', async() => {

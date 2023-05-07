@@ -1,4 +1,7 @@
 {
     "extends": "../tsconfig.json",
-    "include": [".", "../integrationTest/api/unauthorised-posts.test.ts"]
+    "compilerOptions": {
+        "baseUrl": "../"
+    },
+    "include": ["."]
 }

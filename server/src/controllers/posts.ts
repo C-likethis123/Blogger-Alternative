@@ -1,9 +1,9 @@
 import express, { Request, Response } from 'express';
 import Controller from './controller';
-import checkAuthenticated from '../middleware/authenticator';
+import checkAuthenticated from 'middleware/authenticator';
 import { google } from 'googleapis';
 import type { Credentials } from 'google-auth-library';
-import PostService from '../services/posts';
+import PostService from 'services/posts';
 
 type User = {
    id: string;
