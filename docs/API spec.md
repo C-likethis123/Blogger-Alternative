@@ -35,3 +35,6 @@ To limit the response, we can use `fields="[list of fields]"` parameter to indic
 [This link](https://developers.google.com/slides/api/guides/field-masks) provides some examples of how to specify the shape of the response given.
 
 Limitations as compared to GraphQL: GraphQL can specify the shape of the query across what would likely take multiple API calls, across different services (with a federated subgraph)
+
+## Resources
+[System Parameters](https://cloud.google.com/apis/docs/system-parameters)

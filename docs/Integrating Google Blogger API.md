@@ -133,7 +133,6 @@ This is detailed in [API Spec](./API%20spec.md)
 
 ## Resources
 
-[Google Blogger API Reference](https://developers.google.com/blogger/docs/3.0/reference/)
-[Sample Google Blogger API usage](https://github.com/googleapis/google-api-nodejs-client/blob/main/samples/blogger/insert.js)
+[Google Blogger API Reference (has API explorer)](https://developers.google.com/blogger/docs/3.0/reference/)
+[Sample Google Blogger API Client Library usage](https://github.com/googleapis/google-api-nodejs-client/blob/main/samples/blogger/insert.js)
 [Blogs resource API](https://developers.google.com/blogger/docs/3.0/reference/blogs#resource)
-[Google Blogger API client library reference](https://developers.google.com/blogger/docs/3.0/reference/)

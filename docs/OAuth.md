@@ -57,3 +57,7 @@ When would I use this:
 ## Conclusion
 
 Implement 3-legged OAuth
+
+## Resources
+[Using OAuth2.0 to access Google APIs](https://developers.google.com/identity/protocols/oauth2#5.-refresh-the-access-token,-if-necessary.)
+[Passport.js](https://www.passportjs.org/concepts/authentication/google/)
