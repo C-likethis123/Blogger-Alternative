@@ -18,6 +18,7 @@
     "build": "npx tsc && npx tsc-alias",
     "start": "node dist/index.js",
     "test:unit": "ENV_FILE=./config/.env.test jest test/**",
+    "test:int": "ENV_FILE=./config/.env.test jest integrationTest/**",
     "test:all": "ENV_FILE=./config/.env.test jest",
     "dockerise": "docker build --rm . -t server && docker run -p 8000:8000 -d server"
   },

@@ -20,5 +20,5 @@ export default function checkAuthenticated(req: Request, res: Response, next: Ne
         req.oauth2Client = oauth2Client;
         return next();
     }
-    res.status(401).end();
+    return res.status(401).json({message: "User is not authenticated!"});
 }
