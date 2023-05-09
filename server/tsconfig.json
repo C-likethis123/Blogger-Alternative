@@ -1,4 +1,7 @@
 {
+    "ts-node": {
+        "require": ["tsconfig-paths/register"]
+    },
     "compilerOptions": {
         "module": "commonjs",
         "esModuleInterop": true,
@@ -12,7 +15,11 @@
         "paths": {
             "*": [
                 "node_modules/*"
-            ]
+            ],
+            "src/*": ["./src/*"],
+            "services/*": ["./src/services/*"],
+            "controllers/*": ["./src/controllers/*"],
+            "middleware/*": ["./src/middleware/*"]
         }
     },
     "include": [

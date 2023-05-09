@@ -3,10 +3,11 @@ import express, { Request, Response, NextFunction } from "express";
 import passport from "passport";
 import dotenv from 'dotenv';
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import type { Credentials } from "google-auth-library";
 
-interface User {
+type User = {
     id: string;
-    username: string;
+    tokens: Credentials;
 }
 dotenv.config();
 
@@ -16,16 +17,22 @@ passport.use(new GoogleStrategy({
     callbackURL: "/oauth/redirect/google"
 },
     function (accessToken, refreshToken, profile, cb) {
-        // TODO: figure out what to do here
-        return cb(null, profile);
+        // TODO: implement refresh token logic
+        const user = {
+            id: profile.id,
+            tokens: {
+                access_token: accessToken,
+                refresh_token: refreshToken,
+            }
+        }
+        return cb(null, user);
     }))
 
 passport.serializeUser(function (user: User, cb) {
-    console.log(user);
     process.nextTick(function () {
         return cb(null, {
             id: user.id,
-            username: user.username,
+            tokens: user.tokens,
         })
     })
 })
@@ -41,7 +48,7 @@ class AuthenticationController implements Controller {
 
     constructor() {
         this.router.get('/login/google', passport.authenticate("google", {
-            scope: ["email"]
+            scope: ["email", "profile", "https://www.googleapis.com/auth/blogger"]
         }));
         this.router.get('/oauth/redirect/google', passport.authenticate("google", {
             successReturnToOrRedirect: '/posts',

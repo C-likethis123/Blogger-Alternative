@@ -2,6 +2,10 @@ module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'node',
     moduleNameMapper: {
-      "@exmpl/(.*)": "<rootDir>/src/$1"
+      "^src/(.*)": "<rootDir>/src/$1"
     },
+    transformIgnorePatterns: [
+      "<rootDir>/node_modules/*"
+    ],
+    moduleDirectories: ['node_modules', 'src']
   };
