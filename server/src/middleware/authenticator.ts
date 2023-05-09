@@ -1,11 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { google } from 'googleapis';
-import type { Credentials } from 'google-auth-library';
-
-type User = {
-   id: string;
-   tokens: Credentials;
-}
 
 export default function checkAuthenticated(req: Request, res: Response, next: NextFunction) {
     if (req.isAuthenticated()) {
@@ -15,7 +9,7 @@ export default function checkAuthenticated(req: Request, res: Response, next: Ne
             process.env.GOOGLE_OAUTH_CLIENT_SECRET,
             "http://localhost:8000/oauth/redirect/google",
         );
-        const { tokens } = req.user as User;
+        const { tokens } = req.user;
         oauth2Client.setCredentials(tokens);
         req.oauth2Client = oauth2Client;
         return next();
