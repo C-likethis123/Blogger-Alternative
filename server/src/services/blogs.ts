@@ -20,7 +20,7 @@ class BlogService {
             fields: 'items(id,status,name)',
         })
         if (blogs.status >= 400) {
-            throw new Error();
+            throw new Error(blogs.statusText);
         }
 
         return blogs.data.items || [];

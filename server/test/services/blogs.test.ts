@@ -57,8 +57,8 @@ describe("Blog Service", () => {
     })
 
     test('getBlogs() returns an error if the blogger client returns an error', async () => {
-        (mockBloggerClient.blogs.listByUser as jest.Mock).mockReturnValue({status: 400});
-        await expect(service.getBlogs()).rejects.toThrow();
+        (mockBloggerClient.blogs.listByUser as jest.Mock).mockReturnValue({status: 400, statusText: "Blogs not found"});
+        await expect(service.getBlogs()).rejects.toThrow("Blogs not found");
     })
 });
 
