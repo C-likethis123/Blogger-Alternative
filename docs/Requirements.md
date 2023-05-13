@@ -3,10 +3,11 @@
 Logging in
 1. Users should be able to login to the app
 2. When logged in, users should be able to access different blogs
+2. When logged in, they should be able to see the navbar change to the user profile, and when logged out, they should see it replaced with a 'Log In' button instead
 3. They should be able to create, edit, view and delete blogs
 
 Authentication
-1. If a user is not logged in, the user cannot see other protected pages (creating and editing blogs). When they access the page, they would be routed to the sign in page.
+1. If a user is not logged in, the user cannot see protected pages (creating and editing blogs). When they access the page, they would be routed to the sign in page.
 2. If a user is logged in, the user can see protected pages
 
 Posts
@@ -14,7 +15,22 @@ Posts
 2. Users should be able to view posts
 3. Users should be able to edit posts
 4. Users should be able to delete posts
-5. When editing posts, the data should be saved in frequent intervals
+5. When creating/editing posts, the data should be saved in frequent intervals
+
+User flow and redirection
+1. When logging in, I get redirected to the BlogsList page where I can see my blogs
+2. When logging out, I get redirected back to the landing page
+3. After creating a new post, get redirected back to the blogs list page.
+4. When a user tries to access an authenticated page or API, redirect them back to 404. An assumption here is that if a page loads data from an authenticated API, it is a protected page. 
+
+User flow for creating a post:
+1. From Post List, create a new post
+2. Create and edit the new post
+3. Publish the post -> get redirected back
+
+User flow for viewing a post:
+1. From Post List, click on a post to view it
+
 
 
 ## Non functional requirements
