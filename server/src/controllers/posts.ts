@@ -50,6 +50,18 @@ class PostsController implements Controller {
          return res.status(400).json({err: err.message});
       }
      })
+
+     this.router.delete('/api/blogs/:blogId/posts/:postId', async (req: Request, res: Response) => {
+      const { oauth2Client } = req;
+      const { blogId, postId } = req.params;
+      try {
+         const service = new PostsService(oauth2Client);
+         await service.deletePost(blogId, postId);
+         return res.status(204);
+      } catch (err) {
+         return res.status(400).json({err: err.message});
+      }
+     })
    }
 }
 export default PostsController;

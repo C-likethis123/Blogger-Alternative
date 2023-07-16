@@ -63,6 +63,17 @@ class PostService {
         }
         return post.data;
     }
+
+    public async deletePost(blogId: string, postId: string): Promise<void> {
+        const res = await this.bloggerClient.delete({
+            blogId,
+            postId
+        });
+        if (res.status >= 400) {
+            throw new Error();
+        }
+        return;
+    }
 }
 export default PostService;
 
