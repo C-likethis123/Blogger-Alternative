@@ -7,24 +7,38 @@ A PostService that takes in an OAuth2Client for authentication and provides an i
 */
 
 class PostService {
-    private bloggerClient: blogger_v3.Resource$Blogs;
+    private bloggerClient: blogger_v3.Resource$Posts;
     constructor(oauth2Client: OAuth2Client) {
         this.bloggerClient = google.blogger({
             version: 'v3',
             auth: oauth2Client,
-        }).blogs;
+        }).posts;
     }
-
-    public async getBlogs(): Promise<blogger_v3.Schema$Blog[]> {
-        const blogs = await this.bloggerClient.listByUser({
-            userId: 'self',
-            fields: 'items(id,status,name)',
+    // TODO: Support pagination
+    public async getPosts(blogId: string): Promise<blogger_v3.Schema$Post[]> {
+        const posts = await this.bloggerClient.list({
+            blogId,
+            fetchBodies: false,
+            fetchImages: false,
+            fields: 'items(id,blog.id,title,status)',
         })
-        if (blogs.status >= 400) {
+        if (posts.status >= 400) {
             throw new Error();
         }
 
-        return blogs.data.items || [];
+        return posts.data.items || [];
+    }
+
+    public async getPost(blogId: string, postId: string): Promise<blogger_v3.Schema$Post> {
+        const post = await this.bloggerClient.get({
+            blogId,
+            postId,
+            fields: 'id,blog.id,title,content,images',
+        });
+        if (post.status >= 400) {
+            throw new Error();
+        }
+        return post.data;
     }
 }
 export default PostService;
