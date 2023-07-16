@@ -28,7 +28,7 @@ export default function Component() {
         .then((res) => console.log(res.data));
     } else {
       axios
-        .post("/posts/add", newPost)
+        .post(`/api/blogs/${blogId}/posts`, newPost)
         .then((res) => setId(res.data.post._id));
     }
     history.push(Paths.PostsList);
@@ -46,7 +46,7 @@ export default function Component() {
         .post(`/posts/update/${id}`, newPost)
     } else {
       axios
-        .post("/posts/add", newPost)
+        .post(`/api/blogs/${blogId}/posts`, newPost)
         .then((res) => {
           setId(res.data.post._id);
         })
@@ -59,7 +59,7 @@ export default function Component() {
   const onDelete = () => {
     if (id) {
       axios
-        .delete(`/posts/${id}`)
+        .delete(`/api/blogs/${blogId}/posts/${id}`)
         .then(() => history.push(Paths.PostsList));
     } else {
       history.push(Paths.PostsList);
