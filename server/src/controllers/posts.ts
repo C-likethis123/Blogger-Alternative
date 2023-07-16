@@ -7,9 +7,6 @@ class PostsController implements Controller {
    public router = express.Router();
 
    constructor() {
-      this.router.get('/api/posts', checkAuthenticated, (req: Request, res: Response) => {
-         return res.json([]);
-      });
       // TODO: check HTTP naming conventions. Why do we have /posts?
       this.router.get('/api/blogs/:blogId/posts', checkAuthenticated, async (req: Request, res: Response) => {
          const { oauth2Client } = req;
