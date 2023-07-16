@@ -1,0 +1,28 @@
+{
+    "ts-node": {
+        "require": ["tsconfig-paths/register"]
+    },
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "target": "es6",
+        "resolveJsonModule": true,
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "node_modules/*"
+            ],
+            "src/*": ["./src/*"],
+            "services/*": ["./src/services/*"],
+            "controllers/*": ["./src/controllers/*"],
+            "middleware/*": ["./src/middleware/*"]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ]
+}

@@ -24,15 +24,19 @@ This project is started to develop a web application with a better blog editing 
 ### Prerequisites
 
 1. Yarn, as the package manager of choice
-2. MongoDB
+2. Docker
 
 ### Setting up
 
 1. Run `git clone https://github.com/C-likethis123/Blogger-Alternative.git` to get a working copy in your computer
-2. Run `yarn` to install all dependencies
-3. Run `yarn start` to start the development server
-4. Run `mongod` to start the mongod driver. If the database files are in another directory, specify it with the `dbpath` option. For example: `mongod --dbpath=[directory]`
-5. Run `yarn server` to start the database (will phase out as soon as I integrate the Google Blogger API)
+<!-- 2. Go to the frontend directory and run `docker build --rm . -t frontend && docker run -p 3000:3000 -d frontend` -->
+2. Go to the frontend directory and run `yarn build`
+3. Go to the backend directory and run `docker build --rm . -t server && docker run -p 8000:8000 -d server`
+4. Access the app at localhost:8000
+
+### Testing
+
+To test frontend/backend, navigate to the respective folders and type `yarn test`
 
 ### PR process
 
