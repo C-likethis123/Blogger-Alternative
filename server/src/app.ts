@@ -36,6 +36,7 @@ class App {
         this.app.use(passport.initialize());
         this.app.use(passport.session());
         this.app.use(passport.authenticate("session"));
+        this.app.use(express.json());
     }
 
     private initialiseControllers(controllers: Controller[]) {
