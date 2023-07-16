@@ -34,6 +34,22 @@ class PostsController implements Controller {
          return res.status(400).json({err: err.message});
       }
      })
+
+     this.router.post('/api/blogs/:blogId/posts', checkAuthenticated, async (req: Request, res: Response) => {
+      const { oauth2Client } = req;
+      const { blogId } = req.params;
+      const reqBody = {
+         title: req.body.title,
+         content: req.body.content,
+      }
+      try {
+         const service = new PostsService(oauth2Client);
+         const post = await service.insertPost(blogId, reqBody);
+         return res.status(200).json(post);
+      } catch (err) {
+         return res.status(400).json({err: err.message});
+      }
+     })
    }
 }
 export default PostsController;

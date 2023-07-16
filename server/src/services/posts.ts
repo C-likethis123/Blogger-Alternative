@@ -40,6 +40,29 @@ class PostService {
         }
         return post.data;
     }
+
+    public async insertPost(blogId: string, requestBody: blogger_v3.Schema$Page): Promise<blogger_v3.Schema$Post> {
+        const post = await this.bloggerClient.insert({
+            blogId,
+            requestBody
+        });
+        if (post.status >= 400) {
+            throw new Error();
+        }
+        return post.data;
+    }
+
+    public async updatePost(blogId: string, postId: string, requestBody: blogger_v3.Schema$Page): Promise<blogger_v3.Schema$Post> {
+        const post = await this.bloggerClient.patch({
+            blogId,
+            postId,
+            requestBody
+        });
+        if (post.status >= 400) {
+            throw new Error();
+        }
+        return post.data;
+    }
 }
 export default PostService;
 
