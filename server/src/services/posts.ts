@@ -23,7 +23,7 @@ class PostService {
             fields: 'items(id,blog.id,title,status)',
         })
         if (posts.status >= 400) {
-            throw new Error();
+            throw new Error(posts.statusText);
         }
 
         return posts.data.items || [];
@@ -36,7 +36,7 @@ class PostService {
             fields: 'id,blog.id,title,content,images',
         });
         if (post.status >= 400) {
-            throw new Error();
+            throw new Error(post.statusText);
         }
         return post.data;
     }
@@ -47,7 +47,7 @@ class PostService {
             requestBody
         });
         if (post.status >= 400) {
-            throw new Error();
+            throw new Error(post.statusText);
         }
         return post.data;
     }
@@ -59,7 +59,7 @@ class PostService {
             requestBody
         });
         if (post.status >= 400) {
-            throw new Error();
+            throw new Error(post.statusText);
         }
         return post.data;
     }
@@ -70,7 +70,7 @@ class PostService {
             postId
         });
         if (res.status >= 400) {
-            throw new Error();
+            throw new Error(res.statusText);
         }
         return;
     }
