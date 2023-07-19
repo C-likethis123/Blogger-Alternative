@@ -10,6 +10,7 @@
     "express-session": "^1.17.3",
     "googleapis": "^118.0.0",
     "jest": "^29.5.0",
+    "mongoose": "^7.3.4",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "supertest": "^6.3.3"
@@ -20,7 +21,7 @@
     "test:unit": "ENV_FILE=./config/.env.test jest test/**",
     "test:int": "ENV_FILE=./config/.env.test jest integrationTest/**",
     "test:all": "ENV_FILE=./config/.env.test jest",
-    "dockerise": "docker build --rm . -t server && docker run -p 8000:8000 -d server"
+    "dockerise": "docker-compose up"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

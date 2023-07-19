@@ -1,0 +1,21 @@
+services:
+  web:
+    build: .
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/blogalt
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - dbdata:/data/db
+volumes:
+  dbdata:
+
+networks:
+  node-network:
+    driver: bridge
