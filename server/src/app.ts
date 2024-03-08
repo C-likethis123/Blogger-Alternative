@@ -6,17 +6,21 @@ import passport from 'passport';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import MongoConnection from 'db/mongo';
+import type { Mongoose } from 'mongoose';
 
 dotenv.config();
 
 class App {
     public app: express.Application;
     public port: number;
+    private db: Mongoose;
 
     constructor(controllers: Controller[], port: number) {
         this.app = express();
         this.port = port;
 
+        this.initialiseDataBase();
         this.initialiseMiddlewares();
         this.initialiseControllers(controllers);
         this.initialiseViews();
@@ -37,6 +41,10 @@ class App {
         this.app.use(passport.session());
         this.app.use(passport.authenticate("session"));
         this.app.use(express.json());
+    }
+
+    private async initialiseDataBase() {
+        this.db = await MongoConnection.getDatabase();
     }
 
     private initialiseControllers(controllers: Controller[]) {
