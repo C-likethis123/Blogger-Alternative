@@ -25,8 +25,9 @@ class App {
         this.initialiseControllers(controllers);
         this.initialiseViews();
     }
-
+            
     private initialiseMiddlewares() {
+        this.app.use(express.json());
         this.app.use(cors({
             credentials: true,
         }));
@@ -34,12 +35,11 @@ class App {
             secret: process.env.EXPRESS_SESSION_SECRET,
             resave: false,
             saveUninitialized: false,
-            cookie: { secure: false, httpOnly: false },
+            cookie: { secure: false, httpOnly: false, maxAge: 60 * 60 * 1000 },
         }))
         this.app.use(passport.initialize());
         this.app.use(passport.session());
         this.app.use(passport.authenticate("session"));
-        this.app.use(express.json());
         this.app.use(loggerMiddleware);
     }
 
