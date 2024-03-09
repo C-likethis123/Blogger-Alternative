@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import { Paths } from "./utils/paths"
 import { AuthProvider } from "./contexts/AuthContext";
+import { BlogProvider } from "./contexts/BlogContext";
 
 const CreatePost = lazy(() => import("./pages/CreatePost"));
 const EditPost = lazy(() => import("./pages/EditPost"));
@@ -16,6 +17,7 @@ export default function App() {
   return (
     <Router>
       <AuthProvider>
+        <BlogProvider>
         <Header />
         <Suspense fallback={<Loading />}>
           <Switch>
@@ -26,6 +28,7 @@ export default function App() {
             <Route path={Paths.Default} component={HomePage} />
           </Switch>
         </Suspense>
+        </BlogProvider>
       </AuthProvider>
     </Router>
   );

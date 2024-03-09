@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 
 import EditorForm from "../components/Editor";
 
 import { useHistory } from "react-router-dom";
 import { Paths } from "../utils/paths";
+import BlogContext from "../contexts/BlogContext";
 
 export default function Component() {
   const [title, setTitle] = React.useState("");
   const [isDraft, setIsDraft] = React.useState(true);
   const [id, setId] = React.useState(null);
+  const {selectedBlog : blogId} = useContext(BlogContext);
 
   const history = useHistory();
 
@@ -29,7 +31,7 @@ export default function Component() {
     } else {
       axios
         .post(`/api/blogs/${blogId}/posts`, newPost)
-        .then((res) => setId(res.data.post._id));
+        .then((res) => setId(res.data.id));
     }
     history.push(Paths.PostsList);
   }
@@ -48,7 +50,7 @@ export default function Component() {
       axios
         .post(`/api/blogs/${blogId}/posts`, newPost)
         .then((res) => {
-          setId(res.data.post._id);
+          setId(res.data.id);
         })
         .catch((err) => {
           console.log(err);
