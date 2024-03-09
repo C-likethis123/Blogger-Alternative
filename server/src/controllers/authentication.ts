@@ -73,18 +73,20 @@ class AuthenticationController implements Controller {
             failureRedirect: '/',
         }));
         this.router.post('/logout', function (req, res, next) {
-            const id = req.user.id;
-            console.log('user id', id);
-            req.logout(async () => {
+            const id = req.user?.id;
+            req.session.destroy(() => {
                 UserModel.findOneAndRemove({id }).then(() => {
                     console.log('id removed');
-                })
+                    res.clearCookie('connect.sid', {
+                        secure: false,
+                        httpOnly: false,
+                    });
+                    return res.redirect("/");
+                }).catch(err => {
+                    console.error("error removing user: ", err);
+                    return res.status(500).send('Error removing user');
+                });
             });
-            req.session.destroy(() => console.log('session destroyed'));
-            res.clearCookie('connect.sid', {
-                path: "/"
-            });
-            return res.status(200).send({"message": "logout"});
         });
     }
 

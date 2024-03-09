@@ -22,7 +22,7 @@ function useAuthContextProps(): AuthValue {
         });
     }
     useEffect(() => {
-        setIsAuthenticated(document.cookie.includes("connect.sid"))
+        setIsAuthenticated(document.cookie.includes("connect.sid"));
     }, [document.cookie])
     return {
         isAuthenticated,
