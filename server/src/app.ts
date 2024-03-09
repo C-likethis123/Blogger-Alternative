@@ -27,7 +27,6 @@ class App {
     }
 
     private initialiseMiddlewares() {
-        this.app.use(loggerMiddleware);
         this.app.use(cors({
             credentials: true,
         }));
@@ -41,6 +40,7 @@ class App {
         this.app.use(passport.session());
         this.app.use(passport.authenticate("session"));
         this.app.use(express.json());
+        this.app.use(loggerMiddleware);
     }
 
     private async initialiseDataBase() {
