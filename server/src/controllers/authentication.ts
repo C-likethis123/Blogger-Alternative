@@ -4,6 +4,7 @@ import passport from "passport";
 import dotenv from 'dotenv';
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import type { Credentials } from "google-auth-library";
+import UserModel from "src/models/user";
 
 type User = {
     id: string;
@@ -17,23 +18,40 @@ passport.use(new GoogleStrategy({
     callbackURL: "/oauth/redirect/google"
 },
     function (accessToken, refreshToken, profile, cb) {
-        // TODO: implement refresh token logic
-        const user = {
+        /** TODO: implement refresh token logic
+         * 1. Find entry with email address. Update with access_token and profile
+         * 2. Otherwise, add the user inside
+         */
+        UserModel.findOneAndUpdate({ id: profile.id }, {
             id: profile.id,
-            tokens: {
-                access_token: accessToken,
-                refresh_token: refreshToken,
+            access_token: accessToken,
+            refresh_token: refreshToken,
+        }, {
+            upsert: true,
+        }).then(() => {
+            const user = {
+                id: profile.id,
+                tokens: {
+                    access_token: accessToken,
+                    refresh_token: refreshToken,
+                }
             }
-        }
-        return cb(null, user);
+            return cb(null, user);
+        }).catch(err => console.log(err));
     }))
 
 passport.serializeUser(function (user: User, cb) {
     process.nextTick(function () {
-        return cb(null, {
-            id: user.id,
-            tokens: user.tokens,
-        })
+        UserModel.findOne({ id: user.id })
+        .then(user => {
+            return cb(null, {
+                id: user.id,
+                tokens: {
+                    access_token: user.access_token,
+                    refresh_token: user.refresh_token
+                }
+            })
+        }).catch(err => console.error(err))
     })
 })
 
@@ -55,15 +73,18 @@ class AuthenticationController implements Controller {
             failureRedirect: '/',
         }));
         this.router.post('/logout', function (req, res, next) {
-            req.logout(() => {
-                req.session.destroy(function (err) {
-                    if (err) {
-                        return next(err);
-                    }
-                    res.clearCookie('connect.sid');
-                    res.redirect('/')
+            const id = req.user.id;
+            console.log('user id', id);
+            req.logout(async () => {
+                UserModel.findOneAndRemove({id }).then(() => {
+                    console.log('id removed');
                 })
             });
+            req.session.destroy(() => console.log('session destroyed'));
+            res.clearCookie('connect.sid', {
+                path: "/"
+            });
+            return res.status(200).send({"message": "logout"});
         });
     }
 
