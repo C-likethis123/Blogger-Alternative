@@ -3,6 +3,7 @@ declare global {
     interface Post {
         id: string | number;
         title?: string;
+        content?: string;
         isDraft: boolean;
     }
 

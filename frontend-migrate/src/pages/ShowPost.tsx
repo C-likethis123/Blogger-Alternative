@@ -8,10 +8,11 @@ export default function Component() {
     const [title, setTitle] = React.useState("");
     const [content, setContent] = React.useState("");
     const { id } = useParams<{ id: string }>();
+    const {selectedBlog: blogId} = useContext(BlogContext);
     const downloadPost = async () => {};
 
     React.useEffect(() => {
-        axios.get(`/posts/${id}`)
+        axios.get(`/api/blogs/${blogId}/posts/${id}`)
             .then(({ data: { title, content }}) => {
                 setTitle(title);
                 setContent(content);
