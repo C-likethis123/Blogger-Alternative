@@ -8,7 +8,8 @@ export const createPost = async (post: Post) => {
     return data;
 }
 
-export const fetchPost = async (id: string) => {
-    const { data } = await queryClient.get(`/api/post/${id}`);
+export const fetchPost = async (blogId: string, id: string) => {
+    const { data } = await queryClient.get(`/api/blogs/${blogId}/posts/${id}`);
+    console.log(data);
     return data;
 }

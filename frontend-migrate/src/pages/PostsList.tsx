@@ -12,14 +12,13 @@ export default function Component() {
     const history = useHistory();
     useEffect(() => {
         if (blogId) {
-            fetch(`/api/blogs/${blogId}/posts`)
-            .then(response => response.json())
+            fetchPosts(blogId)
             .then((response) => setPosts(response))
             .catch((error) => console.log(error));
         }
     },[blogId]);
-    const deletePost = (id: Post['id']) => {
-        axios.delete(`/api/blogs/${blogId}/posts/${id}`)
+    const handleDelete = (id: Post['id']) => {
+        deletePost(blogId, id)
              .then(() => setPosts(posts.filter((post) => post.id !== id)))
     };
 
