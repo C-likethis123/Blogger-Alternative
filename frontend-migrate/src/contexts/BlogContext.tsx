@@ -15,7 +15,6 @@ function useBlogContextProps(): BlogValue {
     
     useEffect(() => {
         axios.get('/api/blogs').then(res => {
-            console.log(res);
             setBlogs(res.data);
             setSelectedBlog(res.data[0]?.id);
     });

@@ -27,13 +27,14 @@ export default function Component() {
     if (id) {
       axios
         .post(`/posts/update/${id}`, newPost)
-        .then((res) => console.log(res.data));
+        .then((res) => console.log(res.data))
+        .then(() => history.push(Paths.PostsList));
     } else {
       axios
         .post(`/api/blogs/${blogId}/posts`, newPost)
-        .then((res) => setId(res.data.id));
+        .then((res) => setId(res.data.id))
+        .then(() => history.push(Paths.PostsList));
     }
-    history.push(Paths.PostsList);
   }
 
   const onSave = (content: string) => {

@@ -48,7 +48,7 @@ class PostsController implements Controller {
       }
      })
 
-     this.router.delete('/api/blogs/:blogId/posts/:postId', async (req: Request, res: Response) => {
+     this.router.delete('/api/blogs/:blogId/posts/:postId', checkAuthenticated, async (req: Request, res: Response) => {
       const { oauth2Client } = req;
       const { blogId, postId } = req.params;
       try {
