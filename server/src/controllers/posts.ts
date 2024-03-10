@@ -53,7 +53,8 @@ class PostsController implements Controller {
       const { blogId, postId } = req.params;
       try {
          const service = new PostsService(oauth2Client);
-         await service.updatePost(blogId, postId, req.body);
+         const {title, content} = req.body;
+         await service.updatePost(blogId, postId, {title, content});
          return res.status(204).json(null);
       } catch (err) {
          return res.status(400).json({err: err.message});
