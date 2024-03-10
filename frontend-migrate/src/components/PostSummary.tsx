@@ -10,7 +10,7 @@ export default function PostSummary(props: PostSummaryProps) {
     const goToEdit = () => history.push(`edit/${props.post._id}`);
     const deletePost = () => {
         if (window.confirm(`Are you sure you want to delete '${props.post.title || '(Untitled)'}'?`)) {
-            props.deletePost(props.post._id);
+            props.deletePost(props.post.id);
         }
     };
 

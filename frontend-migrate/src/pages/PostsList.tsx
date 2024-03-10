@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Paths } from "../utils/paths";
 import BlogDropdown from "../components/BlogDropdown";
 import BlogContext from "../contexts/BlogContext";
+import axios from "axios";
 
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
@@ -18,10 +19,8 @@ export default function Component() {
         }
     },[blogId]);
     const deletePost = (id: Post['id']) => {
-        fetch(`/api/blogs/${blogId}/posts/${id}`, {
-            method: 'DELETE'
-        })
-            .then(() => setPosts(posts.filter((post) => post.id !== id)))
+        axios.delete(`/api/blogs/${blogId}/posts/${id}`)
+             .then(() => setPosts(posts.filter((post) => post.id !== id)))
     };
 
     const createPost = () => history.push(Paths.CreatePost);
