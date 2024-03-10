@@ -9,7 +9,7 @@ export default function BlogDropdown() {
     return (
         <>
             <label htmlFor="blogs">Blog: </label>
-            <select name="blogs" value={selectedBlog} onChange={handleBlogChange}>
+            <select name="blogs" id="blogs" role="listbox" value={selectedBlog} onChange={handleBlogChange}>
                 {blogs.map(({ name, id }) => <option value={id} key={id}>{name}</option>)}
             </select>
         </>

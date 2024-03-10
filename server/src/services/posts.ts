@@ -3,7 +3,6 @@ import type { OAuth2Client } from 'google-auth-library';
 
 /*
 A PostService that takes in an OAuth2Client for authentication and provides an interface for the blogger API
-// TODO: refactor to actually accomodate posts
 */
 
 class PostService {
