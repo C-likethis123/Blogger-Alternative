@@ -40,12 +40,6 @@ export default function Component() {
                 newPost
             ).then(() => history.push(Paths.PostsList));
     }
-    const onDelete = () => {
-        axios
-            .delete(`/posts/${id}`)
-            .then(() => history.push(Paths.PostsList));
-    }
-
     const onSave = (content: string) => {
         const newPost = {
             title,
@@ -69,7 +63,6 @@ export default function Component() {
             isEdit
             onSubmit={onSubmit}
             onChangeTitle={onChangeTitle}
-            onDelete={onDelete}
             onSave={onSave}
         />
     </div>
