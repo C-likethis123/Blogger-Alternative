@@ -28,7 +28,8 @@ export default function Component() {
     }, [blogId, id]);
 
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
-    const onSubmit = (content: string) => {
+    const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
+    const onSubmit = () => {
         const newPost = {
             title,
             content,
@@ -63,6 +64,7 @@ export default function Component() {
             isEdit
             onSubmit={onSubmit}
             onChangeTitle={onChangeTitle}
+            onChangeContent={onChangeContent}
             onSave={onSave}
         />
     </div>
