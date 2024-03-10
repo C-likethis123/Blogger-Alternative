@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import axios from "axios";
 
 import Editor from "../components/Editor";
 
 import { useHistory } from "react-router-dom";
 import { Paths } from "../utils/paths";
 import BlogContext from "../contexts/BlogContext";
+
+import { createPost, updatePost } from "../loaders/posts";
 
 export default function Component() {
   const [title, setTitle] = React.useState("");
@@ -26,13 +27,11 @@ export default function Component() {
     };
 
     if (id) {
-      axios
-        .post(`/posts/update/${id}`, newPost)
+      updatePost(blogId, id, newPost)
         .then((res) => console.log(res.data))
         .then(() => history.push(Paths.PostsList));
     } else {
-      axios
-        .post(`/api/blogs/${blogId}/posts`, newPost)
+      createPost(blogId, newPost)
         .then((res) => setId(res.data.id))
         .then(() => history.push(Paths.PostsList));
     }
@@ -45,17 +44,11 @@ export default function Component() {
     };
 
     if (id) {
-      axios
-        .post(`/posts/update/${id}`, newPost)
+      updatePost(blogId, id, newPost);
     } else {
-      axios
-        .post(`/api/blogs/${blogId}/posts`, newPost)
-        .then((res) => {
-          setId(res.data.id);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      createPost(blogId, newPost)
+        .then((res) => setId(res.data.id))
+        .catch((err) => console.log(err));
     }
   }
 

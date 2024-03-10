@@ -14,9 +14,9 @@ function useBlogContextProps(): BlogValue {
     const handleBlogChange = (event: React.ChangeEvent<HTMLSelectElement>) => setSelectedBlog(event.target.value);
     
     useEffect(() => {
-        axios.get('/api/blogs').then(res => {
-            setBlogs(res.data);
-            setSelectedBlog(res.data[0]?.id);
+        fetchBlogs().then(res => {
+            setBlogs(res);
+            setSelectedBlog(res[0]?.id);
     });
     }, [])
     return {

@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Paths } from "../utils/paths";
 import BlogDropdown from "../components/BlogDropdown";
 import BlogContext from "../contexts/BlogContext";
-import axios from "axios";
+import { fetchPosts, deletePost } from "../loaders/posts";
 
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
@@ -31,7 +31,7 @@ export default function Component() {
             posts.map((post) => <PostSummary
                 post={post}
                 key={post.id}
-                deletePost={deletePost}
+                deletePost={handleDelete}
             />)
         }
     </div>
