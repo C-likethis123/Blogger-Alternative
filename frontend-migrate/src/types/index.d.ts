@@ -5,4 +5,10 @@ declare global {
         title?: string;
         isDraft: boolean;
     }
+
+    interface Blog {
+        name: string;
+        id: string;
+        status: string;
+    }
 }

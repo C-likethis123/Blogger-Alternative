@@ -3,11 +3,7 @@ import BlogContext from "../contexts/BlogContext";
 /**
  * A UI component that shows important links to the user
  */
-interface Blog {
-    name: string;
-    id: string;
-    status: string;
-}
+
 export default function Dropdown() {
     const {blogs, selectedBlog, handleBlogChange} = useContext(BlogContext);
     return (

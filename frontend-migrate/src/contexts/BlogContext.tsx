@@ -1,12 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
-interface Blog {
-    name: string;
-    id: string;
-    status: string;
-}
-
 type BlogValue = {
     blogs: Blog[],
     selectedBlog: Blog['id'],
