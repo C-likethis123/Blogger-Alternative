@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import { fetchBlogs } from "../loaders/blogs";
 
 type BlogValue = {
     blogs: Blog[],

@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import axios from "axios";
+import React, { useContext, useEffect } from "react";
 import "../styles/App.css";
 import Viewer from "../components/Viewer";
 import { useParams } from "react-router-dom";
