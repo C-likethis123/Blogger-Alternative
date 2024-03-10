@@ -47,10 +47,6 @@ class App {
         this.db = await MongoConnection.getDatabase();
     }
 
-    private async initialiseDataBase() {
-        this.db = await MongoConnection.getDatabase();
-    }
-
     private initialiseControllers(controllers: Controller[]) {
         controllers.forEach((controller) => this.app.use('/', controller.router));
     }

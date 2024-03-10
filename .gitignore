@@ -29,3 +29,6 @@ blog app.code-workspace
 
 # environment keys
 .env
+
+# refactoring
+/frontend/*

@@ -2,17 +2,23 @@ services:
   web:
     build: .
     environment:
-      - MONGODB_URL=mongodb://mongodb:27017/blogalt
+      - MONGODB_URL=mongodb://mongo:27017/blogalt
     ports:
       - "8000:8000"
     depends_on:
       - mongo
+    networks:
+      - node-network
   mongo:
     image: mongo
     ports:
       - "27017:27017"
+    expose:
+      - 27017
     volumes:
       - dbdata:/data/db
+    networks:
+      - node-network
 volumes:
   dbdata:
 
