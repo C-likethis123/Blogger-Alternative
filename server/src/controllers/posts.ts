@@ -48,6 +48,19 @@ class PostsController implements Controller {
       }
      })
 
+     this.router.patch('/api/blogs/:blogId/posts/:postId', checkAuthenticated, async (req: Request, res: Response) => {
+      const { oauth2Client } = req;
+      const { blogId, postId } = req.params;
+      try {
+         const service = new PostsService(oauth2Client);
+         const {title, content} = req.body;
+         await service.updatePost(blogId, postId, {title, content});
+         return res.status(204).json(null);
+      } catch (err) {
+         return res.status(400).json({err: err.message});
+      }
+     });
+
      this.router.delete('/api/blogs/:blogId/posts/:postId', checkAuthenticated, async (req: Request, res: Response) => {
       const { oauth2Client } = req;
       const { blogId, postId } = req.params;

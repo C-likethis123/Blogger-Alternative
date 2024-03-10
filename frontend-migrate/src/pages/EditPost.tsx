@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 
 import Editor from "../components/Editor";
 import { useHistory, useParams } from "react-router-dom";
 import { fetchPost } from "../loaders/posts";
 import { Paths } from "../utils/paths";
+import BlogContext from "../contexts/BlogContext";
 type RouteParams = {
     id: string;
 }
@@ -15,48 +16,39 @@ export default function Component() {
     const [isDraft, setIsDraft] = React.useState(true);
     const history = useHistory();
     const { id } = useParams<RouteParams>();
+    const {selectedBlog:blogId} = useContext(BlogContext);
 
     React.useEffect(() => {
-        fetchPost(id)
-            .then(({ data: { title, content, isDraft } }) => {
+        fetchPost(blogId, id)
+            .then(({ title, content }) => {
                 setTitle(title);
                 setContent(content);
-                setIsDraft(isDraft);
             })
             .catch((error) => console.log(error));
-    }, [id]);
+    }, [blogId, id]);
 
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
-    const onSubmit = (content: string) => {
+    const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
+    const onSubmit = () => {
         const newPost = {
             title,
             content,
-            isDraft: false,
         };
 
         axios
-            .post(
-                `/posts/update/${id}`,
+            .patch(
+                `/api/blogs/${blogId}/posts/${id}`,
                 newPost
-            );
-
-        history.push(Paths.PostsList);
+            ).then(() => history.push(Paths.PostsList));
     }
-    const onDelete = () => {
-        axios
-            .delete(`/posts/${id}`)
-            .then(() => history.push(Paths.PostsList));
-    }
-
     const onSave = (content: string) => {
         const newPost = {
             title,
-            content: content,
-            isDraft,
+            content,
         };
         axios
-            .post(
-                `/posts/update/${id}`,
+            .patch(
+                `/api/blogs/${blogId}/posts/${id}`,
                 newPost
             )
             .catch((err) => {
@@ -72,7 +64,7 @@ export default function Component() {
             isEdit
             onSubmit={onSubmit}
             onChangeTitle={onChangeTitle}
-            onDelete={onDelete}
+            onChangeContent={onChangeContent}
             onSave={onSave}
         />
     </div>
