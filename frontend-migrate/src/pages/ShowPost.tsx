@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import axios from "axios";
+import React, { useContext, useEffect } from "react";
 import "../styles/App.css";
 import Viewer from "../components/Viewer";
 import { useParams } from "react-router-dom";
 import BlogContext from "../contexts/BlogContext";
+import { fetchPost } from "../loaders/posts";
 
 export default function Component() {
     const [title, setTitle] = React.useState("");
@@ -12,9 +12,9 @@ export default function Component() {
     const {selectedBlog: blogId} = useContext(BlogContext);
     const downloadPost = async () => {};
 
-    React.useEffect(() => {
-        axios.get(`/api/blogs/${blogId}/posts/${id}`)
-            .then(({ data: { title, content }}) => {
+    useEffect(() => {
+        fetchPost(blogId, id)
+            .then(({ title, content }) => {
                 setTitle(title);
                 setContent(content);
             })

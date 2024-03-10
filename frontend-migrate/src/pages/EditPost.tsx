@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import axios from "axios";
 
 import Editor from "../components/Editor";
 import { useHistory, useParams } from "react-router-dom";
-import { fetchPost } from "../loaders/posts";
+import { fetchPost, updatePost } from "../loaders/posts";
 import { Paths } from "../utils/paths";
 import BlogContext from "../contexts/BlogContext";
 type RouteParams = {
@@ -35,22 +34,14 @@ export default function Component() {
             content,
         };
 
-        axios
-            .patch(
-                `/api/blogs/${blogId}/posts/${id}`,
-                newPost
-            ).then(() => history.push(Paths.PostsList));
+        updatePost(blogId, id, newPost).then(() => history.push(Paths.PostsList));
     }
     const onSave = (content: string) => {
         const newPost = {
             title,
             content,
         };
-        axios
-            .patch(
-                `/api/blogs/${blogId}/posts/${id}`,
-                newPost
-            )
+        updatePost(blogId, id, newPost)
             .catch((err) => {
                 console.log(err);
             });

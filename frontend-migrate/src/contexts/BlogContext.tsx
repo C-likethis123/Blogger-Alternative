@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import { fetchBlogs } from "../loaders/blogs";
 
 type BlogValue = {
     blogs: Blog[],
@@ -14,9 +14,9 @@ function useBlogContextProps(): BlogValue {
     const handleBlogChange = (event: React.ChangeEvent<HTMLSelectElement>) => setSelectedBlog(event.target.value);
     
     useEffect(() => {
-        axios.get('/api/blogs').then(res => {
-            setBlogs(res.data);
-            setSelectedBlog(res.data[0]?.id);
+        fetchBlogs().then(res => {
+            setBlogs(res);
+            setSelectedBlog(res[0]?.id);
     });
     }, [])
     return {

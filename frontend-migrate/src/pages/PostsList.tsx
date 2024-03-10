@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Paths } from "../utils/paths";
 import BlogDropdown from "../components/BlogDropdown";
 import BlogContext from "../contexts/BlogContext";
-import axios from "axios";
+import { fetchPosts, deletePost } from "../loaders/posts";
 
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
@@ -12,14 +12,13 @@ export default function Component() {
     const history = useHistory();
     useEffect(() => {
         if (blogId) {
-            fetch(`/api/blogs/${blogId}/posts`)
-            .then(response => response.json())
+            fetchPosts(blogId)
             .then((response) => setPosts(response))
             .catch((error) => console.log(error));
         }
     },[blogId]);
-    const deletePost = (id: Post['id']) => {
-        axios.delete(`/api/blogs/${blogId}/posts/${id}`)
+    const handleDelete = (id: Post['id']) => {
+        deletePost(blogId, id)
              .then(() => setPosts(posts.filter((post) => post.id !== id)))
     };
 
@@ -32,7 +31,7 @@ export default function Component() {
             posts.map((post) => <PostSummary
                 post={post}
                 key={post.id}
-                deletePost={deletePost}
+                deletePost={handleDelete}
             />)
         }
     </div>

@@ -1,10 +1,10 @@
 export {}
 declare global {
     interface Post {
-        id: string | number;
+        id: string;
         title?: string;
         content?: string;
-        isDraft: boolean;
+        isDraft?: boolean;
     }
 
     interface Blog {
