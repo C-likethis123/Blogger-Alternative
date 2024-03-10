@@ -54,7 +54,7 @@ class PostsController implements Controller {
       try {
          const service = new PostsService(oauth2Client);
          await service.deletePost(blogId, postId);
-         return res.status(204);
+         return res.status(204).json(null);
       } catch (err) {
          return res.status(400).json({err: err.message});
       }
