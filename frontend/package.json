@@ -14,7 +14,7 @@
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@use-it/interval": "^1.0.0",
-    "axios": "^0.21.1",
+    "axios": "^0.28.0",
     "bootstrap": "^4.4.1",
     "file-saver": "^2.0.2",
     "html-docx-js-typescript": "^0.1.2",
