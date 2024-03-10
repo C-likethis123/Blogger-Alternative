@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import BlogContext from "../contexts/BlogContext";
 /**
- * A UI component that shows important links to the user
+ * A dropdown component for users to select the blog they want to post in
  */
 
-export default function Dropdown() {
+export default function BlogDropdown() {
     const {blogs, selectedBlog, handleBlogChange} = useContext(BlogContext);
     return (
         <>

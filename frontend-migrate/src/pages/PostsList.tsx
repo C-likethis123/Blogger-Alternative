@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PostSummary from "../components/PostSummary";
 import { useHistory } from "react-router-dom";
 import { Paths } from "../utils/paths";
-import Dropdown from "../components/Dropdown";
+import BlogDropdown from "../components/BlogDropdown";
 
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
@@ -23,7 +23,7 @@ export default function Component() {
     const createPost = () => history.push(Paths.CreatePost);
     return <div>
         <h3>Your Posts</h3>
-        <Dropdown />
+        <BlogDropdown />
         <button onClick={createPost}>Create Post</button>
         {
             posts.map((post) => <PostSummary
