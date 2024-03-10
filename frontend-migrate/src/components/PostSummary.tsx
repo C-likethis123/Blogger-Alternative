@@ -3,18 +3,18 @@ import { useHistory } from "react-router-dom";
 
 interface PostSummaryProps {
     post: Post;
-    deletePost: (id: Post['_id']) => void;
+    deletePost: (id: Post['id']) => void;
 }
 export default function PostSummary(props: PostSummaryProps) {
     const history = useHistory();
-    const goToEdit = () => history.push(`edit/${props.post._id}`);
+    const goToEdit = () => history.push(`edit/${props.post.id}`);
     const deletePost = () => {
         if (window.confirm(`Are you sure you want to delete '${props.post.title || '(Untitled)'}'?`)) {
             props.deletePost(props.post.id);
         }
     };
 
-    const goToView = () => history.push(`post/${props.post._id}`);
+    const goToView = () => history.push(`post/${props.post.id}`);
     return (
         <div>
             <h5>
