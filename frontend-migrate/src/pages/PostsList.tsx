@@ -6,6 +6,11 @@ import BlogDropdown from "../components/BlogDropdown";
 import BlogContext from "../contexts/BlogContext";
 import { fetchPosts, deletePost } from "../loaders/posts";
 
+import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
+import Sheet from '@mui/joy/Sheet';
+import Typography from '@mui/joy/Typography';
+
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
     const {selectedBlog : blogId} = useContext(BlogContext);
@@ -23,10 +28,13 @@ export default function Component() {
     };
 
     const createPost = () => history.push(Paths.CreatePost);
-    return <div>
-        <h3>Your Posts</h3>
+    return <Sheet>
+        <Box display="flex" justifyContent={"space-between"}>
+            <Typography level="h2">Your Posts</Typography>
+            <Button onClick={createPost}>Create Post</Button>
+        </Box>
         <BlogDropdown />
-        <button onClick={createPost}>Create Post</button>
+        
         {
             posts.map((post) => <PostSummary
                 post={post}
@@ -34,5 +42,5 @@ export default function Component() {
                 deletePost={handleDelete}
             />)
         }
-    </div>
+    </Sheet>
 }
