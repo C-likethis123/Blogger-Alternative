@@ -5,6 +5,10 @@ import { Paths } from "./utils/paths"
 import { AuthProvider } from "./contexts/AuthContext";
 import { BlogProvider } from "./contexts/BlogContext";
 
+import '@fontsource/inter';
+import { CssVarsProvider } from '@mui/joy/styles';
+import Sheet from '@mui/joy/Sheet';
+
 const CreatePost = lazy(() => import("./pages/CreatePost"));
 const EditPost = lazy(() => import("./pages/EditPost"));
 const PostsList = lazy(() => import("./pages/PostsList"));
@@ -15,21 +19,35 @@ const Loading = () => <div>Loading...</div>
 
 export default function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <BlogProvider>
-        <Header />
-        <Suspense fallback={<Loading />}>
-          <Switch>
-            <Route path={Paths.PostsList} component={PostsList} />
-            <Route path={Paths.CreatePost} component={CreatePost} />
-            <Route path={`${Paths.EditPost}/:id`} component={EditPost} />
-            <Route path={`${Paths.Post}/:id`} component={ShowPost} />
-            <Route path={Paths.Default} component={HomePage} />
-          </Switch>
-        </Suspense>
-        </BlogProvider>
-      </AuthProvider>
-    </Router>
+    <CssVarsProvider>
+      <Router>
+        <AuthProvider>
+          <BlogProvider>
+            <Sheet variant="soft" sx={{
+              mx: 'auto', // margin left & right
+              my: 4, // margin top & bottom
+              py: 3, // padding top & bottom
+              px: 2, // padding left & right
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              borderRadius: 'sm',
+              boxShadow: 'md',
+            }}>
+              <Header />
+              <Suspense fallback={<Loading />}>
+                <Switch>
+                  <Route path={Paths.PostsList} component={PostsList} />
+                  <Route path={Paths.CreatePost} component={CreatePost} />
+                  <Route path={`${Paths.EditPost}/:id`} component={EditPost} />
+                  <Route path={`${Paths.Post}/:id`} component={ShowPost} />
+                  <Route path={Paths.Default} component={HomePage} />
+                </Switch>
+              </Suspense>
+            </Sheet>
+          </BlogProvider>
+        </AuthProvider>
+      </Router>
+    </CssVarsProvider>
   );
 };
