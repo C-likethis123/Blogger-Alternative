@@ -25,7 +25,7 @@ export default function App() {
         <AuthProvider>
           <DrawerProvider>
             <BlogProvider>
-              <Sheet variant="soft" sx={{
+              <Sheet sx={{
                 // mx: 'auto', // margin left & right
                 // my: 4, // margin top & bottom
                 // py: 3, // padding top & bottom

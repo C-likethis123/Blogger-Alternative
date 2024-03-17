@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { ServerPaths } from "../utils/paths";
+import { Paths, ServerPaths } from "../utils/paths";
 import AuthContext from "../contexts/AuthContext";
 
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import IconButton from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
+import Stack from '@mui/joy/Stack';
 import MenuIcon from '@mui/icons-material/Menu';
 import DrawerContext from "../contexts/DrawerContext";
 
