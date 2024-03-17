@@ -20,25 +20,27 @@ export default function PostSummary(props: PostSummaryProps) {
 
     const goToView = () => history.push(`post/${props.post.id}`);
     return (
-        <Box display="flex" justifyContent={"space-between"}>
-            <Box>
-                <Typography level="title-lg">
-                    {props.post.title || '(Untitled)'}
-                </Typography>
-                <Typography level="title-sm">
-                    {props.post.isDraft ? 'Draft' : 'Published'}
-                </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', '& > :not(:last-child)': { marginRight: 2 } }}>
-                <Button color="primary" sx={{px: 2}} onClick={goToEdit}>
-                    Edit
-                </Button>
-                <Button color="danger" sx={{px: 2}} onClick={deletePost}>
-                    Delete
-                </Button>
-                <Button color="neutral" sx={{px: 2}} onClick={goToView}>
-                    View
-                </Button>
+        <Box sx={{border: 2, borderRadius: 20, marginBottom: 2}}>
+            <Box padding={2} display="flex" justifyContent={"space-between"}>
+                <Box>
+                    <Typography level="title-lg">
+                        {props.post.title || '(Untitled)'}
+                    </Typography>
+                    <Typography level="title-sm">
+                        {props.post.isDraft ? 'Draft' : 'Published'}
+                    </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', '& > :not(:last-child)': { marginRight: 2 } }}>
+                    <Button color="primary" sx={{px: 2}} onClick={goToEdit}>
+                        Edit
+                    </Button>
+                    <Button color="danger" sx={{px: 2}} onClick={deletePost}>
+                        Delete
+                    </Button>
+                    <Button color="neutral" sx={{px: 2}} onClick={goToView}>
+                        View
+                    </Button>
+                </Box>
             </Box>
         </Box>
     );
