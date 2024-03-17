@@ -3,6 +3,9 @@ import { useHistory } from "react-router-dom";
 
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
+import Card from '@mui/joy/Card';
+import CardActions from '@mui/joy/CardActions';
+import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 
 interface PostSummaryProps {
@@ -20,28 +23,28 @@ export default function PostSummary(props: PostSummaryProps) {
 
     const goToView = () => history.push(`post/${props.post.id}`);
     return (
-        <Box sx={{border: 2, borderRadius: 20, marginBottom: 2}}>
-            <Box padding={2} display="flex" justifyContent={"space-between"}>
-                <Box>
+        <Card variant="outlined" sx={{marginBottom: 2}}>
+            <Box display="flex" justifyContent={"space-between"}>
+                <CardContent>
                     <Typography level="title-lg">
                         {props.post.title || '(Untitled)'}
                     </Typography>
                     <Typography level="title-sm">
                         {props.post.isDraft ? 'Draft' : 'Published'}
                     </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', '& > :not(:last-child)': { marginRight: 2 } }}>
-                    <Button color="primary" sx={{px: 2}} onClick={goToEdit}>
+                </CardContent>
+                <CardActions>
+                    <Button color="primary" onClick={goToEdit}>
                         Edit
                     </Button>
-                    <Button color="danger" sx={{px: 2}} onClick={deletePost}>
+                    <Button color="danger" onClick={deletePost}>
                         Delete
                     </Button>
-                    <Button color="neutral" sx={{px: 2}} onClick={goToView}>
+                    <Button color="neutral" onClick={goToView}>
                         View
                     </Button>
-                </Box>
+                </CardActions>
             </Box>
-        </Box>
+        </Card>
     );
 };
