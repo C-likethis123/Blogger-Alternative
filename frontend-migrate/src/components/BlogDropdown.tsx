@@ -5,6 +5,7 @@ import Box from '@mui/joy/Box';
 import List from '@mui/joy/List';
 import ListItemButton from '@mui/joy/ListItemButton';
 import ListSubheader from '@mui/joy/ListSubheader';
+import DrawerContext from "../contexts/DrawerContext";
 
 /**
  * A dropdown component for users to select the blog they want to post in
@@ -12,10 +13,17 @@ import ListSubheader from '@mui/joy/ListSubheader';
 
 export default function BlogDropdown() {
     const { blogs, selectedBlog, handleBlogChange } = useContext(BlogContext);
+    const { isDrawerOpen } = useContext(DrawerContext);
     return (
         <Box sx={{
             width: '220px',
+            overflowX: 'hidden',
+            visibility: isDrawerOpen ? 'visible' : 'hidden',
+            transitionDelay: '0s, 0.25s',
+            transitionDuration: '0s, 0.25s',
+            transitionProperty: 'inline-size, visibility',
             height: '100vh',
+            inlineSize: isDrawerOpen ? '220px' : '0px',
             zIndex: 10000,
             top: 0,
             left: 0,
