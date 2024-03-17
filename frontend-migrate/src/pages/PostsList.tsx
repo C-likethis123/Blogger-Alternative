@@ -28,7 +28,7 @@ export default function Component() {
     };
 
     const createPost = () => history.push(Paths.CreatePost);
-    return <Sheet sx={{ display: 'flex' }}>
+    return <Sheet>
         {blogs.length === 0 ?
             <Box sx={{
                 textAlign: "center",
@@ -40,10 +40,10 @@ export default function Component() {
                 <Typography>Create one in Google Blogger to share your thoughts and experiences with the world!</Typography>
             </Box>
             :
-            <>
+            <Box sx={{display: 'flex', width: '100%'}}>
                 <BlogDropdown />
-                <Box>
-                    <Box display="flex" justifyContent={"space-between"}>
+                <Sheet sx={{width: '100%', mx: 20}}>
+                    <Box display="flex" justifyContent={"space-between"} sx={{py: 2}}>
                         <Typography level="h2">Your Posts</Typography>
                         <Button onClick={createPost}>Create Post</Button>
                     </Box>
@@ -54,8 +54,8 @@ export default function Component() {
                             deletePost={handleDelete}
                         />)
                     }
-                </Box>
-            </>
+                </Sheet>
+            </Box>
         }
     </Sheet>
 }
