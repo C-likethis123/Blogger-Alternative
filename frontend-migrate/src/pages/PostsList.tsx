@@ -13,34 +13,49 @@ import Typography from '@mui/joy/Typography';
 
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
-    const {selectedBlog : blogId} = useContext(BlogContext);
+    const { blogs, selectedBlog: blogId } = useContext(BlogContext);
     const history = useHistory();
     useEffect(() => {
         if (blogId) {
             fetchPosts(blogId)
-            .then((response) => setPosts(response))
-            .catch((error) => console.log(error));
+                .then((response) => setPosts(response))
+                .catch((error) => console.log(error));
         }
-    },[blogId]);
+    }, [blogId]);
     const handleDelete = (id: Post['id']) => {
         deletePost(blogId, id)
-             .then(() => setPosts(posts.filter((post) => post.id !== id)))
+            .then(() => setPosts(posts.filter((post) => post.id !== id)))
     };
 
     const createPost = () => history.push(Paths.CreatePost);
-    return <Sheet>
-        <Box display="flex" justifyContent={"space-between"}>
-            <Typography level="h2">Your Posts</Typography>
-            <Button onClick={createPost}>Create Post</Button>
-        </Box>
-        <BlogDropdown />
-        
-        {
-            posts.map((post) => <PostSummary
-                post={post}
-                key={post.id}
-                deletePost={handleDelete}
-            />)
+    return <Sheet sx={{ display: 'flex' }}>
+        {blogs.length === 0 ?
+            <Box sx={{
+                textAlign: "center",
+                padding: "20px",
+                borderRadius: "8px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+            }}>
+                <Typography level="h2">You have no blogs</Typography>
+                <Typography>Create one in Google Blogger to share your thoughts and experiences with the world!</Typography>
+            </Box>
+            :
+            <>
+                <BlogDropdown />
+                <Box>
+                    <Box display="flex" justifyContent={"space-between"}>
+                        <Typography level="h2">Your Posts</Typography>
+                        <Button onClick={createPost}>Create Post</Button>
+                    </Box>
+                    {
+                        posts.map((post) => <PostSummary
+                            post={post}
+                            key={post.id}
+                            deletePost={handleDelete}
+                        />)
+                    }
+                </Box>
+            </>
         }
     </Sheet>
 }
