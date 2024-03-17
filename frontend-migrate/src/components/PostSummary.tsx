@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
-import ButtonGroup from '@mui/joy/ButtonGroup';
 import Typography from '@mui/joy/Typography';
 
 interface PostSummaryProps {
@@ -30,14 +29,14 @@ export default function PostSummary(props: PostSummaryProps) {
                     {props.post.isDraft ? 'Draft' : 'Published'}
                 </Typography>
             </Box>
-            <Box>
-                <Button color="primary" onClick={goToEdit}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', '& > :not(:last-child)': { marginRight: 2 } }}>
+                <Button color="primary" sx={{px: 2}} onClick={goToEdit}>
                     Edit
                 </Button>
-                <Button color="danger" onClick={deletePost}>
+                <Button color="danger" sx={{px: 2}} onClick={deletePost}>
                     Delete
                 </Button>
-                <Button color="neutral" onClick={goToView}>
+                <Button color="neutral" sx={{px: 2}} onClick={goToView}>
                     View
                 </Button>
             </Box>
