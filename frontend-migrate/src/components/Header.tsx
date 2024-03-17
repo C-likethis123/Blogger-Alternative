@@ -32,6 +32,9 @@ export default function Header() {
                     <MenuIcon />
                 </IconButton>
                 <Typography>Blogger Alternative</Typography>
+                <Stack direction="row" justifyContent="center" spacing={1} alignItems="center">
+                    <Button variant="plain" color="neutral" component="a" href={Paths.PostsList}>Posts</Button>
+                </Stack>
             </Box>
 
             {
