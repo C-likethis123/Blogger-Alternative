@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { Paths, ServerPaths } from "../utils/paths";
+import { ServerPaths } from "../utils/paths";
 import AuthContext from "../contexts/AuthContext";
 
 import Box from '@mui/joy/Box';
@@ -28,7 +27,7 @@ export default function Header() {
             borderColor: 'divider',
             position: 'sticky'
         }}>
-            <Box display="flex">
+            <Box display="flex" alignItems={'center'}>
                 <IconButton aria-label="Main Menu" onClick={toggleDrawer}>
                     <MenuIcon />
                 </IconButton>
@@ -38,7 +37,7 @@ export default function Header() {
             {
                 isAuthenticated
                     ? <Button onClick={logout}>Logout</Button>
-                    : <Button><a href={ServerPaths.Login}>Login to Google</a></Button>
+                    : <Button><a href={ServerPaths.Login} style={{ textDecoration: 'none', color: 'inherit' }}>Login to Google</a></Button>
             }
         </Box>
     )
