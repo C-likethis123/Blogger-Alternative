@@ -37,6 +37,7 @@ export default function Component() {
             borderColor: 'divider'
         }}>
         <Typography level="h3">{title}</Typography>
+        <Divider sx={{my: 2}} />
         <Viewer value={content || '(No content)'} />
         <Divider sx={{my: 2}} />
         <Button onClick={downloadPost} sx={{float: 'right'}}>Download as Word Document</Button>
