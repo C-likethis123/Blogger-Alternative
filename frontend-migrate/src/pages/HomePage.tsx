@@ -1,35 +1,73 @@
 import React from "react";
-import MarkdownEditor from "./../images/markdown-editor.png";
-import Keyboard from "./../images/keyboard.png";
+
+import AspectRatio from '@mui/joy/AspectRatio';
+import Box from '@mui/joy/Box';
+import Container from '@mui/joy/Container';
+import Typography, { typographyClasses } from '@mui/joy/Typography';
+
 export default function Component() {
-    return <div>
-        <div>
-            <div>Blogger Alternative</div>
-            <div>An alternative website for managing Google Blogger Posts</div>
-        </div>
-        <div>
-            <div className="row">
-                <div className="text-center text-md-left-col-md-6 mb-1">
-                    <h2>Markdown Support</h2>
-                    <ul>
-                        <li>Code highlighting</li>
-                        <li>UML diagram rendering</li>
-                        <li>Chart rendering</li>
-                    </ul>
-                </div>
-                <div className="col-md-6 mb-5">
-                    <img src={MarkdownEditor} width="410" alt="Markdown editor" />
-                </div>
-                <div className="row flex-column-reverse flex-md-row">
-                    <div className="col-md-6 mb-5">
-                        <img src={Keyboard} width="410" alt="Keyboard" />
-                    </div>
-                    <div className="text-center text-md-left col-md-6 mb-5">
-                        <h2>More keyboard shortcuts</h2>
-                        <p>Supercharge your blogging with more keyboard shortcuts</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    return <Container sx={(theme) => ({
+        position: 'relative',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        // py: 10,
+        gap: 4,
+        [theme.breakpoints.up(834)]: {
+            flexDirection: 'row',
+            gap: 6
+        },
+        [theme.breakpoints.up(1199)]: {
+            gap: 12,
+        }
+    })}>
+        <Box sx={(theme) => ({
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '1rem',
+            maxWidth: '50ch',
+            textAlign: 'center',
+            flexShrink: 999,
+            [theme.breakpoints.up(834)]: {
+                minWidth: 420,
+                alignItems: 'flex-start',
+                textAlign: 'initial',
+            },
+            [`& .${typographyClasses.root}`]: {
+                // textWrap: 'balance',
+            },
+        })}>
+            <Typography color="primary" fontSize="lg" fontWeight="lg">
+                Blogger Alternative
+            </Typography>
+            <Typography level="h1" fontWeight={"xl"}>An alternative website for managing Google Blogger Posts</Typography>
+            <Typography fontSize="lg" textColor="text.secondary" lineHeight="lg">
+                Supercharge your writing experience with Markdown support, code highlighting and UML diagrams.
+            </Typography>
+        </Box>
+        <AspectRatio
+            ratio={600 / 520}
+            variant="outlined"
+            maxHeight={300}
+            sx={(theme) => ({
+                minWidth: 300,
+                alignSelf: 'stretch',
+                [theme.breakpoints.up(834)]: {
+                    alignSelf: 'initial',
+                    flexGrow: 1,
+                    '--AspectRatio-maxHeight': '520px',
+                    '--AspectRatio-minHeight': '400px',
+                },
+                borderRadius: 'sm',
+                bgcolor: 'background.level2',
+                flexBasis: '50%',
+            })}
+        >
+            <img
+                src="https://images.unsplash.com/photo-1483791424735-e9ad0209eea2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                alt=""
+            />
+        </AspectRatio>
+    </Container>
 }

@@ -7,6 +7,7 @@ import { BlogProvider } from "./contexts/BlogContext";
 
 import '@fontsource/inter';
 import { CssVarsProvider } from '@mui/joy/styles';
+import CssBaseline from '@mui/joy/CssBaseline';
 import Sheet from '@mui/joy/Sheet';
 import { DrawerProvider } from "./contexts/DrawerContext";
 
@@ -21,20 +22,14 @@ const Loading = () => <div>Loading...</div>
 export default function App() {
   return (
     <CssVarsProvider>
+      <CssBaseline />
       <Router>
         <AuthProvider>
           <DrawerProvider>
             <BlogProvider>
               <Sheet sx={{
-                // mx: 'auto', // margin left & right
-                // my: 4, // margin top & bottom
-                // py: 3, // padding top & bottom
-                // px: 2, // padding left & right
                 display: 'flex',
                 flexDirection: 'column',
-                // gap: 2,
-                // borderRadius: 'sm',
-                // boxShadow: 'md',
               }}>
                 <Header />
                 <Suspense fallback={<Loading />}>
