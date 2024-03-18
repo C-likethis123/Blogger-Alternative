@@ -21,7 +21,9 @@ export default function Component({
     onChangeContent,
     onSubmit,
 }: EditorProps) {
-    return <div>
+    return <Box sx={{
+        height: '100vh',
+    }}>
         <FormLabel htmlFor="title" >Title</FormLabel>
         <Input placeholder="Blog Title" value={title} onChange={onChangeTitle} id="title" name="title" />
         <Button onClick={onSubmit}>Publish</Button>
@@ -29,8 +31,8 @@ export default function Component({
             resize: 'both',
             overflow: 'auto',
             width: '100%',
-            height: '200px'
+            height: 'calc(100% - 200px)'
         }} value={content} onChange={onChangeContent}></Textarea>
 
-    </div>
+    </Box>
 }
