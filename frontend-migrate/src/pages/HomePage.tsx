@@ -1,5 +1,7 @@
 import React from "react";
 
+import MarkdownEditor from "../images/markdown-editor.png";
+
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Container from '@mui/joy/Container';
@@ -11,8 +13,9 @@ export default function Component() {
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
-        // py: 10,
+        py: 10,
         gap: 4,
+        flexDirection: 'column',
         [theme.breakpoints.up(834)]: {
             flexDirection: 'row',
             gap: 6
@@ -56,8 +59,6 @@ export default function Component() {
                 [theme.breakpoints.up(834)]: {
                     alignSelf: 'initial',
                     flexGrow: 1,
-                    '--AspectRatio-maxHeight': '520px',
-                    '--AspectRatio-minHeight': '400px',
                 },
                 borderRadius: 'sm',
                 bgcolor: 'background.level2',
@@ -65,7 +66,7 @@ export default function Component() {
             })}
         >
             <img
-                src="https://images.unsplash.com/photo-1483791424735-e9ad0209eea2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                src={MarkdownEditor}
                 alt=""
             />
         </AspectRatio>
