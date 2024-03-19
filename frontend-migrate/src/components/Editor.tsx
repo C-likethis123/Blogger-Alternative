@@ -1,9 +1,8 @@
 import React from "react";
 
 import Input from '@mui/joy/Input';
-import Button from '@mui/joy/Button';
 import Textarea from '@mui/joy/Textarea';
-import FormLabel from '@mui/joy/FormLabel';
+import Box from '@mui/joy/Box';
 
 interface EditorProps {
     title?: string;
@@ -24,15 +23,14 @@ export default function Component({
     return <Box sx={{
         height: '100vh',
     }}>
-        <FormLabel htmlFor="title" >Title</FormLabel>
-        <Input placeholder="Blog Title" value={title} onChange={onChangeTitle} id="title" name="title" />
-        <Button onClick={onSubmit}>Publish</Button>
-        <Textarea sx={{ 
+        <Input placeholder="Blog Title" value={title} onChange={onChangeTitle} id="title" name="title" sx={{ my: 2 }} />
+        <Textarea sx={{
             resize: 'both',
             overflow: 'auto',
             width: '100%',
+            my: 2,
             height: 'calc(100% - 200px)'
-        }} value={content} onChange={onChangeContent}></Textarea>
+        }} value={content} onChange={onChangeContent} placeholder="Blog Content" />
 
     </Box>
 }

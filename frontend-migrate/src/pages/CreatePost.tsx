@@ -8,6 +8,8 @@ import BlogContext from "../contexts/BlogContext";
 
 import { createPost, updatePost } from "../loaders/posts";
 
+import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 
@@ -66,7 +68,10 @@ export default function Component() {
       borderRight: '1px solid',
       borderColor: 'divider'
     }}>
-      <Typography level="h3">Create Post</Typography>
+      <Box display="flex" justifyContent={"space-between"} sx={{my: 2}}>
+        <Typography level="h3">Create Post</Typography>
+        <Button onClick={onSubmit}>Publish</Button>
+      </Box>
       <Editor
         isEdit={false}
         onSubmit={onSubmit}
