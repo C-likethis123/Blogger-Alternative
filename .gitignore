@@ -10,7 +10,7 @@
 
 # production
 /build
-*/public
+/server/public
 /server/dist/*
 
 # misc
