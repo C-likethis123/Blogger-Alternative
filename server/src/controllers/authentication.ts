@@ -66,7 +66,8 @@ class AuthenticationController implements Controller {
 
     constructor() {
         this.router.get('/login/google', passport.authenticate("google", {
-            scope: ["email", "profile", "https://www.googleapis.com/auth/blogger"]
+            scope: ["email", "profile", "https://www.googleapis.com/auth/blogger"],
+            accessType: 'offline'
         }));
         this.router.get('/oauth/redirect/google', passport.authenticate("google", {
             successReturnToOrRedirect: '/posts',
@@ -76,7 +77,6 @@ class AuthenticationController implements Controller {
             const id = req.user?.id;
             req.session.destroy(() => {
                 UserModel.findOneAndRemove({id }).then(() => {
-                    console.log('id removed');
                     res.clearCookie('connect.sid', {
                         secure: false,
                         httpOnly: false,
