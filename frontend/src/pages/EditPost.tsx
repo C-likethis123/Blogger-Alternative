@@ -3,56 +3,60 @@ import React, { useContext } from "react";
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Typography from '@mui/joy/Typography';
-import Sheet from '@mui/joy/Sheet';
+import Sheet from "../components/Sheet";
 
 import Editor from "../components/Editor";
 import { useHistory, useParams } from "react-router-dom";
 import { fetchPost, updatePost } from "../loaders/posts";
 import { Paths } from "../utils/paths";
 import BlogContext from "../contexts/BlogContext";
+import { useFetchData } from "../loaders/useFetchData";
 type RouteParams = {
     id: string;
 }
 
 export default function Component() {
-    const [title, setTitle] = React.useState("");
-    const [content, setContent] = React.useState("");
+    const [titleState, setTitle] = React.useState("");
+    const [contentState, setContent] = React.useState("");
     const [isDraft, setIsDraft] = React.useState(true);
+    const [buttonLoading, setButtonLoading] = React.useState(false);
     const history = useHistory();
     const { id } = useParams<RouteParams>();
     const { selectedBlog: blogId } = useContext(BlogContext);
 
+    const { loading, data, error } = useFetchData(
+        fetchPost, [blogId, id], [blogId, id]
+    );
     React.useEffect(() => {
-        fetchPost(blogId, id)
-            .then(({ title, content }) => {
-                setTitle(title);
-                setContent(content);
-            })
-            .catch((error) => console.log(error));
-    }, [blogId, id]);
+        if (!loading && data) {
+            setTitle(data.title);
+            setContent(data.content);
+        }
+    }, [loading, data]);
 
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
     const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
     const onSubmit = () => {
         const newPost = {
-            title,
-            content,
+            title: titleState,
+            content: contentState,
         };
-
+        setButtonLoading(true);
         updatePost(blogId, id, newPost).then(() => history.push(Paths.PostsList));
     }
     const onSave = (content: string) => {
         const newPost = {
-            title,
+            titleState,
             content,
         };
+        setButtonLoading(true);
         updatePost(blogId, id, newPost)
             .catch((err) => {
                 console.log(err);
             });
     }
 
-    return <Sheet sx={{
+    return <Sheet isLoading={loading} error={error} sx={{
         mx: 20,
         px: 20,
         py: 2,
@@ -64,11 +68,11 @@ export default function Component() {
     }}>
         <Box display="flex" justifyContent={"space-between"} sx={{ my: 2 }}>
             <Typography level="h3">Edit Post</Typography>
-            <Button onClick={onSubmit}>Publish</Button>
+            <Button loading={buttonLoading} onClick={onSubmit}>Publish</Button>
         </Box>
         <Editor
-            title={title}
-            content={content}
+            title={titleState}
+            content={contentState}
             isEdit
             onSubmit={onSubmit}
             onChangeTitle={onChangeTitle}
