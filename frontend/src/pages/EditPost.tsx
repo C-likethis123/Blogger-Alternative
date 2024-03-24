@@ -60,7 +60,7 @@ export default function Component() {
         mx: 20,
         px: 20,
         py: 2,
-        height: '100vh',
+        height: 'calc(100vh - var(--Header-height))',
         overflow: 'auto',
         borderLeft: '1px solid',
         borderRight: '1px solid',

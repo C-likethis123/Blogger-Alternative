@@ -21,7 +21,7 @@ export default function Component({
     onSubmit,
 }: EditorProps) {
     return <Box sx={{
-        height: '100vh',
+        height: 'calc(100vh - var(--Header-height))',
     }}>
         <Input placeholder="Blog Title" value={title} onChange={onChangeTitle} id="title" name="title" sx={{ my: 2 }} />
         <Textarea sx={{

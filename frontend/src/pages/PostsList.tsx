@@ -32,7 +32,7 @@ export default function Component() {
 
     const createPost = () => history.push(Paths.CreatePost);
     return <Sheet sx={{
-        height: '100vh',
+        height: 'calc(100vh - var(--Header-height))',
         overflow: 'auto'
     }} isLoading={isBlogsLoading || isPostsLoading} error={error}>
         {blogs.length === 0 ?
@@ -45,7 +45,7 @@ export default function Component() {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '100vh',
+                height: 'calc(100vh - var(--Header-height))',
             }}>
                 <Typography level="h2">You have no blogs</Typography>
                 <Typography>Create one in Google Blogger to share your thoughts and experiences with the world!</Typography>
@@ -64,7 +64,7 @@ export default function Component() {
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                height: '100vh',
+                                height: 'calc(100vh - var(--Header-height))',
                             }}>
                                 <Typography>You have no posts in this blog. Create one now!</Typography>
                                 <Button onClick={createPost}>Create Post</Button>

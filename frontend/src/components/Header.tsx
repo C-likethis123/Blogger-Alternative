@@ -5,10 +5,10 @@ import AuthContext from "../contexts/AuthContext";
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import IconButton from '@mui/joy/IconButton';
-import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
 import MenuIcon from '@mui/icons-material/Menu';
 import DrawerContext from "../contexts/DrawerContext";
+import { GlobalStyles } from "@mui/joy";
 
 
 /**
@@ -26,13 +26,19 @@ export default function Header() {
             bgcolor: 'background.surface',
             borderBottom: '1px solid',
             borderColor: 'divider',
-            position: 'sticky'
+            position: 'sticky',
+            height: 'var(--Header-height)',
         }}>
+            <GlobalStyles styles={{
+                ':root': {
+                    '--Header-height': '69px',
+                },
+            }} />
             <Box display="flex" alignItems={'center'}>
                 <IconButton aria-label="Main Menu" onClick={toggleDrawer}>
                     <MenuIcon />
                 </IconButton>
-                <IconButton aria-label="Home" component="a" href="/" style={{textDecoration: 'none'}}>
+                <IconButton aria-label="Home" component="a" href="/" style={{ textDecoration: 'none' }}>
                     Blogger Alternative
                 </IconButton>
                 <Stack direction="row" justifyContent="center" spacing={1} alignItems="center">
@@ -45,6 +51,7 @@ export default function Header() {
                     ? <Button onClick={logout}>Logout</Button>
                     : <Button><a href={ServerPaths.Login} style={{ textDecoration: 'none', color: 'inherit' }}>Login to Google</a></Button>
             }
+
         </Box>
     )
 }

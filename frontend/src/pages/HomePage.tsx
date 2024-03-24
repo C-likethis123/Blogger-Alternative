@@ -10,7 +10,7 @@ import Typography, { typographyClasses } from '@mui/joy/Typography';
 export default function Component() {
     return <Container sx={(theme) => ({
         position: 'relative',
-        minHeight: '100vh',
+        height: 'calc(100vh - var(--Header-height))',
         display: 'flex',
         alignItems: 'center',
         py: 10,

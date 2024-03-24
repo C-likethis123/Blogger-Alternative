@@ -23,7 +23,7 @@ export default function BlogDropdown() {
             transitionDelay: '0s, 0.25s',
             transitionDuration: '0s, 0.25s',
             transitionProperty: 'inline-size, visibility',
-            height: '100vh',
+            height: 'calc(100vh - var(--Header-height))',
             zIndex: 10000,
             top: 0,
             left: 0,
