@@ -5,6 +5,7 @@ import React from 'react';
 import Sheet, { SheetProps } from '@mui/joy/Sheet';
 import Box from '@mui/joy/Box';
 import CircularProgress from '@mui/joy/CircularProgress';
+import Alert from '@mui/joy/Alert';
 
 interface ComponentProps extends SheetProps {
     children: React.ReactNode;
@@ -30,7 +31,7 @@ export default function SheetComponent({
                     }}>
                         < CircularProgress />
                     </Box> :
-                    (error ? error.message : children)
+                    (error ? <Alert color="danger">{error.message}</Alert> : children)
             }
         </Sheet >
     );
