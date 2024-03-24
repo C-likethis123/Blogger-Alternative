@@ -3,6 +3,11 @@
 This document outlines the APIs that the server exposes to the Blogger Alternative client.
 The APIs are based on what the client would need for functionality.
 
+## General conventions of wrapper APIs
+
+Data in wrapper APIs must be wrapped in a 'data' object.
+
+If there is an error, it must return an error with a message.
 ### Retrieve a list of blogs
 `GET /api/blogs`
 

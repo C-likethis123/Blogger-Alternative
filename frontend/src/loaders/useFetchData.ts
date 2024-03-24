@@ -1,3 +1,7 @@
+/**
+ * A wrapper for API calls in blogs and posts.
+ * Everything in the 'dependencies' must be non-null before a query will be made
+ */
 import React, { useState, useEffect } from 'react';
 
 // Define a type for the fetch function
@@ -26,17 +30,20 @@ export function useFetchData<T>(
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        setLoading(true);
-        fetchFunction(...fetchParams)
-            .then((responseData: T) => {
-                setData(responseData);
-            })
-            .catch((error) => {
-                setError(error);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+        const isQueryReady = dependencies.every((dep) => dep != '' && dep != null && dep != undefined);
+        if (isQueryReady) {
+            setLoading(true);
+            fetchFunction(...fetchParams)
+                .then((responseData: T) => {
+                    setData(responseData);
+                })
+                .catch((error) => {
+                    setError(error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }
     }, dependencies);
 
     return { loading, data, error };
