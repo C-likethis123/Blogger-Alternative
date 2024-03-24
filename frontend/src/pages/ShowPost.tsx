@@ -6,9 +6,10 @@ import BlogContext from "../contexts/BlogContext";
 import { fetchPost } from "../loaders/posts";
 
 import Button from '@mui/joy/Button';
-import Sheet from '@mui/joy/Sheet';
+import Sheet from '../components/Sheet'
 import Typography from '@mui/joy/Typography';
 import Divider from '@mui/joy/Divider';
+import { useFetchData } from "../loaders/useFetchData";
 
 export default function Component() {
     const [title, setTitle] = React.useState("");
@@ -17,15 +18,18 @@ export default function Component() {
     const { selectedBlog: blogId } = useContext(BlogContext);
     const downloadPost = async () => { };
 
-    useEffect(() => {
-        fetchPost(blogId, id)
-            .then(({ title, content }) => {
-                setTitle(title);
-                setContent(content);
-            })
-            .catch((error) => console.log(error));
-    }, [id]);
+    const { loading, data, error } = useFetchData(
+        fetchPost, [blogId, id], [blogId, id]
+    );
+    React.useEffect(() => {
+        if (!loading && data) {
+            setTitle(data.title);
+            setContent(data.content);
+        }
+    }, [loading, data]);
     return <Sheet
+        isLoading={loading}
+        error={error}
         sx={{
             mx: 20,
             px: 20,
@@ -37,9 +41,9 @@ export default function Component() {
             borderColor: 'divider'
         }}>
         <Typography level="h3">{title}</Typography>
-        <Divider sx={{my: 2}} />
+        <Divider sx={{ my: 2 }} />
         <Viewer value={content || '(No content)'} />
-        <Divider sx={{my: 2}} />
-        <Button onClick={downloadPost} sx={{float: 'right'}}>Download as Word Document</Button>
+        <Divider sx={{ my: 2 }} />
+        <Button onClick={downloadPost} sx={{ float: 'right' }}>Download as Word Document</Button>
     </Sheet>
 }

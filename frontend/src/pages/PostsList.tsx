@@ -8,27 +8,33 @@ import { fetchPosts, deletePost } from "../loaders/posts";
 
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
-import Sheet from '@mui/joy/Sheet';
+import Sheet from "../components/Sheet";
 import Typography from '@mui/joy/Typography';
+import { useFetchData } from "../loaders/useFetchData";
 
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
-    const { blogs, selectedBlog: blogId } = useContext(BlogContext);
+    const { isBlogsLoading, error, blogs, selectedBlog: blogId } = useContext(BlogContext);
     const history = useHistory();
+    const { loading: isPostsLoading, data, error: postsError } = useFetchData(
+        fetchPosts, [blogId], [blogId]
+    );
     useEffect(() => {
-        if (blogId) {
-            fetchPosts(blogId)
-                .then((response) => setPosts(response))
-                .catch((error) => console.log(error));
+        if (!isPostsLoading && data) {
+            setPosts(data);
         }
-    }, [blogId]);
+    }, [isPostsLoading, data]);
+
     const handleDelete = (id: Post['id']) => {
         deletePost(blogId, id)
             .then(() => setPosts(posts.filter((post) => post.id !== id)))
     };
 
     const createPost = () => history.push(Paths.CreatePost);
-    return <Sheet>
+    return <Sheet sx={{
+        height: '100vh',
+        overflow: 'auto'
+    }} isLoading={isBlogsLoading || isPostsLoading} error={error}>
         {blogs.length === 0 ?
             <Box sx={{
                 textAlign: "center",
@@ -42,7 +48,7 @@ export default function Component() {
             :
             <Box sx={{ display: 'flex', width: '100%' }}>
                 <BlogDropdown />
-                <Sheet sx={{ width: '100%', mx: 20 }}>
+                <Sheet isLoading={isPostsLoading} error={postsError} sx={{ width: '100%', mx: 20 }}>
                     {
                         posts.length === 0 ?
                             <Box sx={{

@@ -17,6 +17,7 @@ export default function Component() {
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
   const [isDraft, setIsDraft] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const [id, setId] = React.useState(null);
   const { selectedBlog: blogId } = useContext(BlogContext);
 
@@ -30,30 +31,32 @@ export default function Component() {
       title,
       content,
     };
-
+    setLoading(true);
     if (id) {
       updatePost(blogId, id, newPost)
         .then((res) => console.log(res.data))
         .then(() => history.push(Paths.PostsList));
     } else {
       createPost(blogId, newPost)
-        .then((res) => setId(res.data.id))
         .then(() => history.push(Paths.PostsList));
     }
   }
 
   const onSave = (content: string) => {
+    setLoading(true);
     const newPost = {
       title,
       content,
     };
 
     if (id) {
-      updatePost(blogId, id, newPost);
+      updatePost(blogId, id, newPost)
+        .finally(() => setLoading(false));
     } else {
       createPost(blogId, newPost)
         .then((res) => setId(res.data.id))
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
     }
   }
 
@@ -68,9 +71,9 @@ export default function Component() {
       borderRight: '1px solid',
       borderColor: 'divider'
     }}>
-      <Box display="flex" justifyContent={"space-between"} sx={{my: 2}}>
+      <Box display="flex" justifyContent={"space-between"} sx={{ my: 2 }}>
         <Typography level="h3">Create Post</Typography>
-        <Button onClick={onSubmit}>Publish</Button>
+        <Button loading={loading} onClick={onSubmit}>Publish</Button>
       </Box>
       <Editor
         isEdit={false}

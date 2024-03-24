@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 
 import Box from '@mui/joy/Box';
@@ -13,10 +13,12 @@ interface PostSummaryProps {
     deletePost: (id: Post['id']) => void;
 }
 export default function PostSummary(props: PostSummaryProps) {
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
     const goToEdit = () => history.push(`edit/${props.post.id}`);
     const deletePost = () => {
         if (window.confirm(`Are you sure you want to delete '${props.post.title || '(Untitled)'}'?`)) {
+            setLoading(true);
             props.deletePost(props.post.id);
         }
     };
@@ -37,7 +39,7 @@ export default function PostSummary(props: PostSummaryProps) {
                     <Button color="primary" onClick={goToEdit}>
                         Edit
                     </Button>
-                    <Button color="danger" onClick={deletePost}>
+                    <Button loading={loading} color="danger" onClick={deletePost}>
                         Delete
                     </Button>
                     <Button color="neutral" onClick={goToView}>
