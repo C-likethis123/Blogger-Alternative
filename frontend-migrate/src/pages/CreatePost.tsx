@@ -8,12 +8,17 @@ import BlogContext from "../contexts/BlogContext";
 
 import { createPost, updatePost } from "../loaders/posts";
 
+import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
+import Typography from '@mui/joy/Typography';
+import Sheet from '@mui/joy/Sheet';
+
 export default function Component() {
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
   const [isDraft, setIsDraft] = React.useState(true);
   const [id, setId] = React.useState(null);
-  const {selectedBlog : blogId} = useContext(BlogContext);
+  const { selectedBlog: blogId } = useContext(BlogContext);
 
   const history = useHistory();
 
@@ -53,15 +58,29 @@ export default function Component() {
   }
 
   return (
-    <React.Fragment>
-      <h3>Create Post</h3>
+    <Sheet sx={{
+      mx: 20,
+      px: 20,
+      py: 2,
+      height: '100vh',
+      overflow: 'auto',
+      borderLeft: '1px solid',
+      borderRight: '1px solid',
+      borderColor: 'divider'
+    }}>
+      <Box display="flex" justifyContent={"space-between"} sx={{my: 2}}>
+        <Typography level="h3">Create Post</Typography>
+        <Button onClick={onSubmit}>Publish</Button>
+      </Box>
       <Editor
         isEdit={false}
         onSubmit={onSubmit}
+        title={title}
+        content={content}
         onChangeTitle={onChangeTitle}
         onChangeContent={onChangeContent}
         onSave={onSave}
       />
-    </React.Fragment>
+    </Sheet>
   );
 }

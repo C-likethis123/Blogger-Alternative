@@ -1,12 +1,16 @@
 import React from "react";
 
+import Input from '@mui/joy/Input';
+import Textarea from '@mui/joy/Textarea';
+import Box from '@mui/joy/Box';
+
 interface EditorProps {
     title?: string;
     content?: string;
     isEdit: boolean;
-    onSubmit: () => void; 
-    onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void; 
-    onChangeContent: (e: React.ChangeEvent<HTMLTextAreaElement>) => void; 
+    onSubmit: () => void;
+    onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangeContent: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onSave: (content: string) => void;
 }
 export default function Component({
@@ -16,11 +20,17 @@ export default function Component({
     onChangeContent,
     onSubmit,
 }: EditorProps) {
-    return <div>
-        <label htmlFor="title" >Title</label>
-        <input value={title} onChange={onChangeTitle} id="title" name="title"></input>
-        <button onClick={onSubmit}>Publish</button>
-        <textarea style={{display: "block"}} value={content} onChange={onChangeContent}></textarea>
-        
-    </div>
+    return <Box sx={{
+        height: '100vh',
+    }}>
+        <Input placeholder="Blog Title" value={title} onChange={onChangeTitle} id="title" name="title" sx={{ my: 2 }} />
+        <Textarea sx={{
+            resize: 'both',
+            overflow: 'auto',
+            width: '100%',
+            my: 2,
+            height: 'calc(100% - 200px)'
+        }} value={content} onChange={onChangeContent} placeholder="Blog Content" />
+
+    </Box>
 }

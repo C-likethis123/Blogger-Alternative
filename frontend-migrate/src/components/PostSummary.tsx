@@ -1,6 +1,13 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
+import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
+import Card from '@mui/joy/Card';
+import CardActions from '@mui/joy/CardActions';
+import CardContent from '@mui/joy/CardContent';
+import Typography from '@mui/joy/Typography';
+
 interface PostSummaryProps {
     post: Post;
     deletePost: (id: Post['id']) => void;
@@ -16,24 +23,28 @@ export default function PostSummary(props: PostSummaryProps) {
 
     const goToView = () => history.push(`post/${props.post.id}`);
     return (
-        <div>
-            <h5>
-                {props.post.title || '(Untitled)'}
-            </h5>
-            <div>
-                {props.post.isDraft ? 'Draft' : 'Published'}
-            </div>
-            <div>
-                <button color="primary" onClick={goToEdit}>
-                    Edit
-                </button>
-                <button color="danger" onClick={deletePost}>
-                    Delete
-                </button>
-                <button color="info" onClick={goToView}>
-                    View
-                </button>
-            </div>
-        </div >
+        <Card variant="outlined" sx={{marginBottom: 2}}>
+            <Box display="flex" justifyContent={"space-between"}>
+                <CardContent>
+                    <Typography level="title-lg">
+                        {props.post.title || '(Untitled)'}
+                    </Typography>
+                    <Typography level="title-sm">
+                        {props.post.isDraft ? 'Draft' : 'Published'}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button color="primary" onClick={goToEdit}>
+                        Edit
+                    </Button>
+                    <Button color="danger" onClick={deletePost}>
+                        Delete
+                    </Button>
+                    <Button color="neutral" onClick={goToView}>
+                        View
+                    </Button>
+                </CardActions>
+            </Box>
+        </Card>
     );
 };

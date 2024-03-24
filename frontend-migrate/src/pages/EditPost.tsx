@@ -1,5 +1,10 @@
 import React, { useContext } from "react";
 
+import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
+import Typography from '@mui/joy/Typography';
+import Sheet from '@mui/joy/Sheet';
+
 import Editor from "../components/Editor";
 import { useHistory, useParams } from "react-router-dom";
 import { fetchPost, updatePost } from "../loaders/posts";
@@ -15,7 +20,7 @@ export default function Component() {
     const [isDraft, setIsDraft] = React.useState(true);
     const history = useHistory();
     const { id } = useParams<RouteParams>();
-    const {selectedBlog:blogId} = useContext(BlogContext);
+    const { selectedBlog: blogId } = useContext(BlogContext);
 
     React.useEffect(() => {
         fetchPost(blogId, id)
@@ -47,8 +52,20 @@ export default function Component() {
             });
     }
 
-    return <div>
-        <h3>Edit Post</h3>
+    return <Sheet sx={{
+        mx: 20,
+        px: 20,
+        py: 2,
+        height: '100vh',
+        overflow: 'auto',
+        borderLeft: '1px solid',
+        borderRight: '1px solid',
+        borderColor: 'divider'
+    }}>
+        <Box display="flex" justifyContent={"space-between"} sx={{ my: 2 }}>
+            <Typography level="h3">Edit Post</Typography>
+            <Button onClick={onSubmit}>Publish</Button>
+        </Box>
         <Editor
             title={title}
             content={content}
@@ -58,5 +75,5 @@ export default function Component() {
             onChangeContent={onChangeContent}
             onSave={onSave}
         />
-    </div>
+    </Sheet>
 }
