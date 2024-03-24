@@ -35,7 +35,7 @@ export default function Component() {
         height: '100vh',
         overflow: 'auto'
     }} isLoading={isBlogsLoading || isPostsLoading} error={error}>
-        {blogs.length ?
+        {blogs.length === 0 ?
             <Box sx={{
                 textAlign: "center",
                 padding: "20px",
