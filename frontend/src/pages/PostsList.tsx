@@ -35,12 +35,17 @@ export default function Component() {
         height: '100vh',
         overflow: 'auto'
     }} isLoading={isBlogsLoading || isPostsLoading} error={error}>
-        {blogs.length === 0 ?
+        {blogs.length ?
             <Box sx={{
                 textAlign: "center",
                 padding: "20px",
                 borderRadius: "8px",
                 boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100vh',
             }}>
                 <Typography level="h2">You have no blogs</Typography>
                 <Typography>Create one in Google Blogger to share your thoughts and experiences with the world!</Typography>
@@ -55,6 +60,11 @@ export default function Component() {
                                 textAlign: "center",
                                 padding: "20px",
                                 borderRadius: "8px",
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: '100vh',
                             }}>
                                 <Typography>You have no posts in this blog. Create one now!</Typography>
                                 <Button onClick={createPost}>Create Post</Button>
