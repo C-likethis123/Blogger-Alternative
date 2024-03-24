@@ -1,42 +1,41 @@
 {
-  "name": "blogger-alternative",
+  "name": "frontend-migrate",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@toast-ui/editor-plugin-chart": "^1.0.0",
-    "@toast-ui/editor-plugin-code-syntax-highlight": "^1.0.0",
-    "@toast-ui/editor-plugin-color-syntax": "^1.0.0",
-    "@toast-ui/editor-plugin-table-merged-cell": "^1.0.0",
-    "@toast-ui/editor-plugin-uml": "^1.0.0",
-    "@toast-ui/react-editor": "https://github.com/C-likethis123/tui.editor#toast-ui-react-editor-v2.1.3-gitpkg",
-    "@types/jest": "^29.5.1",
-    "@types/node": "^18.15.12",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/inter": "^5.0.17",
+    "@mui/icons-material": "^5.15.13",
+    "@mui/joy": "^5.0.0-beta.31",
+    "@mui/material": "^5.15.13",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.24",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
-    "@use-it/interval": "^1.0.0",
-    "axios": "^0.21.1",
-    "bootstrap": "^4.4.1",
-    "file-saver": "^2.0.2",
-    "html-docx-js-typescript": "^0.1.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-google-button": "^0.7.2",
+    "axios": "^1.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^5",
-    "react-toastify": "^6.2.0",
-    "reactstrap": "^8.4.1",
-    "typescript": "^5.0.4"
+    "react-scripts": "5.0.1",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "build": "rm -rf ../server/public && react-scripts build && mv build ../server/public",
+    "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!@axios)/'",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "proxy": "http://localhost:8000",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -49,15 +48,7 @@
       "last 1 safari version"
     ]
   },
-  "resolutions": {
-    "styled-components": "^5"
-  },
   "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/react-router-dom": "^5.3.3",
-    "react-test-renderer": "^16.13.1",
-    "styled-components": "^5.2.1"
+    "@types/react-router-dom": "^5.3.3"
   }
 }

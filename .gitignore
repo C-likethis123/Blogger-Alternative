@@ -11,6 +11,7 @@
 # production
 /build
 */public
+server/dist/*
 
 # misc
 .DS_Store
@@ -29,6 +30,3 @@ blog app.code-workspace
 
 # environment keys
 .env
-
-# refactoring
-/frontend/*

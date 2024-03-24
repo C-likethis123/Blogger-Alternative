@@ -1,31 +1,51 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.css";
-import Header from "./components/NavBar/Header";
-import Container from "./components/Utils/Container";
-import Paths from './constants/paths';
-import Loading from "./components/Utils/Loading";
-import AuthenticatedRoute from "./components/Utils/AuthenticatedRoute";
-const CreatePost = lazy(() => import("./components/Posts/CreatePost.js"));
-const EditPost = lazy(() => import("./components/Posts/EditPost.js"));
-const PostsList = lazy(() => import("./components/Posts/PostsList.js"));
-const ShowPost = lazy(() => import("./components/Posts/ShowPost.js"));
-const HomePage = lazy(() => import("./components/HomePage/HomePage.js"));
+import Header from "./components/Header";
+import { Paths } from "./utils/paths"
+import { AuthProvider } from "./contexts/AuthContext";
+import { BlogProvider } from "./contexts/BlogContext";
+
+import '@fontsource/inter';
+import { CssVarsProvider } from '@mui/joy/styles';
+import CssBaseline from '@mui/joy/CssBaseline';
+import Sheet from '@mui/joy/Sheet';
+import { DrawerProvider } from "./contexts/DrawerContext";
+
+const CreatePost = lazy(() => import("./pages/CreatePost"));
+const EditPost = lazy(() => import("./pages/EditPost"));
+const PostsList = lazy(() => import("./pages/PostsList"));
+const ShowPost = lazy(() => import("./pages/ShowPost"));
+const HomePage = lazy(() => import("./pages/HomePage"));
+
+const Loading = () => <div>Loading...</div>
+
 export default function App() {
   return (
-    <Router>
-      <Header />
-      <Suspense fallback={<Loading />}>
-        <Container>
-          <Switch>
-            <AuthenticatedRoute path={Paths.PostsList} component={PostsList} />
-            <AuthenticatedRoute path={Paths.CreatePost} component={CreatePost} />
-            <AuthenticatedRoute path={`${Paths.EditPost}/:id`} component={EditPost} />
-            <AuthenticatedRoute path={`${Paths.Post}/:id`} component={ShowPost} />
-            <Route path={Paths.Default} component={HomePage} />
-          </Switch>
-        </Container>
-      </Suspense>
-    </Router>
+    <CssVarsProvider>
+      <CssBaseline />
+      <Router>
+        <AuthProvider>
+          <DrawerProvider>
+            <BlogProvider>
+              <Sheet sx={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}>
+                <Header />
+                <Suspense fallback={<Loading />}>
+                  <Switch>
+                    <Route path={Paths.PostsList} component={PostsList} />
+                    <Route path={Paths.CreatePost} component={CreatePost} />
+                    <Route path={`${Paths.EditPost}/:id`} component={EditPost} />
+                    <Route path={`${Paths.Post}/:id`} component={ShowPost} />
+                    <Route path={Paths.Default} component={HomePage} />
+                  </Switch>
+                </Suspense>
+              </Sheet>
+            </BlogProvider>
+          </DrawerProvider>
+        </AuthProvider>
+      </Router>
+    </CssVarsProvider >
   );
 };
