@@ -32,7 +32,9 @@ export default function Header() {
                 <IconButton aria-label="Main Menu" onClick={toggleDrawer}>
                     <MenuIcon />
                 </IconButton>
-                <Typography>Blogger Alternative</Typography>
+                <IconButton aria-label="Home" component="a" href="/" style={{textDecoration: 'none'}}>
+                    Blogger Alternative
+                </IconButton>
                 <Stack direction="row" justifyContent="center" spacing={1} alignItems="center">
                     <Button variant="plain" color="neutral" component="a" href={Paths.PostsList}>Posts</Button>
                 </Stack>
