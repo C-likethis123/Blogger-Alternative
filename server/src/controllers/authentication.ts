@@ -26,6 +26,7 @@ passport.use(new GoogleStrategy({
             id: profile.id,
             access_token: accessToken,
             refresh_token: refreshToken,
+            dateAdded: Date.now(),
         }, {
             upsert: true,
         }).then(() => {
@@ -43,15 +44,16 @@ passport.use(new GoogleStrategy({
 passport.serializeUser(function (user: User, cb) {
     process.nextTick(function () {
         UserModel.findOne({ id: user.id })
-        .then(user => {
-            return cb(null, {
-                id: user.id,
-                tokens: {
-                    access_token: user.access_token,
-                    refresh_token: user.refresh_token
-                }
-            })
-        }).catch(err => console.error(err))
+            .then(user => {
+                console.log('serialise', user.refresh_token);
+                return cb(null, {
+                    id: user.id,
+                    tokens: {
+                        access_token: user.access_token,
+                        refresh_token: user.refresh_token
+                    }
+                })
+            }).catch(err => console.error(err))
     })
 })
 
@@ -66,26 +68,20 @@ class AuthenticationController implements Controller {
 
     constructor() {
         this.router.get('/login/google', passport.authenticate("google", {
-            scope: ["email", "profile", "https://www.googleapis.com/auth/blogger"]
+            scope: ["email", "profile", "https://www.googleapis.com/auth/blogger"],
+            accessType: 'offline'
         }));
         this.router.get('/oauth/redirect/google', passport.authenticate("google", {
             successReturnToOrRedirect: '/posts',
             failureRedirect: '/',
         }));
         this.router.post('/logout', function (req, res, next) {
-            const id = req.user?.id;
             req.session.destroy(() => {
-                UserModel.findOneAndRemove({id }).then(() => {
-                    console.log('id removed');
-                    res.clearCookie('connect.sid', {
-                        secure: false,
-                        httpOnly: false,
-                    });
-                    return res.redirect("/");
-                }).catch(err => {
-                    console.error("error removing user: ", err);
-                    return res.status(500).send('Error removing user');
+                res.clearCookie('connect.sid', {
+                    secure: false,
+                    httpOnly: false,
                 });
+                return res.redirect("/");
             });
         });
     }
