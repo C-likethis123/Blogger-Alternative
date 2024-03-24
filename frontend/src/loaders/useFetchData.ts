@@ -25,7 +25,7 @@ export function useFetchData<T>(
     fetchParams: FetchParams,
     dependencies: Dependencies
 ): UseFetchDataResult<T> {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [data, setData] = useState<T | null>(null);
     const [error, setError] = useState<Error | null>(null);
 

@@ -11,7 +11,7 @@ import { createPost, updatePost } from "../loaders/posts";
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Typography from '@mui/joy/Typography';
-import Sheet from '@mui/joy/Sheet';
+import Sheet from "../components/Sheet";
 
 export default function Component() {
   const [title, setTitle] = React.useState("");
@@ -19,7 +19,7 @@ export default function Component() {
   const [isDraft, setIsDraft] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [id, setId] = React.useState(null);
-  const { selectedBlog: blogId } = useContext(BlogContext);
+  const { selectedBlog: blogId, isBlogsLoading, error } = useContext(BlogContext);
 
   const history = useHistory();
 
@@ -61,7 +61,7 @@ export default function Component() {
   }
 
   return (
-    <Sheet sx={{
+    <Sheet isLoading={isBlogsLoading} error={error} sx={{
       mx: 20,
       px: 20,
       py: 2,

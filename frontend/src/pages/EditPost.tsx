@@ -22,9 +22,9 @@ export default function Component() {
     const [buttonLoading, setButtonLoading] = React.useState(false);
     const history = useHistory();
     const { id } = useParams<RouteParams>();
-    const { selectedBlog: blogId } = useContext(BlogContext);
+    const { selectedBlog: blogId, isBlogsLoading, error } = useContext(BlogContext);
 
-    const { loading, data, error } = useFetchData(
+    const { loading, data, error: postsError } = useFetchData(
         fetchPost, [blogId, id], [blogId, id]
     );
     React.useEffect(() => {
@@ -56,7 +56,7 @@ export default function Component() {
             });
     }
 
-    return <Sheet isLoading={loading} error={error} sx={{
+    return <Sheet isLoading={isBlogsLoading || loading} error={error || postsError} sx={{
         mx: 20,
         px: 20,
         py: 2,
