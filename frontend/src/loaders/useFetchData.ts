@@ -33,7 +33,7 @@ export function useFetchData<T>(
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        const isQueryReady = dependencies.every((dep) => dep != null);
+        const isQueryReady = dependencies.every((dep) => dep !== null);
         if (isQueryReady) {
             setLoading(true);
             fetchFunction(...fetchParams)
