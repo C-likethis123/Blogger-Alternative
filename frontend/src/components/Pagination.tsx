@@ -14,7 +14,7 @@ interface PaginationProps {
 export default function Pagination({ previousPageToken, nextPageToken }: PaginationProps) {
 
     return (
-        <Box display={'flex'} alignItems={'center'} py={2}>
+        <Box display={'flex'} alignItems={'space-between'} py={2}>
             <IconButton
                 aria-label="previous page"
                 variant="outlined"
