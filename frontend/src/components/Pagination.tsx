@@ -10,11 +10,12 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 interface PaginationProps {
     previousPageToken?: string;
     nextPageToken?: string;
+    onClickNextPage: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
-export default function Pagination({ previousPageToken, nextPageToken }: PaginationProps) {
+export default function Pagination({ previousPageToken, nextPageToken, onClickNextPage }: PaginationProps) {
 
     return (
-        <Box display={'flex'} alignItems={'space-between'} py={2}>
+        <Box display={'flex'} justifyContent={'space-between'}>
             <IconButton
                 aria-label="previous page"
                 variant="outlined"
@@ -34,7 +35,7 @@ export default function Pagination({ previousPageToken, nextPageToken }: Paginat
                 onClick={() => console.log(nextPageToken)}
             >
                 <KeyboardArrowRightIcon />
-            </IconButton>˝
+            </IconButton>
         </Box>
     );
 };

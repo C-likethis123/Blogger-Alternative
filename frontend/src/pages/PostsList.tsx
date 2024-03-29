@@ -15,6 +15,7 @@ import Pagination from "../components/Pagination";
 
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
+    const [currentPageToken, setCurrentPageToken] = React.useState<PostListResponse['nextPageToken']>('');
     const [nextPageToken, setNextPageToken] = React.useState<PostListResponse['nextPageToken']>('');
     const { isBlogsLoading, error, blogs, selectedBlog: blogId } = useContext(BlogContext);
     const history = useHistory();
@@ -24,7 +25,7 @@ export default function Component() {
     useEffect(() => {
         if (!isPostsLoading && data) {
             setPosts(data.items);
-            setNextPageToken(data.nextPageToken);
+            setCurrentPageToken(data.nextPageToken);
         }
     }, [isPostsLoading, data]);
 
@@ -88,7 +89,10 @@ export default function Component() {
                                         deletePost={handleDelete}
                                     />)
                                 }
-                                <Pagination previousPageToken={undefined} nextPageToken={nextPageToken} />
+                                <Pagination 
+                                    previousPageToken={undefined}
+                                    nextPageToken={currentPageToken}
+                                    onClickNextPage={setNextPageToken} />
                             </>
                     }
                 </Sheet>
