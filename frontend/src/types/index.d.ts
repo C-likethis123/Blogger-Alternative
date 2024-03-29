@@ -7,6 +7,11 @@ declare global {
         isDraft?: boolean;
     }
 
+    interface PostListResponse {
+        items: Post[];
+        nextPageToken?: string;
+    }
+
     interface Blog {
         name: string;
         id: string;

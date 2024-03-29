@@ -48,7 +48,7 @@ Relevant options:
 {
     fetchBodies: true/false,
     maxResults: int,
-    pageToken
+    pageToken,
 }
 
 Relevant fields in response:
@@ -61,6 +61,10 @@ Relevant fields in response:
         content,
     }]
 }
+
+How it's implemented in the frontend:
+- get a page token, this is the next page's token
+- i also need to know the previous page's token.
 
 `GET /api/blogs/{blogId}/posts/{postId}`
 

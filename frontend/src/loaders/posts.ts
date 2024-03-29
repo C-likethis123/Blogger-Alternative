@@ -11,8 +11,10 @@ export const fetchPost = async (blogId: string, postId: string) => {
     return data;
 }
 
-export const fetchPosts = async (blogId: string): Promise<Post[]> => {
-    const { data } = await queryClient.get(`/api/blogs/${blogId}/posts`);
+export const fetchPosts = async (blogId: string, pageToken: string | null): Promise<PostListResponse> => {
+    const { data } = await queryClient.get(`/api/blogs/${blogId}/posts`, {
+        params: { pageToken }
+    });
     return data;
 }
 

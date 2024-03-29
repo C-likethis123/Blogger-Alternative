@@ -11,23 +11,29 @@ import Button from '@mui/joy/Button';
 import Sheet from "../components/Sheet";
 import Typography from '@mui/joy/Typography';
 import { useFetchData } from "../loaders/useFetchData";
+import Pagination from "../components/Pagination";
 
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
+    const [nextPageToken, setNextPageToken] = React.useState<PostListResponse['nextPageToken']>('');
     const { isBlogsLoading, error, blogs, selectedBlog: blogId } = useContext(BlogContext);
     const history = useHistory();
     const { loading: isPostsLoading, data, error: postsError } = useFetchData(
-        fetchPosts, [blogId], [blogId]
+        fetchPosts, [blogId, nextPageToken], [blogId, nextPageToken]
     );
     useEffect(() => {
         if (!isPostsLoading && data) {
-            setPosts(data);
+            setPosts(data.items);
+            setNextPageToken(data.nextPageToken);
         }
     }, [isPostsLoading, data]);
 
     const handleDelete = (id: Post['id']) => {
-        deletePost(blogId, id)
-            .then(() => setPosts(posts.filter((post) => post.id !== id)))
+        if (blogId) {
+            deletePost(blogId, id)
+                .then(() => setPosts(posts.filter((post) => post.id !== id)))
+        }
+
     };
 
     const createPost = () => history.push(Paths.CreatePost);
@@ -82,6 +88,7 @@ export default function Component() {
                                         deletePost={handleDelete}
                                     />)
                                 }
+                                <Pagination previousPageToken={undefined} nextPageToken={nextPageToken} />
                             </>
                     }
                 </Sheet>

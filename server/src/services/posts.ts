@@ -13,19 +13,19 @@ class PostService {
             auth: oauth2Client,
         }).posts;
     }
-    // TODO: Support pagination
-    public async getPosts(blogId: string): Promise<blogger_v3.Schema$Post[]> {
+    public async getPosts(blogId: string, pageToken: string | null): Promise<blogger_v3.Schema$PostList> {
         const posts = await this.bloggerClient.list({
             blogId,
             fetchBodies: false,
             fetchImages: false,
-            fields: 'items(id,blog.id,title,status)',
+            pageToken,
+            fields: 'items(id,blog.id,title,status),nextPageToken',
         })
         if (posts.status >= 400) {
             throw new Error(posts.statusText);
         }
-
-        return posts.data.items || [];
+        const { items, nextPageToken } = posts.data;
+        return { items, nextPageToken };
     }
 
     public async getPost(blogId: string, postId: string): Promise<blogger_v3.Schema$Post> {

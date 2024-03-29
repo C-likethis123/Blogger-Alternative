@@ -10,10 +10,10 @@ class PostsController implements Controller {
       // TODO: check HTTP naming conventions. Why do we have /posts?
       this.router.get('/api/blogs/:blogId/posts', checkAuthenticated, async (req: Request, res: Response) => {
          const { oauth2Client } = req;
-         const { blogId } = req.params;
+         const { blogId, pageToken } = req.params;
          try {
              const service = new PostsService(oauth2Client);
-             const blogs = await service.getPosts(blogId);
+             const blogs = await service.getPosts(blogId, pageToken);
              return res.status(200).json(blogs);
          } catch (err) {
             return res.status(400).json({err: err.message});

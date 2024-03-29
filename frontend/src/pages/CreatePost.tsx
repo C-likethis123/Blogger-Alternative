@@ -32,14 +32,17 @@ export default function Component() {
       content,
     };
     setLoading(true);
-    if (id) {
-      updatePost(blogId, id, newPost)
-        .then((res) => console.log(res.data))
-        .then(() => history.push(Paths.PostsList));
-    } else {
-      createPost(blogId, newPost)
-        .then(() => history.push(Paths.PostsList));
+    if (blogId) {
+      if (id) {
+        updatePost(blogId, id, newPost)
+          .then((res) => console.log(res.data))
+          .then(() => history.push(Paths.PostsList));
+      } else {
+        createPost(blogId, newPost)
+          .then(() => history.push(Paths.PostsList));
+      }
     }
+
   }
 
   const onSave = (content: string) => {
@@ -49,15 +52,18 @@ export default function Component() {
       content,
     };
 
-    if (id) {
-      updatePost(blogId, id, newPost)
-        .finally(() => setLoading(false));
-    } else {
-      createPost(blogId, newPost)
-        .then((res) => setId(res.data.id))
-        .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
+    if (blogId) {
+      if (id) {
+        updatePost(blogId, id, newPost)
+          .finally(() => setLoading(false));
+      } else {
+        createPost(blogId, newPost)
+          .then((res) => setId(res.data.id))
+          .catch((err) => console.log(err))
+          .finally(() => setLoading(false));
+      }
     }
+
   }
 
   return (

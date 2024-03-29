@@ -1,6 +1,8 @@
 /**
  * A wrapper for API calls in blogs and posts.
- * Everything in the 'dependencies' must be non-null before a query will be made
+ * Everything in the 'dependencies' must be non-null/non-undefined before a query will be made
+ * 
+ * If a parameter does not need to be specified before triggering the query, it can be set to an empty string.
  */
 import React, { useState, useEffect } from 'react';
 
@@ -30,7 +32,7 @@ export function useFetchData<T>(
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        const isQueryReady = dependencies.every((dep) => dep != '' && dep != null && dep != undefined);
+        const isQueryReady = dependencies.every((dep) => dep != null && dep != undefined);
         if (isQueryReady) {
             setLoading(true);
             fetchFunction(...fetchParams)
