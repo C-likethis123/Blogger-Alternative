@@ -15,6 +15,7 @@ export default function Component() {
     const [title, setTitle] = React.useState("");
     const [content, setContent] = React.useState("");
     const { id } = useParams<{ id: string }>();
+    console.log('in edit post, id: ', id);
     const { selectedBlog: blogId } = useContext(BlogContext);
     const downloadPost = async () => { };
 

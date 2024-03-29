@@ -15,8 +15,8 @@ import Pagination from "../components/Pagination";
 
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
-    const [currentPageToken, setCurrentPageToken] = React.useState<PostListResponse['nextPageToken']>('');
-    const [nextPageToken, setNextPageToken] = React.useState<PostListResponse['nextPageToken']>('');
+    const [currentPageToken, setCurrentPageToken] = React.useState<PostListResponse['nextPageToken']>(undefined);
+    const [nextPageToken, setNextPageToken] = React.useState<PostListResponse['nextPageToken']>(undefined);
     const { isBlogsLoading, error, blogs, selectedBlog: blogId } = useContext(BlogContext);
     const history = useHistory();
     const { loading: isPostsLoading, data, error: postsError } = useFetchData(

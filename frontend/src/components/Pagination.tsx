@@ -32,7 +32,7 @@ export default function Pagination({ previousPageToken, nextPageToken, onClickNe
                 color="neutral"
                 size="sm"
                 disabled={!!!nextPageToken}
-                onClick={() => console.log(nextPageToken)}
+                onClick={() => onClickNextPage(nextPageToken)}
             >
                 <KeyboardArrowRightIcon />
             </IconButton>
