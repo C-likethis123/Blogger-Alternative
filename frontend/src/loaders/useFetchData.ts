@@ -1,9 +1,12 @@
 /**
  * A wrapper for API calls in blogs and posts.
- * Everything in the 'dependencies' must be non-null/non-undefined before a query will be made
+ * Every parameter in the 'dependencies' array must be non-null before a query will be made
  * 
  * If a parameter does not need to be specified before triggering the query, it can be set to undefined.
- * If a parameter needs to be specified, it can be set to null.
+ * If a parameter needs to be specified, it has to be set to null.
+ * 
+ * Rationale: majority of parameters to the backend API will be passed directly to the Blogger API.
+ * If a value is set to `undefined` in an object, it's implicitly treated as a non-existent value and can be passed directly to the Blogger API to trigger logic when the value is non-existent.
  */
 import React, { useState, useEffect } from 'react';
 
