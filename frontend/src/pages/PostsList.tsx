@@ -11,11 +11,9 @@ import Button from '@mui/joy/Button';
 import Sheet from "../components/Sheet";
 import Typography from '@mui/joy/Typography';
 import { useFetchData } from "../loaders/useFetchData";
-import Pagination from "../components/Pagination";
 
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
-    const [previousPageToken, setPreviousPageToken] = React.useState<PostListResponse['nextPageToken']>(undefined);
     const [currentPageToken, setCurrentPageToken] = React.useState<PostListResponse['nextPageToken']>(undefined);
     const [nextPageToken, setNextPageToken] = React.useState<PostListResponse['nextPageToken']>(undefined);
     const { isBlogsLoading, error, blogs, selectedBlog: blogId } = useContext(BlogContext);
@@ -25,7 +23,7 @@ export default function Component() {
     );
     useEffect(() => {
         if (!isPostsLoading && data) {
-            setPosts(data.items);
+            setPosts([...posts, ...data.items]);
             setCurrentPageToken(data.nextPageToken);
         }
     }, [isPostsLoading, data]);
@@ -39,10 +37,23 @@ export default function Component() {
     };
 
     const createPost = () => history.push(Paths.CreatePost);
-    return <Sheet sx={{
-        height: 'calc(100vh - var(--Header-height))',
-        overflow: 'auto'
-    }} isLoading={isBlogsLoading || isPostsLoading} error={error}>
+    const handleScroll: React.UIEventHandler<HTMLElement> = (element) => {
+        const isBottom = element.currentTarget.scrollHeight - element.currentTarget.scrollTop === element.currentTarget.clientHeight;
+        // stop scrolling if there are no more posts
+        if (currentPageToken === undefined) {
+            return;
+        }
+        if (isBottom) {
+            setNextPageToken(currentPageToken);
+        }
+    }
+    return <Sheet
+        onScroll={handleScroll}
+        sx={{
+            height: 'calc(100vh - var(--Header-height) - 10px)',
+            overflowX: 'auto',
+            overflowY: 'scroll',
+        }} isLoading={isBlogsLoading || isPostsLoading} error={error}>
         {blogs.length === 0 ?
             <Box sx={{
                 textAlign: "center",
@@ -90,10 +101,6 @@ export default function Component() {
                                         deletePost={handleDelete}
                                     />)
                                 }
-                                <Pagination 
-                                    previousPageToken={undefined}
-                                    nextPageToken={currentPageToken}
-                                    onClickNextPage={setNextPageToken} />
                             </>
                     }
                 </Sheet>
