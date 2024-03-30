@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf ../server/public && react-scripts build && mv build ../server/public",
+    "build": "react-scripts build && rm -rf ../server/public && mv build ../server/public",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!@axios)/'",
     "eject": "react-scripts eject"
   },
