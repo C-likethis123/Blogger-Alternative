@@ -22,7 +22,6 @@ export default function Component() {
     const [buttonLoading, setButtonLoading] = React.useState(false);
     const history = useHistory();
     const { id } = useParams<RouteParams>();
-    console.log('in edit post, id: ', id);
     const { selectedBlog: blogId, isBlogsLoading, error } = useContext(BlogContext);
 
     const { loading, data, error: postsError } = useFetchData(
