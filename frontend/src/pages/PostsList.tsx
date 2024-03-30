@@ -14,27 +14,46 @@ import { useFetchData } from "../loaders/useFetchData";
 
 export default function Component() {
     const [posts, setPosts] = React.useState<Post[]>([]);
+    const [currentPageToken, setCurrentPageToken] = React.useState<PostListResponse['nextPageToken']>(undefined);
+    const [nextPageToken, setNextPageToken] = React.useState<PostListResponse['nextPageToken']>(undefined);
     const { isBlogsLoading, error, blogs, selectedBlog: blogId } = useContext(BlogContext);
     const history = useHistory();
     const { loading: isPostsLoading, data, error: postsError } = useFetchData(
-        fetchPosts, [blogId], [blogId]
+        fetchPosts, [blogId, nextPageToken], [blogId, nextPageToken]
     );
     useEffect(() => {
         if (!isPostsLoading && data) {
-            setPosts(data);
+            setPosts([...posts, ...data.items]);
+            setCurrentPageToken(data.nextPageToken);
         }
     }, [isPostsLoading, data]);
 
     const handleDelete = (id: Post['id']) => {
-        deletePost(blogId, id)
-            .then(() => setPosts(posts.filter((post) => post.id !== id)))
+        if (blogId) {
+            deletePost(blogId, id)
+                .then(() => setPosts(posts.filter((post) => post.id !== id)))
+        }
+
     };
 
     const createPost = () => history.push(Paths.CreatePost);
-    return <Sheet sx={{
-        height: 'calc(100vh - var(--Header-height))',
-        overflow: 'auto'
-    }} isLoading={isBlogsLoading || isPostsLoading} error={error}>
+    const handleScroll: React.UIEventHandler<HTMLElement> = (element) => {
+        const isBottom = element.currentTarget.scrollHeight - element.currentTarget.scrollTop === element.currentTarget.clientHeight;
+        // stop scrolling if there are no more posts
+        if (currentPageToken === undefined) {
+            return;
+        }
+        if (isBottom) {
+            setNextPageToken(currentPageToken);
+        }
+    }
+    return <Sheet
+        onScroll={handleScroll}
+        sx={{
+            height: 'calc(100vh - var(--Header-height) - 10px)',
+            overflowX: 'auto',
+            overflowY: 'scroll',
+        }} isLoading={isBlogsLoading || isPostsLoading} error={error}>
         {blogs.length === 0 ?
             <Box sx={{
                 textAlign: "center",

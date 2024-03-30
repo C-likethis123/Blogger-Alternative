@@ -4,7 +4,7 @@ import { useFetchData } from "../loaders/useFetchData";
 
 type BlogValue = {
     blogs: Blog[],
-    selectedBlog: Blog['id'],
+    selectedBlog?: Blog['id'] | null,
     handleBlogChange: (selectedBlog: Blog['id']) => void,
     isBlogsLoading: boolean;
     error: Error | null;
@@ -13,7 +13,7 @@ const BlogContext = createContext<BlogValue>({} as BlogValue);
 
 function useBlogContextProps(): BlogValue {
     const [blogs, setBlogs] = useState<Blog[]>([]);
-    const [selectedBlog, setSelectedBlog] = useState<Blog['id']>('');
+    const [selectedBlog, setSelectedBlog] = useState<Blog['id'] | null>(null);
     const handleBlogChange = (selectedBlog: Blog['id']) => setSelectedBlog(selectedBlog);
 
     const { loading, data, error } = useFetchData(

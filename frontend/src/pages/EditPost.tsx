@@ -37,6 +37,9 @@ export default function Component() {
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
     const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
     const onSubmit = () => {
+        if (!blogId) {
+            return;
+        }
         const newPost = {
             title: titleState,
             content: contentState,
@@ -45,6 +48,9 @@ export default function Component() {
         updatePost(blogId, id, newPost).then(() => history.push(Paths.PostsList));
     }
     const onSave = (content: string) => {
+        if (!blogId) {
+            return;
+        }
         const newPost = {
             titleState,
             content,

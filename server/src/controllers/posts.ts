@@ -3,17 +3,22 @@ import Controller from './controller';
 import checkAuthenticated from 'middleware/authenticator';
 import PostsService from 'services/posts';
 
+interface PostListQueryParams {
+   pageToken?: string;
+}
+
 class PostsController implements Controller {
    public router = express.Router();
 
    constructor() {
       // TODO: check HTTP naming conventions. Why do we have /posts?
-      this.router.get('/api/blogs/:blogId/posts', checkAuthenticated, async (req: Request, res: Response) => {
+      this.router.get('/api/blogs/:blogId/posts', checkAuthenticated, async (req: Request<any, any, any, PostListQueryParams>, res: Response) => {
          const { oauth2Client } = req;
          const { blogId } = req.params;
+         const pageToken = req.query.pageToken;
          try {
              const service = new PostsService(oauth2Client);
-             const blogs = await service.getPosts(blogId);
+             const blogs = await service.getPosts(blogId, pageToken);
              return res.status(200).json(blogs);
          } catch (err) {
             return res.status(400).json({err: err.message});
