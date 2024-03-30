@@ -24,6 +24,10 @@
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
+  "overrides": {
+    "nth-check": "https://registry.npmjs.org/nth-check/-/nth-check-2.1.1.tgz",
+    "postcss": "https://registry.npmjs.org/postcss/-/postcss-8.4.31.tgz"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && rm -rf ../server/public && mv build ../server/public",
