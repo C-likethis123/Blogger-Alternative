@@ -30,7 +30,7 @@ export default function Component() {
         console.log(val.innerHTML);
         setContent(val.innerHTML);
     }, 0);
-}
+  }
 
   const onSubmit = () => {
     const newPost = {
