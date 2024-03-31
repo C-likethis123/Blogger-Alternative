@@ -27,6 +27,45 @@ Cons:
 # Self development route
 
 Features:
-- Markdown editor (code mirror route or Notion route?)
+- Markdown editor (code mirror route or Notion route? Maybe Notion route)
 - Code blocks, with code highlighting, indentation etc
 - font size picker, font style picker
+
+
+Thought dump:
+
+- at it's core, i'm editing html.
+
+implementing style changes:
+1. select text (highlighting them) - implement an onSelect event to take note of the current selection
+2. apply change (i can toggle or untoggle the change)
+3. unselect text
+
+
+<div>a selected text</div> =(select)> <div><b>a selected text</b></div> =(unselect)> <div>a selected text</div>
+
+to partially unselect:
+
+<div><b>a selected text</b></div> =(unselect)> <div><b>a</b> selected <b>text</b></div>
+
+if my selection has formatted and non formatted text:
+
+<div><b>a selected text</b></div>
+
+# Implementation: Selecting text
+
+Use [`Selection`](https://developer.mozilla.org/en-US/docs/Web/API/Selection) objects
+
+# Implementation: Applying styles
+
+- Displaying styles: there is a difference between what the user sees and what the actual value is
+- another way is to use a contenteditable div.
+
+
+enter: enter will create more content editable divs automatically. that's nice.
+
+concerns:
+1. security?
+- since i'm working with html.
+
+this

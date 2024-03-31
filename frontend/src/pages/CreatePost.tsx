@@ -24,7 +24,7 @@ export default function Component() {
   const history = useHistory();
 
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
-  const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
+  const onChangeContent = (e: React.KeyboardEvent<HTMLDivElement>) => setContent(e.currentTarget.innerHTML);
 
   const onSubmit = () => {
     const newPost = {

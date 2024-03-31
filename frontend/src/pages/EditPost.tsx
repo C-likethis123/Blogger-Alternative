@@ -30,12 +30,15 @@ export default function Component() {
     React.useEffect(() => {
         if (!loading && data) {
             setTitle(data.title);
-            setContent(data.content);
+            setContent(`<div>${data.content}</div>`);
         }
     }, [loading, data]);
 
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
-    const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
+    const onChangeContent = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        console.log(e.currentTarget.innerHTML);
+        setContent(e.currentTarget.innerHTML);
+    }
     const onSubmit = () => {
         if (!blogId) {
             return;
