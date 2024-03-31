@@ -30,7 +30,7 @@ export default function Component() {
     React.useEffect(() => {
         if (!loading && data) {
             setTitle(data.title);
-            setContent(`<div>${data.content}</div>`);
+            setContent(data.content);
         }
     }, [loading, data]);
 
