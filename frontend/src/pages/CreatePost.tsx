@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import Editor from "../components/Editor";
 
@@ -22,6 +22,7 @@ export default function Component() {
   const [loading, setLoading] = React.useState(false);
   const [id, setId] = React.useState(null);
   const { selectedBlog: blogId, isBlogsLoading, error } = useContext(BlogContext);
+  const [pageError, setPageError] = useState(null);
 
   const history = useHistory();
 
@@ -35,10 +36,14 @@ export default function Component() {
       if (id) {
         updatePost(blogId, id, newPost)
           .then((res) => console.log(res.data))
-          .then(() => history.push(Paths.PostsList));
+          .then(() => history.push(Paths.PostsList))
+          .catch((err) => setPageError(err))
+          .finally(() => setLoading(false));
       } else {
         createPost(blogId, newPost)
-          .then(() => history.push(Paths.PostsList));
+          .then(() => history.push(Paths.PostsList))
+          .catch((err) => setPageError(err))
+          .finally(() => setLoading(false));
       }
     }
 
@@ -54,11 +59,12 @@ export default function Component() {
     if (blogId) {
       if (id) {
         updatePost(blogId, id, newPost)
+          .catch((err) => setPageError(err))
           .finally(() => setLoading(false));
       } else {
         createPost(blogId, newPost)
           .then((res) => setId(res.data.id))
-          .catch((err) => console.log(err))
+          .catch((err) => setPageError(err))
           .finally(() => setLoading(false));
       }
     }
@@ -66,7 +72,7 @@ export default function Component() {
   }
 
   return (
-    <Sheet isLoading={isBlogsLoading} error={error} sx={{
+    <Sheet isLoading={isBlogsLoading} error={error || pageError} sx={{
       mx: 20,
       px: 20,
       py: 2,

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
@@ -25,6 +25,7 @@ export default function Component() {
     const history = useHistory();
     const { id } = useParams<RouteParams>();
     const { selectedBlog: blogId, isBlogsLoading, error } = useContext(BlogContext);
+    const [pageError, setPageError] = useState(null);
 
     const { loading, data, error: postsError } = useFetchData(
         fetchPost, [blogId, id], [blogId, id]
@@ -45,7 +46,10 @@ export default function Component() {
             content: contentState,
         };
         setButtonLoading(true);
-        updatePost(blogId, id, newPost).then(() => history.push(Paths.PostsList));
+        updatePost(blogId, id, newPost)
+            .then(() => history.push(Paths.PostsList))
+            .catch((err) => setPageError(err))
+            .finally(() => setButtonLoading(false));
     }
     const onSave = (content: string) => {
         if (!blogId) {
@@ -57,12 +61,11 @@ export default function Component() {
         };
         setButtonLoading(true);
         updatePost(blogId, id, newPost)
-            .catch((err) => {
-                console.log(err);
-            });
+            .catch((err) => setPageError(err))
+            .finally(() => setButtonLoading(false));
     }
 
-    return <Sheet isLoading={isBlogsLoading || loading} error={error || postsError} sx={{
+    return <Sheet isLoading={isBlogsLoading || loading} error={error || postsError || pageError} sx={{
         mx: 20,
         px: 20,
         py: 2,
