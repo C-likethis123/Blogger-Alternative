@@ -11,13 +11,15 @@ import { fetchPost, updatePost } from "../loaders/posts";
 import { Paths } from "../utils/paths";
 import BlogContext from "../contexts/BlogContext";
 import { useFetchData } from "../loaders/useFetchData";
+import useInput from "../hooks/editor/useInput";
+import useEditableInput from "../hooks/editor/useEditableInput";
 type RouteParams = {
     id: string;
 }
 
 export default function Component() {
-    const [titleState, setTitle] = React.useState("");
-    const [contentState, setContent] = React.useState("");
+    const [titleState, onChangeTitle, setTitle] = useInput("");
+    const [contentState, onChangeContent, setContent] = useEditableInput("");
     const [isDraft, setIsDraft] = React.useState(true);
     const [buttonLoading, setButtonLoading] = React.useState(false);
     const history = useHistory();
@@ -34,14 +36,6 @@ export default function Component() {
         }
     }, [loading, data]);
 
-    const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
-    const onChangeContent = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        const val = e.currentTarget;
-        setTimeout(() => {
-            console.log(val.innerHTML);
-            setContent(val.innerHTML);
-        }, 0);
-    }
     const onSubmit = () => {
         if (!blogId) {
             return;

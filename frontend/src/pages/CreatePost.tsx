@@ -12,25 +12,18 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Typography from '@mui/joy/Typography';
 import Sheet from "../components/Sheet";
+import useInput from "../hooks/editor/useInput";
+import useEditableInput from "../hooks/editor/useEditableInput";
 
 export default function Component() {
-  const [title, setTitle] = React.useState("");
-  const [content, setContent] = React.useState("");
+  const [title, onChangeTitle,] = useInput("");
+  const [content, onChangeContent,] = useEditableInput("");
   const [isDraft, setIsDraft] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [id, setId] = React.useState(null);
   const { selectedBlog: blogId, isBlogsLoading, error } = useContext(BlogContext);
 
   const history = useHistory();
-
-  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
-  const onChangeContent = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    const val = e.currentTarget;
-    setTimeout(() => {
-        console.log(val.innerHTML);
-        setContent(val.innerHTML);
-    }, 0);
-  }
 
   const onSubmit = () => {
     const newPost = {
