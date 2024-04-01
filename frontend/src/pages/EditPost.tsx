@@ -84,6 +84,7 @@ export default function Component() {
             onSubmit={onSubmit}
             onChangeTitle={onChangeTitle}
             onChangeContent={onChangeContent}
+            setContent={setContent}
             onSave={onSave}
         />
     </Sheet>

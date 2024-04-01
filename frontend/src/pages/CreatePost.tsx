@@ -17,7 +17,7 @@ import useEditableInput from "../hooks/editor/useEditableInput";
 
 export default function Component() {
   const [title, onChangeTitle,] = useInput("");
-  const [content, onChangeContent,] = useEditableInput("");
+  const [content, onChangeContent,setContent] = useEditableInput("");
   const [isDraft, setIsDraft] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [id, setId] = React.useState(null);
@@ -93,6 +93,7 @@ export default function Component() {
         content={content}
         onChangeTitle={onChangeTitle}
         onChangeContent={onChangeContent}
+        setContent={setContent}
         onSave={onSave}
       />
     </Sheet>

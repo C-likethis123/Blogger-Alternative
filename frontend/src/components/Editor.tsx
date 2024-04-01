@@ -2,7 +2,15 @@ import React, { useEffect, useRef } from "react";
 
 import Input from '@mui/joy/Input';
 import Box from '@mui/joy/Box';
-import Button from "@mui/joy/Button";
+
+import {
+    FormatItalic as ItalicIcon,
+    FormatBold as BoldIcon,
+    FormatUnderlined as UnderlineIcon,
+    FormatListNumbered as OrderedListIcon,
+    FormatListBulleted as UnorderedListIcon,
+} from '@mui/icons-material';
+import IconButton from "@mui/joy/IconButton";
 
 interface EditorProps {
     title?: string;
@@ -11,6 +19,7 @@ interface EditorProps {
     onSubmit: () => void;
     onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeContent: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+    setContent: Function;
     onSave: (content: string) => void;
 }
 export default function Component({
@@ -18,7 +27,7 @@ export default function Component({
     content = '',
     onChangeTitle,
     onChangeContent,
-    onSubmit,
+    setContent,
 }: EditorProps) {
     const contentEditableRef = useRef<HTMLDivElement | null>(null);
 
@@ -30,48 +39,30 @@ export default function Component({
     const handleSelect: React.ReactEventHandler<HTMLDivElement> = (event) => {
         console.log((event.target as HTMLTextAreaElement).selectionStart, (event.target as HTMLTextAreaElement).selectionEnd);
     };
-
-    const unwrapBold = (node: Node | null) => {
-        while (node && node.parentNode) {
-            const parent = node.parentNode;
-            if (node.nodeType === Node.ELEMENT_NODE && (node as HTMLElement).tagName === 'STRONG') {
-                while (node.firstChild) {
-                    parent.insertBefore(node.firstChild, node);
-                }
-                parent.removeChild(node);
-                break;
-            }
-            node = parent;
-        }
-    };
     const handleBold = () => {
-        const selection = window.getSelection();
-        console.log(selection)
-        if (!selection || selection.rangeCount === 0) return;
-
-        const range = selection.getRangeAt(0);
-        const selectedText = range.toString();
-        console.log('selected text: ', selectedText);
-        const boldTag = document.createElement('strong');
-
-        // Check if selected text is already bold
-        const isBold = range.commonAncestorContainer.parentElement && range.commonAncestorContainer.parentElement.tagName === 'STRONG';
-
-        if (isBold) {
-           unwrapBold(range.commonAncestorContainer);
-        } else {
-            // Bold the selected text
-            boldTag.appendChild(document.createTextNode(selectedText));
-            range.deleteContents();
-            range.insertNode(boldTag);
-            console.log(contentEditableRef.current?.innerHTML);
-        }
+        document.execCommand('bold', false);
     };
+    const handleItalic = () => {
+        document.execCommand('italic', false);
+    };
+    const handleUnderline = () => {
+        document.execCommand('underline', false);
+    };
+    const handleOrderedList = () => {
+        document.execCommand('insertOrderedList', false);
+    }
+    const handleUnorderedList = () => {
+        document.execCommand('insertUnorderedList', false);
+    }
     return <Box sx={{
         height: 'calc(100vh - var(--Header-height))',
     }}>
         <Input placeholder="Blog Title" value={title} onChange={onChangeTitle} id="title" name="title" sx={{ my: 2 }} />
-        <Button onClick={handleBold}>Bold</Button>
+        <IconButton onClick={handleBold}><BoldIcon /></IconButton>
+        <IconButton onClick={handleItalic}><ItalicIcon /></IconButton>
+        <IconButton onClick={handleUnderline}><UnderlineIcon /></IconButton>
+        <IconButton onClick={handleOrderedList}><OrderedListIcon /></IconButton>
+        <IconButton onClick={handleUnorderedList}><UnorderedListIcon /></IconButton>
         <Box
             ref={contentEditableRef}
             contentEditable
