@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import Editor from "../components/Editor";
+import Editor from "../components/Editor/Editor";
 
 import { useHistory } from "react-router-dom";
 import { Paths } from "../utils/paths";
@@ -17,7 +17,7 @@ import useEditableInput from "../hooks/editor/useEditableInput";
 
 export default function Component() {
   const [title, onChangeTitle,] = useInput("");
-  const [content, onChangeContent,setContent] = useEditableInput("");
+  const [content, onChangeContent,] = useEditableInput("");
   const [isDraft, setIsDraft] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [id, setId] = React.useState(null);
@@ -93,7 +93,6 @@ export default function Component() {
         content={content}
         onChangeTitle={onChangeTitle}
         onChangeContent={onChangeContent}
-        setContent={setContent}
         onSave={onSave}
       />
     </Sheet>

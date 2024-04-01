@@ -32,7 +32,6 @@ interface EditorProps {
     onSubmit: () => void;
     onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeContent: (e: React.KeyboardEvent<HTMLDivElement>) => void;
-    setContent: Function;
     onSave: (content: string) => void;
 }
 export default function Component({
@@ -40,7 +39,6 @@ export default function Component({
     content = '',
     onChangeTitle,
     onChangeContent,
-    setContent,
 }: EditorProps) {
     const contentEditableRef = useRef<HTMLDivElement | null>(null);
 
