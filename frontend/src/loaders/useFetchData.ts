@@ -8,7 +8,7 @@
  * Rationale: majority of parameters to the backend API will be passed directly to the Blogger API.
  * If a value is set to `undefined` in an object, it's implicitly treated as a non-existent value and can be passed directly to the Blogger API to trigger logic when the value is non-existent.
  */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 // Define a type for the fetch function
 type FetchFunction<T> = (...args: any[]) => Promise<T>;

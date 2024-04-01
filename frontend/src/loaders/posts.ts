@@ -1,4 +1,3 @@
-import React from "react";
 import queryClient from './queryClient';
 
 export const createPost = async (blogId: string, post: Partial<Post>) => {

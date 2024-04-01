@@ -18,7 +18,6 @@ import useEditableInput from "../hooks/editor/useEditableInput";
 export default function Component() {
   const [title, onChangeTitle,] = useInput("");
   const [content, onChangeContent,] = useEditableInput("");
-  const [isDraft, setIsDraft] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [id, setId] = React.useState(null);
   const { selectedBlog: blogId, isBlogsLoading, error } = useContext(BlogContext);

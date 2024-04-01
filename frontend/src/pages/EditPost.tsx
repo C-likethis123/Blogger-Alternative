@@ -20,7 +20,6 @@ type RouteParams = {
 export default function Component() {
     const [titleState, onChangeTitle, setTitle] = useInput("");
     const [contentState, onChangeContent, setContent] = useEditableInput("");
-    const [isDraft, setIsDraft] = React.useState(true);
     const [buttonLoading, setButtonLoading] = React.useState(false);
     const history = useHistory();
     const { id } = useParams<RouteParams>();

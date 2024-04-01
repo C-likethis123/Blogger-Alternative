@@ -1,7 +1,4 @@
-import { createContext, useState, useEffect } from "react";
-import { ServerPaths } from "../utils/paths";
-import axios from "axios";
-import { useHistory } from "react-router-dom"
+import { createContext, useState } from "react";
 
 type DrawerValue = {
     isDrawerOpen: boolean;

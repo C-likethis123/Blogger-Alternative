@@ -33,12 +33,18 @@ const handleCommand = (event: React.MouseEvent<HTMLButtonElement>) => {
 const handleAddCodeBlock = (event: React.MouseEvent<HTMLButtonElement>) => {
     document.execCommand('formatBlock', false, '<pre>');
 };
-// TODO: implement font size picking
+// TODO: fix font size and style picking
 const handleFontSizeSelect = (fontSize: string) => {
-    console.log(fontSize);
     // come up with another command, this doesn't work
-    document.execCommand('fontSize', false, fontSize);
+    document.execCommand('fontSize', false, fontSize || "");
 };
+const handleFontStyleSelect = (fontStyle: string) => {
+    document.designMode = "on";
+    document.execCommand('fontName', false, fontStyle);
+    document.designMode = "off";
+};
+
+const fontStyles = ['Arial', 'Times New Roman', 'Verdana', 'Courier New', 'Georgia'];
 
 type ToolbarButton = {
     Icon: typeof BoldIcon;
@@ -75,6 +81,14 @@ export default function Component() {
             <Menu>
                 {['10', '12', '14', '16', '18', '20', '24'].map((fontSize) => (
                     <MenuItem key={fontSize} onClick={() => handleFontSizeSelect(fontSize)}>{fontSize}</MenuItem>
+                ))}
+            </Menu>
+        </Dropdown>
+        <Dropdown>
+            <MenuButton endDecorator={<ArrowDropDown />}>Style</MenuButton>
+            <Menu>
+                {fontStyles.map((fontStyle) => (
+                    <MenuItem key={fontStyle} onClick={() => handleFontStyleSelect(fontStyle)}>{fontStyle}</MenuItem>
                 ))}
             </Menu>
         </Dropdown>

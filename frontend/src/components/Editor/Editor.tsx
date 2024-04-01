@@ -29,20 +29,6 @@ export default function Component({
     const handleSelect: React.ReactEventHandler<HTMLDivElement> = (event) => {
         console.log((event.target as HTMLTextAreaElement).selectionStart, (event.target as HTMLTextAreaElement).selectionEnd);
     };
-    const handleCommand = (event: React.MouseEvent<HTMLButtonElement>) => {
-        const command = event.currentTarget.value;
-        if (command) document.execCommand(command, false);
-    };
-    // TODO: implement toggle
-    const handleAddCodeBlock = (event: React.MouseEvent<HTMLButtonElement>) => {
-        document.execCommand('formatBlock', false, '<pre>');
-    };
-    // TODO: implement font size picking
-    const handleFontSizeSelect = (fontSize: string) => {
-        console.log(fontSize);
-        // come up with another command, this doesn't work
-        document.execCommand('fontSize', false, fontSize);
-    };
     return <Box sx={{
         height: 'calc(100vh - var(--Header-height))',
     }}>
