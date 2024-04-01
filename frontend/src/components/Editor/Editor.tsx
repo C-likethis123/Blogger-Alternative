@@ -2,28 +2,7 @@ import React, { useEffect, useRef } from "react";
 
 import Input from '@mui/joy/Input';
 import Box from '@mui/joy/Box';
-
-import {
-    FormatItalic as ItalicIcon,
-    FormatBold as BoldIcon,
-    FormatUnderlined as UnderlineIcon,
-    FormatListNumbered as OrderedListIcon,
-    FormatListBulleted as UnorderedListIcon,
-    FormatStrikethrough as StrikethroughIcon,
-    ArrowDropUp,
-    ArrowDropDown,
-    FormatAlignLeft as AlignLeftIcon,
-    FormatAlignCenter as AlignCenterIcon,
-    FormatAlignRight as AlignRightIcon,
-    FormatIndentIncrease as IndentIncreaseIcon,
-    FormatIndentDecrease as IndentDecreaseIcon,
-    Code as CodeIcon,
-} from '@mui/icons-material';
-import IconButton from "@mui/joy/IconButton";
-import Menu from "@mui/joy/Menu";
-import MenuItem from "@mui/joy/MenuItem";
-import MenuButton from "@mui/joy/MenuButton";
-import Dropdown from "@mui/joy/Dropdown";
+import Toolbar from "./Toolbar";
 
 interface EditorProps {
     title?: string;
@@ -68,30 +47,7 @@ export default function Component({
         height: 'calc(100vh - var(--Header-height))',
     }}>
         <Input placeholder="Blog Title" value={title} onChange={onChangeTitle} id="title" name="title" sx={{ my: 2 }} />
-        <Box paddingBottom={2}>
-            <IconButton onClick={handleCommand} value="bold"><BoldIcon /></IconButton>
-            <IconButton onClick={handleCommand} value="italic"><ItalicIcon /></IconButton>
-            <IconButton onClick={handleCommand} value="underline"><UnderlineIcon /></IconButton>
-            <IconButton onClick={handleCommand} value="strikethrough"><StrikethroughIcon /></IconButton>
-            <IconButton onClick={handleCommand} value="insertOrderedList"><OrderedListIcon /></IconButton>
-            <IconButton onClick={handleCommand} value="insertUnorderedList"><UnorderedListIcon /></IconButton>
-            <IconButton onClick={handleCommand} value="subscript"><ArrowDropDown /></IconButton>
-            <IconButton onClick={handleCommand} value="superscript"><ArrowDropUp /></IconButton>
-            <IconButton onClick={handleCommand} value="justifyLeft"><AlignLeftIcon /></IconButton>
-            <IconButton onClick={handleCommand} value="justifyCenter"><AlignCenterIcon /></IconButton>
-            <IconButton onClick={handleCommand} value="justifyRight"><AlignRightIcon /></IconButton>
-            <Dropdown>
-                <MenuButton endDecorator={<ArrowDropDown />}>Size</MenuButton>
-                <Menu>
-                    {['10', '12', '14', '16', '18', '20', '24'].map((fontSize) => (
-                        <MenuItem key={fontSize} onClick={() => handleFontSizeSelect(fontSize)}>{fontSize}</MenuItem>
-                    ))}
-                </Menu>
-            </Dropdown>
-            <IconButton onClick={handleCommand} value="indent"><IndentIncreaseIcon /></IconButton>
-            <IconButton onClick={handleCommand} value="outdent"><IndentDecreaseIcon /></IconButton>
-            <IconButton onClick={handleAddCodeBlock}><CodeIcon /></IconButton>
-        </Box>
+        <Toolbar />
         <Box
             ref={contentEditableRef}
             contentEditable
