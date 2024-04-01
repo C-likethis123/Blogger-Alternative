@@ -46,8 +46,14 @@ Use [`Selection`](https://developer.mozilla.org/en-US/docs/Web/API/Selection) ob
 
 # Implementation: Applying styles
 
+1. Buttons
+2. Keyboard shortcuts
 
 
+1. When I edit the text directly, it's inserted as plaintext.
+I have to insert a BOLD node instead
+
+Relevant DOM APIs: https://stackoverflow.com/questions/60581285/execcommand-is-now-obsolete-whats-the-alternative
 
 
 concerns:
