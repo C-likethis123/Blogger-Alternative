@@ -25,12 +25,31 @@ const handleCommand = (event: React.MouseEvent<HTMLButtonElement>) => {
     const command = event.currentTarget.value;
     if (command) document.execCommand(command, false);
 };
-// TODO: implement toggle
 const handleAddCodeBlock = (event: React.MouseEvent<HTMLButtonElement>) => {
-    document.execCommand('formatBlock', false, '<pre>');
-};
+    const selection = window.getSelection();
+    if (!selection) return;
 
-const fontStyles = ['Arial', 'Times New Roman', 'Verdana', 'Courier New', 'Georgia'];
+    const range = selection.getRangeAt(0);
+    const currentNode = range.commonAncestorContainer.parentElement;
+
+    // Check if the current selection contains a <pre> element (code block)
+    const isCodeBlock = currentNode instanceof HTMLElement && currentNode.tagName.toLowerCase() === 'pre';
+    console.log(isCodeBlock);
+    if (isCodeBlock) {
+        // Remove the <pre> element (code block)
+        const parent = currentNode.parentElement;
+        if (parent) {
+            parent.removeChild(currentNode);
+            range.deleteContents();
+            const fragment = document.createDocumentFragment();
+            currentNode.childNodes.forEach(node => fragment.appendChild(node));
+            range.insertNode(fragment);
+        }
+    } else {
+        // Add a <pre> element (code block) around the current selection
+        document.execCommand('formatBlock', false, '<pre>');
+    }
+};
 
 type ToolbarButton = {
     Icon: typeof BoldIcon;

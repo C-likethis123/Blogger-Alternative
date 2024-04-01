@@ -77,5 +77,3 @@ Reason and solutions:
 concerns:
 1. security?
 - since i'm working with html.
-
-this
