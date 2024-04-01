@@ -11,10 +11,15 @@ import {
     FormatListBulleted as UnorderedListIcon,
     FormatStrikethrough as StrikethroughIcon,
     ArrowDropUp,
-    ArrowDropDown
+    ArrowDropDown,
+    FormatAlignLeft as AlignLeftIcon,
+    FormatAlignCenter as AlignCenterIcon,
+    FormatAlignRight as AlignRightIcon,
+    FormatIndentIncrease as IndentIncreaseIcon,
+    FormatIndentDecrease as IndentDecreaseIcon,
+    Code as CodeIcon,
 } from '@mui/icons-material';
 import IconButton from "@mui/joy/IconButton";
-import Typography from "@mui/joy/Typography";
 import Menu from "@mui/joy/Menu";
 import MenuItem from "@mui/joy/MenuItem";
 import MenuButton from "@mui/joy/MenuButton";
@@ -48,10 +53,14 @@ export default function Component({
         console.log((event.target as HTMLTextAreaElement).selectionStart, (event.target as HTMLTextAreaElement).selectionEnd);
     };
     const handleCommand = (event: React.MouseEvent<HTMLButtonElement>) => {
-        const command = event.currentTarget.getAttribute("value");
+        const command = event.currentTarget.value;
         if (command) document.execCommand(command, false);
     };
-
+    // TODO: implement toggle
+    const handleAddCodeBlock = (event: React.MouseEvent<HTMLButtonElement>) => {
+        document.execCommand('formatBlock', false, '<pre>');
+    };
+    // TODO: implement font size picking
     const handleFontSizeSelect = (fontSize: string) => {
         console.log(fontSize);
         // come up with another command, this doesn't work
@@ -66,10 +75,13 @@ export default function Component({
             <IconButton onClick={handleCommand} value="italic"><ItalicIcon /></IconButton>
             <IconButton onClick={handleCommand} value="underline"><UnderlineIcon /></IconButton>
             <IconButton onClick={handleCommand} value="strikethrough"><StrikethroughIcon /></IconButton>
-            <IconButton onClick={handleCommand} value="orderedList"><OrderedListIcon /></IconButton>
-            <IconButton onClick={handleCommand} value="unorderedList"><UnorderedListIcon /></IconButton>
+            <IconButton onClick={handleCommand} value="insertOrderedList"><OrderedListIcon /></IconButton>
+            <IconButton onClick={handleCommand} value="insertUnorderedList"><UnorderedListIcon /></IconButton>
             <IconButton onClick={handleCommand} value="subscript"><ArrowDropDown /></IconButton>
             <IconButton onClick={handleCommand} value="superscript"><ArrowDropUp /></IconButton>
+            <IconButton onClick={handleCommand} value="justifyLeft"><AlignLeftIcon /></IconButton>
+            <IconButton onClick={handleCommand} value="justifyCenter"><AlignCenterIcon /></IconButton>
+            <IconButton onClick={handleCommand} value="justifyRight"><AlignRightIcon /></IconButton>
             <Dropdown>
                 <MenuButton endDecorator={<ArrowDropDown />}>Size</MenuButton>
                 <Menu>
@@ -78,6 +90,9 @@ export default function Component({
                     ))}
                 </Menu>
             </Dropdown>
+            <IconButton onClick={handleCommand} value="indent"><IndentIncreaseIcon /></IconButton>
+            <IconButton onClick={handleCommand} value="outdent"><IndentDecreaseIcon /></IconButton>
+            <IconButton onClick={handleAddCodeBlock}><CodeIcon /></IconButton>
         </Box>
         <Box
             ref={contentEditableRef}
