@@ -9,8 +9,16 @@ import {
     FormatUnderlined as UnderlineIcon,
     FormatListNumbered as OrderedListIcon,
     FormatListBulleted as UnorderedListIcon,
+    FormatStrikethrough as StrikethroughIcon,
+    ArrowDropUp,
+    ArrowDropDown
 } from '@mui/icons-material';
 import IconButton from "@mui/joy/IconButton";
+import Typography from "@mui/joy/Typography";
+import Menu from "@mui/joy/Menu";
+import MenuItem from "@mui/joy/MenuItem";
+import MenuButton from "@mui/joy/MenuButton";
+import Dropdown from "@mui/joy/Dropdown";
 
 interface EditorProps {
     title?: string;
@@ -39,30 +47,36 @@ export default function Component({
     const handleSelect: React.ReactEventHandler<HTMLDivElement> = (event) => {
         console.log((event.target as HTMLTextAreaElement).selectionStart, (event.target as HTMLTextAreaElement).selectionEnd);
     };
-    const handleBold = () => {
-        document.execCommand('bold', false);
+    const handleCommand = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const command = event.currentTarget.getAttribute("value");
+        if (command) document.execCommand(command, false);
     };
-    const handleItalic = () => {
-        document.execCommand('italic', false);
+
+    const handleFontSizeSelect = (fontSize: string) => {
+        document.execCommand('fontSize', false, fontSize);
     };
-    const handleUnderline = () => {
-        document.execCommand('underline', false);
-    };
-    const handleOrderedList = () => {
-        document.execCommand('insertOrderedList', false);
-    }
-    const handleUnorderedList = () => {
-        document.execCommand('insertUnorderedList', false);
-    }
     return <Box sx={{
         height: 'calc(100vh - var(--Header-height))',
     }}>
         <Input placeholder="Blog Title" value={title} onChange={onChangeTitle} id="title" name="title" sx={{ my: 2 }} />
-        <IconButton onClick={handleBold}><BoldIcon /></IconButton>
-        <IconButton onClick={handleItalic}><ItalicIcon /></IconButton>
-        <IconButton onClick={handleUnderline}><UnderlineIcon /></IconButton>
-        <IconButton onClick={handleOrderedList}><OrderedListIcon /></IconButton>
-        <IconButton onClick={handleUnorderedList}><UnorderedListIcon /></IconButton>
+        <Box paddingBottom={2}>
+            <IconButton onClick={handleCommand} value="bold"><BoldIcon /></IconButton>
+            <IconButton onClick={handleCommand} value="italic"><ItalicIcon /></IconButton>
+            <IconButton onClick={handleCommand} value="underline"><UnderlineIcon /></IconButton>
+            <IconButton onClick={handleCommand} value="strikethrough"><StrikethroughIcon /></IconButton>
+            <IconButton onClick={handleCommand} value="orderedList"><OrderedListIcon /></IconButton>
+            <IconButton onClick={handleCommand} value="unorderedList"><UnorderedListIcon /></IconButton>
+            <IconButton onClick={handleCommand} value="subscript"><ArrowDropDown /></IconButton>
+            <IconButton onClick={handleCommand} value="superscript"><ArrowDropUp /></IconButton>
+            <Dropdown>
+                <MenuButton endDecorator={<ArrowDropDown />}>Size</MenuButton>
+                <Menu>
+                    {['10', '12', '14', '16', '18', '20', '24'].map((fontSize) => (
+                        <MenuItem key={fontSize} onClick={() => handleFontSizeSelect(fontSize)}>{fontSize}</MenuItem>
+                    ))}
+                </Menu>
+            </Dropdown>
+        </Box>
         <Box
             ref={contentEditableRef}
             contentEditable
