@@ -20,10 +20,6 @@ import {
 
 
 import IconButton from "@mui/joy/IconButton";
-import Menu from "@mui/joy/Menu";
-import MenuItem from "@mui/joy/MenuItem";
-import MenuButton from "@mui/joy/MenuButton";
-import Dropdown from "@mui/joy/Dropdown";
 
 const handleCommand = (event: React.MouseEvent<HTMLButtonElement>) => {
     const command = event.currentTarget.value;
@@ -32,16 +28,6 @@ const handleCommand = (event: React.MouseEvent<HTMLButtonElement>) => {
 // TODO: implement toggle
 const handleAddCodeBlock = (event: React.MouseEvent<HTMLButtonElement>) => {
     document.execCommand('formatBlock', false, '<pre>');
-};
-// TODO: fix font size and style picking
-const handleFontSizeSelect = (fontSize: string) => {
-    // come up with another command, this doesn't work
-    document.execCommand('fontSize', false, fontSize || "");
-};
-const handleFontStyleSelect = (fontStyle: string) => {
-    document.designMode = "on";
-    document.execCommand('fontName', false, fontStyle);
-    document.designMode = "off";
 };
 
 const fontStyles = ['Arial', 'Times New Roman', 'Verdana', 'Courier New', 'Georgia'];
@@ -76,21 +62,5 @@ export default function Component() {
                 <Icon />
             </IconButton>)
         }
-        <Dropdown>
-            <MenuButton endDecorator={<ArrowDropDown />}>Size</MenuButton>
-            <Menu>
-                {['10', '12', '14', '16', '18', '20', '24'].map((fontSize) => (
-                    <MenuItem key={fontSize} onClick={() => handleFontSizeSelect(fontSize)}>{fontSize}</MenuItem>
-                ))}
-            </Menu>
-        </Dropdown>
-        <Dropdown>
-            <MenuButton endDecorator={<ArrowDropDown />}>Style</MenuButton>
-            <Menu>
-                {fontStyles.map((fontStyle) => (
-                    <MenuItem key={fontStyle} onClick={() => handleFontStyleSelect(fontStyle)}>{fontStyle}</MenuItem>
-                ))}
-            </Menu>
-        </Dropdown>
     </Box>
 }
