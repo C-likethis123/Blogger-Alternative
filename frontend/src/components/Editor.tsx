@@ -53,6 +53,8 @@ export default function Component({
     };
 
     const handleFontSizeSelect = (fontSize: string) => {
+        console.log(fontSize);
+        // come up with another command, this doesn't work
         document.execCommand('fontSize', false, fontSize);
     };
     return <Box sx={{
