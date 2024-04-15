@@ -16,15 +16,13 @@ function useBlogContextProps(): BlogValue {
     const [selectedBlog, setSelectedBlog] = useState<Blog['id'] | null>(null);
     const handleBlogChange = (selectedBlog: Blog['id']) => setSelectedBlog(selectedBlog);
 
-    const { loading, data, error } = useFetchData(
-        fetchBlogs, [], []
+    const updateData = (data: Blog[]) => {
+        setBlogs(data);
+        setSelectedBlog(data[0]?.id);
+    }
+    const { loading, error } = useFetchData(
+        fetchBlogs, [], [], updateData
     );
-    useEffect(() => {
-        if (!loading && data) {
-            setBlogs(data);
-            setSelectedBlog(data[0]?.id);
-        }
-    }, [loading, data]);
 
     return {
         blogs,
