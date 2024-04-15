@@ -27,15 +27,13 @@ export default function Component() {
     const { selectedBlog: blogId, isBlogsLoading, error } = useContext(BlogContext);
     const [pageError, setPageError] = useState(null);
 
-    const { loading, data, error: postsError } = useFetchData(
-        fetchPost, [blogId, id], [blogId, id]
+    const updateData = (data: { title: string, content: string }) => {
+        setTitle(data.title);
+        setContent(data.content);
+    }
+    const { loading, error: postsError } = useFetchData(
+        fetchPost, [blogId, id], [blogId, id], updateData
     );
-    React.useEffect(() => {
-        if (!loading && data) {
-            setTitle(data.title);
-            setContent(data.content);
-        }
-    }, [loading, data]);
 
     const onSubmit = () => {
         if (!blogId) {

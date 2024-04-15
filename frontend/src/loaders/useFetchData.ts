@@ -22,17 +22,17 @@ type Dependencies = any[];
 // Define a type for the return value of useFetchData hook
 type UseFetchDataResult<T> = {
     loading: boolean;
-    data: T | null;
+    data?: T | null;
     error: Error | null;
 };
 
 export function useFetchData<T>(
     fetchFunction: FetchFunction<T>,
     fetchParams: FetchParams,
-    dependencies: Dependencies
+    dependencies: Dependencies,
+    updateData: (data: T) => void // used to update the page if it's ready
 ): UseFetchDataResult<T> {
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState<T | null>(null);
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
@@ -41,7 +41,7 @@ export function useFetchData<T>(
             setLoading(true);
             fetchFunction(...fetchParams)
                 .then((responseData: T) => {
-                    setData(responseData);
+                    updateData(responseData);
                 })
                 .catch((error) => {
                     setError(error);
@@ -52,5 +52,5 @@ export function useFetchData<T>(
         }
     }, dependencies);
 
-    return { loading, data, error };
+    return { loading, error };
 }

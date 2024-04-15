@@ -13,27 +13,30 @@ import Typography from '@mui/joy/Typography';
 import { useFetchData } from "../loaders/useFetchData";
 
 export default function Component() {
+    const { selectedBlog: blogId } = useContext(BlogContext);
+    // fixes a bug where the set does not reset with a changed blog ID
+    return <PostList key={blogId} />
+}
+
+function PostList() {
     const [posts, setPosts] = React.useState<Post[]>([]);
     const [currentPageToken, setCurrentPageToken] = React.useState<PostListResponse['nextPageToken']>(undefined);
     const [nextPageToken, setNextPageToken] = React.useState<PostListResponse['nextPageToken']>(undefined);
     const { isBlogsLoading, error, blogs, selectedBlog: blogId } = useContext(BlogContext);
     const history = useHistory();
-    const { loading: isPostsLoading, data, error: postsError } = useFetchData(
-        fetchPosts, [blogId, nextPageToken], [blogId, nextPageToken]
+    const updateData = (data: PostListResponse) => {
+        setPosts(posts => [...posts, ...data.items]);
+        setCurrentPageToken(data.nextPageToken);
+    };
+    const { loading: isPostsLoading, error: postsError } = useFetchData(
+        fetchPosts, [blogId, nextPageToken], [blogId, nextPageToken], updateData
     );
-    useEffect(() => {
-        if (!isPostsLoading && data) {
-            setPosts([...posts, ...data.items]);
-            setCurrentPageToken(data.nextPageToken);
-        }
-    }, [isPostsLoading, data]);
 
     const handleDelete = (id: Post['id']) => {
         if (blogId) {
             deletePost(blogId, id)
                 .then(() => setPosts(posts.filter((post) => post.id !== id)))
         }
-
     };
 
     const createPost = () => history.push(Paths.CreatePost);

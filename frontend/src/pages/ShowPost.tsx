@@ -17,16 +17,15 @@ export default function Component() {
     const { id } = useParams<{ id: string }>();
     const { selectedBlog: blogId } = useContext(BlogContext);
     const downloadPost = async () => { };
+    const updateData = (data: { title: string, content: string }) => {
+        setTitle(data.title);
+        setContent(data.content);
+    }
 
-    const { loading, data, error } = useFetchData(
-        fetchPost, [blogId, id], [blogId, id]
+    const { loading, error } = useFetchData(
+        fetchPost, [blogId, id], [blogId, id], updateData
     );
-    React.useEffect(() => {
-        if (!loading && data) {
-            setTitle(data.title);
-            setContent(data.content);
-        }
-    }, [loading, data]);
+
     return <Sheet
         isLoading={loading}
         error={error}
