@@ -26,9 +26,6 @@ export default function Component({
             contentEditableRef.current.innerHTML = content;
         }
     });
-    const handleSelect: React.ReactEventHandler<HTMLDivElement> = (event) => {
-        console.log((event.target as HTMLTextAreaElement).selectionStart, (event.target as HTMLTextAreaElement).selectionEnd);
-    };
     return <Box sx={{
         height: 'calc(100vh - var(--Header-height))',
     }}>
@@ -44,6 +41,7 @@ export default function Component({
                 padding: '10px', // Add padding
             }}
             onInput={onChangeContent}
+            onKeyDown={onChangeContent}
         />
     </Box >
 }

@@ -5,16 +5,9 @@ function useEditableInput(initialValue: string) {
 
     const handleChange = (e: React.KeyboardEvent<HTMLDivElement>) => {
         const val = e.currentTarget;
-        console.log(val.innerHTML);
-        console.log(e.key)
         if (e.key === 'Tab') {
             e.preventDefault();
-            const selection = window.getSelection();
-            const range = selection?.getRangeAt(0);
-            const tabSize = 4; // Set the desired tab size (number of spaces)
-            const tab = ' '.repeat(tabSize);
-            range?.deleteContents();
-            range?.insertNode(document.createTextNode(tab));
+            document.execCommand('indent', false);
         }
         setValue(val.innerHTML);
     };
