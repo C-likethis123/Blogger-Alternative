@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Box from '@mui/joy/Box';
 import {
@@ -20,6 +20,7 @@ import {
 
 
 import IconButton from "@mui/joy/IconButton";
+import AddLinkButton from "./AddLinkButton";
 
 const handleCommand = (event: React.MouseEvent<HTMLButtonElement>) => {
     const command = event.currentTarget.value;
@@ -82,5 +83,6 @@ export default function Component() {
                 <Icon />
             </IconButton>)
         }
+        <AddLinkButton />
     </Box>
 }
