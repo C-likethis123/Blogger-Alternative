@@ -5,7 +5,10 @@ function useEditableInput(initialValue: string) {
 
     const handleChange = (e: React.KeyboardEvent<HTMLDivElement>) => {
         const val = e.currentTarget;
-        console.log(val.innerHTML);
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            document.execCommand('indent', false);
+        }
         setValue(val.innerHTML);
     };
 

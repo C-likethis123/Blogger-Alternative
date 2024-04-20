@@ -5,7 +5,7 @@ import Button from '@mui/joy/Button';
 import Typography from '@mui/joy/Typography';
 import Sheet from "../components/Sheet";
 
-import Editor from "../components/Editor";
+import Editor from "../components/Editor/Editor";
 import { useHistory, useParams } from "react-router-dom";
 import { fetchPost, updatePost } from "../loaders/posts";
 import { Paths } from "../utils/paths";
@@ -20,7 +20,6 @@ type RouteParams = {
 export default function Component() {
     const [titleState, onChangeTitle, setTitle] = useInput("");
     const [contentState, onChangeContent, setContent] = useEditableInput("");
-    const [isDraft, setIsDraft] = React.useState(true);
     const [buttonLoading, setButtonLoading] = React.useState(false);
     const history = useHistory();
     const { id } = useParams<RouteParams>();

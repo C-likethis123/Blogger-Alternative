@@ -46,12 +46,34 @@ Use [`Selection`](https://developer.mozilla.org/en-US/docs/Web/API/Selection) ob
 
 # Implementation: Applying styles
 
+1. Buttons
+2. Keyboard shortcuts
 
+## Buttons
+1. When I edit the text directly, it's inserted as plaintext.
+I have to insert a BOLD node instead
 
+Relevant DOM APIs:
+- https://stackoverflow.com/questions/60581285/execcommand-is-now-obsolete-whats-the-alternative
+- decided to use execCommand for now since there is no alternative
 
+Applying styles: get the current selection, wrap them in a BOLD tag.
+Toggling styles: check if it's bold. Remove the bold tag.
+
+Issue:
+1. partial bold first: this text is <strong>bolded</strong>
+2. bold the entire sentence: <strong>this text is <strong>bolded</strong></strong>
+3. Bug 1: unbold it: it will still not be unbolded
+4. Bug 2: if I unbold the text in 1), the entire text in 2 will be unbolded
+5. Bug 3: if I focus on something else other than the editor, then unbold the entire sentence, it gets unbolded
+
+Reason and solutions:
+1. when i insert a new node, the selection does not include the 'strong' tag
+
+## Keyboard shortcuts
+- Inbuilt: `execCommand` supports keyboard shortcuts in Chrome, but not in Safari: bold, underline, italics
+- Implementation: listen out for keyboard events
 
 concerns:
 1. security?
 - since i'm working with html.
-
-this
