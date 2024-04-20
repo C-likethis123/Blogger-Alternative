@@ -30,21 +30,22 @@ const handleAddCodeBlock = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (!selection) return;
 
     const range = selection.getRangeAt(0);
-    const currentNode = range.commonAncestorContainer.parentElement;
 
+    const isSingleLine = range.startContainer == range.endContainer;
+    const commonAncestor = isSingleLine ? range.commonAncestorContainer.parentNode : range.commonAncestorContainer;
+    const parentNode = commonAncestor?.parentNode;
     // Check if the current selection contains a <pre> element (code block)
-    const isCodeBlock = currentNode instanceof HTMLElement && currentNode.tagName.toLowerCase() === 'pre';
-    console.log(isCodeBlock);
+    const isCodeBlock = commonAncestor instanceof HTMLElement && commonAncestor.tagName.toLowerCase() === 'pre';
     if (isCodeBlock) {
-        // Remove the <pre> element (code block)
-        const parent = currentNode.parentElement;
-        if (parent) {
-            parent.removeChild(currentNode);
-            range.deleteContents();
-            const fragment = document.createDocumentFragment();
-            currentNode.childNodes.forEach(node => fragment.appendChild(node));
-            range.insertNode(fragment);
-        }
+        const commonAncestorClone = commonAncestor.cloneNode(true);
+        const fragment = document.createDocumentFragment();
+
+        // Move the child nodes of the original commonAncestor to the fragment
+        Array.from(commonAncestorClone.childNodes).forEach(node => {
+            fragment.appendChild(node);
+        });
+        parentNode?.insertBefore(fragment, commonAncestor);
+        parentNode?.removeChild(commonAncestor);
     } else {
         // Add a <pre> element (code block) around the current selection
         document.execCommand('formatBlock', false, '<pre>');
