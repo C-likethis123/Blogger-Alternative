@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 
 function CreatePost() {
   const [title, setTitle] = React.useState("");
-  const [isDraft, setIsDraft] = React.useState(true);
+  const [isDraft] = React.useState(true);
   const [id, setId] = React.useState(null);
 
   const history = useHistory();

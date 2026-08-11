@@ -1,12 +1,12 @@
 import React, { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext('');
-
+//TODO: persist data using local storage
 export const AuthContextProvider = props => {
   const [accessToken, setAccessToken] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(
-    () => setIsAuthenticated(accessToken !== ''),
+    () => setIsAuthenticated(true),
     [accessToken]
   );
   const logout = () => setAccessToken('');

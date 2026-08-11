@@ -1,24 +1,24 @@
 import React from "react";
 import axios from "axios";
-import { Row, Col } from "reactstrap";
+import {Row, Col} from "reactstrap";
 
 import EditorForm from "../Editor/EditorForm";
-import SaveAlert, { notify } from "../Alerts/Alerts";
+import SaveAlert, {notify} from "../Alerts/Alerts";
 
 import Paths from '../../constants/paths';
-import { useParams, useHistory } from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
 
 function EditPost() {
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
   const [isDraft, setIsDraft] = React.useState(true);
   const history = useHistory();
-  const { id } = useParams();
+  const {id} = useParams();
 
   React.useState(() => {
     axios
       .get(`/posts/${id}`)
-      .then(({ data: { title, content, isDraft } }) => {
+      .then(({data: {title, content, isDraft}}) => {
         setTitle(title);
         setContent(content);
         setIsDraft(isDraft);
@@ -39,9 +39,10 @@ function EditPost() {
       .post(
         `/posts/update/${id}`,
         newPost
-      );
+      )
+      .then(() => history.push(Paths.PostsList));
 
-    history.push(Paths.PostsList);
+    //history.push(Paths.PostsList);
   }
 
   const onDelete = () => {
